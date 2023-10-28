@@ -61,6 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class)]
     private Collection $pictures;
 
+    #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
+    private ?Employee $employee = null;
+
     public function __construct()
     {
         $this->availabilities = new ArrayCollection();
@@ -346,6 +349,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $picture->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(Employee $employee): static
+    {
+        // set the owning side of the relation if necessary
+        if ($employee->getUserId() !== $this) {
+            $employee->setUserId($this);
+        }
+
+        $this->employee = $employee;
 
         return $this;
     }

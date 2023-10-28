@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\FranchiseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FranchiseRepository::class)]
@@ -16,24 +18,32 @@ class Franchise
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $building_name = null;
+    private ?string $franchise_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'franchises')]
     private ?Company $company_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'franchise_id', targetEntity: Employee::class, orphanRemoval: true)]
+    private Collection $employees;
+
+    public function __construct()
+    {
+        $this->employees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBuildingName(): ?string
+    public function getFranchiseName(): ?string
     {
-        return $this->building_name;
+        return $this->franchise_name;
     }
 
-    public function setBuildingName(string $building_name): static
+    public function setFranchiseName(string $franchise_name): static
     {
-        $this->building_name = $building_name;
+        $this->franchise_name = $franchise_name;
 
         return $this;
     }
@@ -46,6 +56,36 @@ class Franchise
     public function setCompanyId(?Company $company_id): static
     {
         $this->company_id = $company_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employee>
+     */
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
+    public function addEmployee(Employee $employee): static
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees->add($employee);
+            $employee->setFranchiseId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): static
+    {
+        if ($this->employees->removeElement($employee)) {
+            // set the owning side to null (unless already changed)
+            if ($employee->getFranchiseId() === $this) {
+                $employee->setFranchiseId(null);
+            }
+        }
 
         return $this;
     }
