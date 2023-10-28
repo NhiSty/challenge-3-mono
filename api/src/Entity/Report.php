@@ -22,7 +22,7 @@ class Report
 
     #[ORM\ManyToOne(inversedBy: 'reports')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $reviewee = null;
+    private ?User $reportee = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $report_content = null;
@@ -44,14 +44,14 @@ class Report
         return $this;
     }
 
-    public function getReviewee(): ?User
+    public function getReportee(): ?User
     {
-        return $this->reviewee;
+        return $this->reportee;
     }
 
-    public function setReviewee(?User $reviewee): static
+    public function setReportee(?User $reportee): static
     {
-        $this->reviewee = $reviewee;
+        $this->reportee = $reportee;
 
         return $this;
     }

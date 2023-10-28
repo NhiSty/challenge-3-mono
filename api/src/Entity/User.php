@@ -70,8 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'reporter', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $createdReports;
 
-    #[ORM\OneToMany(mappedBy: 'reviewee', targetEntity: Report::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'reportee', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $reports;
+
+    #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
+    private ?Employee $employee = null;
 
     public function __construct()
     {
@@ -482,6 +485,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $report->setReviewee(null);
             }
         }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(Employee $employee): static
+    {
+        // set the owning side of the relation if necessary
+        if ($employee->getUserId() !== $this) {
+            $employee->setUserId($this);
+        }
+
+        $this->employee = $employee;
 
         return $this;
     }
