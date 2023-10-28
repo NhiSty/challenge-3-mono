@@ -58,12 +58,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class)]
     private Collection $companies;
 
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class)]
+    private Collection $pictures;
+
     public function __construct()
     {
         $this->availabilities = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->overrides = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -310,6 +314,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($company->getOwner() === $this) {
                 $company->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getOwner() === $this) {
+                $picture->setOwner(null);
             }
         }
 
