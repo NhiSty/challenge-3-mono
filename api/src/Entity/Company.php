@@ -32,9 +32,13 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class)]
     private Collection $performances;
 
+    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class)]
+    private Collection $franchises;
+
     public function __construct()
     {
         $this->performances = new ArrayCollection();
+        $this->franchises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +118,36 @@ class Company
             // set the owning side to null (unless already changed)
             if ($performance->getCompanyId() === $this) {
                 $performance->setCompanyId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Franchise>
+     */
+    public function getFranchises(): Collection
+    {
+        return $this->franchises;
+    }
+
+    public function addFranchise(Franchise $franchise): static
+    {
+        if (!$this->franchises->contains($franchise)) {
+            $this->franchises->add($franchise);
+            $franchise->setCompanyId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFranchise(Franchise $franchise): static
+    {
+        if ($this->franchises->removeElement($franchise)) {
+            // set the owning side to null (unless already changed)
+            if ($franchise->getCompanyId() === $this) {
+                $franchise->setCompanyId(null);
             }
         }
 
