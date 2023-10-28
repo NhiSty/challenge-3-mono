@@ -30,6 +30,9 @@ class TemporaryUser
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
+    #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
+    private ?TemporaryEmployee $temporaryEmployee = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,23 @@ class TemporaryUser
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTemporaryEmployee(): ?TemporaryEmployee
+    {
+        return $this->temporaryEmployee;
+    }
+
+    public function setTemporaryEmployee(TemporaryEmployee $temporaryEmployee): static
+    {
+        // set the owning side of the relation if necessary
+        if ($temporaryEmployee->getUserId() !== $this) {
+            $temporaryEmployee->setUserId($this);
+        }
+
+        $this->temporaryEmployee = $temporaryEmployee;
 
         return $this;
     }

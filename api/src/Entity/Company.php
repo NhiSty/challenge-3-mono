@@ -32,9 +32,13 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class)]
     private Collection $performances;
 
+    #[ORM\OneToMany(mappedBy: 'compagny_id', targetEntity: TemporaryEmployee::class, orphanRemoval: true)]
+    private Collection $temporaryEmployees;
+
     public function __construct()
     {
         $this->performances = new ArrayCollection();
+        $this->temporaryEmployees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +118,36 @@ class Company
             // set the owning side to null (unless already changed)
             if ($performance->getCompanyId() === $this) {
                 $performance->setCompanyId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TemporaryEmployee>
+     */
+    public function getTemporaryEmployees(): Collection
+    {
+        return $this->temporaryEmployees;
+    }
+
+    public function addTemporaryEmployee(TemporaryEmployee $temporaryEmployee): static
+    {
+        if (!$this->temporaryEmployees->contains($temporaryEmployee)) {
+            $this->temporaryEmployees->add($temporaryEmployee);
+            $temporaryEmployee->setCompanyId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTemporaryEmployee(TemporaryEmployee $temporaryEmployee): static
+    {
+        if ($this->temporaryEmployees->removeElement($temporaryEmployee)) {
+            // set the owning side to null (unless already changed)
+            if ($temporaryEmployee->getCompanyId() === $this) {
+                $temporaryEmployee->setCompanyId(null);
             }
         }
 
