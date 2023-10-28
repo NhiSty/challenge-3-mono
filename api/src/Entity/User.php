@@ -485,6 +485,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $report->setReviewee(null);
             }
         }
+        return $this;
+    }
 
     public function getEmployee(): ?Employee
     {
