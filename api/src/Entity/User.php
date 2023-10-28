@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -43,6 +45,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Availability::class, orphanRemoval: true)]
+    private Collection $availabilities;
+
+    #[ORM\OneToMany(mappedBy: 'booker_id', targetEntity: Booking::class, orphanRemoval: true)]
+    private Collection $bookings;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Override::class, orphanRemoval: true)]
+    private Collection $overrides;
+
+    public function __construct()
+    {
+        $this->availabilities = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
+        $this->overrides = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +188,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBiography(?string $biography): static
     {
         $this->biography = $biography;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Availability>
+     */
+    public function getAvailabilities(): Collection
+    {
+        return $this->availabilities;
+    }
+
+    public function addAvailability(Availability $availability): static
+    {
+        if (!$this->availabilities->contains($availability)) {
+            $this->availabilities->add($availability);
+            $availability->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvailability(Availability $availability): static
+    {
+        if ($this->availabilities->removeElement($availability)) {
+            // set the owning side to null (unless already changed)
+            if ($availability->getUserId() === $this) {
+                $availability->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): static
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setBookerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): static
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getBookerId() === $this) {
+                $booking->setBookerId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Override>
+     */
+    public function getOverrides(): Collection
+    {
+        return $this->overrides;
+    }
+
+    public function addOverride(Override $override): static
+    {
+        if (!$this->overrides->contains($override)) {
+            $this->overrides->add($override);
+            $override->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOverride(Override $override): static
+    {
+        if ($this->overrides->removeElement($override)) {
+            // set the owning side to null (unless already changed)
+            if ($override->getUserId() === $this) {
+                $override->setUserId(null);
+            }
+        }
 
         return $this;
     }
