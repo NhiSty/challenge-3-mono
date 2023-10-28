@@ -61,6 +61,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class)]
     private Collection $pictures;
 
+    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $createdReviews;
+
+    #[ORM\OneToMany(mappedBy: 'reviewee', targetEntity: Review::class, orphanRemoval: true)]
+    private Collection $reviews;
+
+    #[ORM\OneToMany(mappedBy: 'reporter', targetEntity: Report::class, orphanRemoval: true)]
+    private Collection $createdReports;
+
+    #[ORM\OneToMany(mappedBy: 'reviewee', targetEntity: Report::class, orphanRemoval: true)]
+    private Collection $reports;
+
     public function __construct()
     {
         $this->availabilities = new ArrayCollection();
@@ -68,6 +80,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->overrides = new ArrayCollection();
         $this->companies = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->createdReviews = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->createdReports = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,6 +360,126 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($picture->getOwner() === $this) {
                 $picture->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getCreatedReviews(): Collection
+    {
+        return $this->createdReviews;
+    }
+
+    public function addCreatedReview(Review $createdReview): static
+    {
+        if (!$this->createdReviews->contains($createdReview)) {
+            $this->createdReviews->add($createdReview);
+            $createdReview->setReviewer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedReview(Review $createdReview): static
+    {
+        if ($this->createdReviews->removeElement($createdReview)) {
+            // set the owning side to null (unless already changed)
+            if ($createdReview->getReviewer() === $this) {
+                $createdReview->setReviewer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setReviewee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getReviewee() === $this) {
+                $review->setReviewee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Report>
+     */
+    public function getCreatedReports(): Collection
+    {
+        return $this->createdReports;
+    }
+
+    public function addCreatedReport(Report $createdReport): static
+    {
+        if (!$this->createdReports->contains($createdReport)) {
+            $this->createdReports->add($createdReport);
+            $createdReport->setReporter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedReport(Report $createdReport): static
+    {
+        if ($this->createdReports->removeElement($createdReport)) {
+            // set the owning side to null (unless already changed)
+            if ($createdReport->getReporter() === $this) {
+                $createdReport->setReporter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Report>
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): static
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports->add($report);
+            $report->setReviewee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): static
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getReviewee() === $this) {
+                $report->setReviewee(null);
             }
         }
 
