@@ -471,7 +471,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->reports->contains($report)) {
             $this->reports->add($report);
-            $report->setReviewee($this);
+            $report->setReportee($this);
         }
 
         return $this;
@@ -481,10 +481,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->reports->removeElement($report)) {
             // set the owning side to null (unless already changed)
-            if ($report->getReviewee() === $this) {
-                $report->setReviewee(null);
+            if ($report->getReportee() === $this) {
+                $report->setReportee(null);
             }
         }
+
+        return $this;
+    }
 
     public function getEmployee(): ?Employee
     {
