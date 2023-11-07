@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -471,7 +473,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->reports->contains($report)) {
             $this->reports->add($report);
-            $report->setReviewee($this);
+            $report->setReportee($this);
         }
 
         return $this;
@@ -481,8 +483,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->reports->removeElement($report)) {
             // set the owning side to null (unless already changed)
-            if ($report->getReviewee() === $this) {
-                $report->setReviewee(null);
+            if ($report->getReportee() === $this) {
+                $report->setReportee(null);
             }
         }
         return $this;
