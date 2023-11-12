@@ -524,9 +524,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-        return $this;
-    }
-
     public function getEmployee(): ?Employee
     {
         return $this->employee;

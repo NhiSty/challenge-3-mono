@@ -61,6 +61,19 @@ services:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
 
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: ChangeMe
+      POSTGRES_DB: app
+
 volumes:
   php_socket:
   ###> doctrine/doctrine-bundle ###
