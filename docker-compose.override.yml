@@ -39,6 +39,7 @@ services:
       POSTGRES_PASSWORD: !ChangeMe!
       POSTGRES_DB: app
   
+
   ###> doctrine/doctrine-bundle ###
   database:
     ports:
