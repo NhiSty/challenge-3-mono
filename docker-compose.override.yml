@@ -26,6 +26,20 @@ services:
     volumes:
       - ./api/public:/srv/app/public:ro
   
+  
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: !ChangeMe!
+      POSTGRES_DB: app
+  
+
   ###> doctrine/doctrine-bundle ###
   database:
     ports:
