@@ -4,13 +4,16 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Action\Post\NotifyInvitation;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -22,6 +25,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(normalizationContext: ['groups' => ['read-user']]),
         new Post(denormalizationContext: ['groups' => ['create-user']]),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/notify',
+            controller: NotifyInvitation::class,
+            denormalizationContext: ['groups' => []],
+            read: false,),
         new Patch(denormalizationContext: ['groups' => ['update-user']]),
     ],
     normalizationContext: ['groups' => ['read-user', 'read-user-mutation']],
