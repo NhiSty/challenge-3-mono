@@ -24,9 +24,26 @@ class UserFixtures extends Fixture
             ->setFirstName($faker->firstName())
             ->setLastName($faker->lastName())
             ->setAge($faker->numberBetween(18, 99))
+            ->setBiography($faker->text(100))
             ->setUsername($faker->userName());
 
         $manager->persist($user);
+
+        for($i=0; $i<10; $i++){
+            $user = new User();
+            $user
+                ->setEmail($faker->email())
+                ->setPassword($pwd)
+                ->setRoles($faker->randomElement([['ROLE_USER'], ['ROLE_ADMIN']]))
+                ->setFirstName($faker->firstName())
+                ->setLastName($faker->lastName())
+                ->setAge($faker->numberBetween(18, 99))
+                ->setUsername($faker->userName())
+                ->setBiography($faker->text(100));
+
+            $manager->persist($user);
+        }
+
         $manager->flush();
     }
 }
