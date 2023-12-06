@@ -13,5 +13,5 @@
 ``docker compose exec php php bin/console lexik:jwt:generate-keypair``
 
 
-
-
+# Jouer les fixtures
+``docker compose exec php php bin/console d:f:l``
