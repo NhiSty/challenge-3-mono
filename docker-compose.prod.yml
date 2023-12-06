@@ -7,14 +7,17 @@ services:
       context: ./api
       target: php_prod
     environment:
-      APP_SECRET: ${APP_SECRET}
-      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
+      APP_SECRET: ${APP_SECRET:-!ChangeMe!}
+      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      JWT_SECRET_KEY: "%kernel.project_dir%/config/jwt/private.pem"
+      JWT_PUBLIC_KEY: "%kernel.project_dir%/config/jwt/public.pem"
+      JWT_PASSPHRASE: "12cffb61cbbcc7bdcacdbd41ab2a685a120484d08e11150643c66379fd7a28ce"
 
   nginx:
     build:
-      context: ./api/
+      context: ./api
       target: nginx_prod
 
   database:
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
