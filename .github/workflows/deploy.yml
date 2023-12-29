@@ -1,15 +1,22 @@
-name: Deploy
+name: Deploy front
 
 on:
   push:
     branches: ["main"]
+
+defaults:
+  run:
+    working-directory: front
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            front
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
