@@ -1,15 +1,18 @@
 export async function login(email, password) {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       },
-      body: JSON.stringify({
-        email,
-        password
-      }),
-    });
+    );
 
     if (!response.ok) {
       const errorMessage = await response.text();
@@ -20,7 +23,6 @@ export async function login(email, password) {
     console.log(responseData);
     // utilisation du hook custom ici
     localStorage.setItem("token", responseData.token);
-
   } catch (error) {
     throw new Error(`Erreur lors de la connexion : ${error.message}`);
   }
@@ -29,9 +31,9 @@ export async function login(email, password) {
 export async function register(data) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/ld+json',
+        "Content-Type": "application/ld+json",
       },
       body: JSON.stringify({
         email: data.email,

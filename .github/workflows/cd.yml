@@ -2,8 +2,7 @@ name: API deployment
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -20,8 +19,8 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
           SCRIPT_BEFORE: |
-            cd api
+            cd api/back
             docker compose down
           SCRIPT_AFTER: |
-            cd api
+            cd api/back
             docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
