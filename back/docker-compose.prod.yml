@@ -1,0 +1,20 @@
+version: "3.8"
+
+# Production environment override
+services:
+  php:
+    build:
+      context: ./api
+      target: php_prod
+    environment:
+      APP_SECRET: ${APP_SECRET:-!ChangeMe!}
+      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+
+  nginx:
+    build:
+      context: ./api/
+      target: nginx_prod
+
+  database:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
