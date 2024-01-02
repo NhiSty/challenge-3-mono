@@ -10,30 +10,30 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class TranslationProvider implements ProviderInterface
 {
-    const TRANSLATION_PATH = 'var/uploads/translations.json';
+    private const TRANSLATION_PATH =  '/public/uploads/translation/translation.json';
 
     public function __construct(
         protected KernelInterface $kernel,
-    ) {}
+    ) {
+      
+    }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        if ($operation instanceof CollectionOperationInterface) {
-            return [new Translation(), new Translation()];
-        }
-
-        return new Translation($uriVariables['id']) ?? null;
+       $data = $this->getTranslationData();
+       return [json_decode($data)];
+     
     }
 
 
-    protected function getTranslationData(): array
+    protected function getTranslationData(): string
     {
-        $result = [];
+        $result = "";
         $filePath = $this->kernel->getProjectDir() . self::TRANSLATION_PATH;
 
         $file = fopen($filePath, 'rb');
         while (($line = fgets($file)) !== false) {
-            $result[] = json_decode($line, true);
+            $result.= $line;
         }
         fclose($file);
 
@@ -47,5 +47,6 @@ class TranslationProvider implements ProviderInterface
         $offset = $perPage * ((int) $page - 1);
 
         return array_slice($content, $offset, $perPage);
+
     }
 }

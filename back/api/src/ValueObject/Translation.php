@@ -2,41 +2,36 @@
 
 namespace App\ValueObject;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use App\State\TranslationProvider;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 
 #[ApiResource(
     operations: [
         new GetCollection(),
         new Get(),
+        
     ],
+    paginationEnabled: false,
     // normalizationContext: ['groups' => ['color:read']],
     provider: TranslationProvider::class
 )]
+
 class Translation
 {
-    private string $id;
+
     private string $key;
     private string $translation;
 
-    public function __construct(string $id = '', string $key = '', string $translation = '')
+    public function __construct(string $id, string $key, string $translation)
     {
-        $this->id = $id;
+    
         $this->key = $key;
         $this->translation = $translation;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function setId(string $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+ 
     public function getKey(): string
     {
         return $this->key;
