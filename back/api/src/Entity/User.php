@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,9 +13,19 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => ['read-user']]),
+        new Post(denormalizationContext: ['groups' => ['create-user']]),
+        new Patch(denormalizationContext: ['groups' => ['update-user']]),
+    ],
+    normalizationContext: ['groups' => ['read-user', 'read-user-mutation']],
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,6 +34,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email()]
+    #[Groups(['create-user'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,19 +45,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['create-user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['create-user', 'update-user'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['create-user', 'update-user'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['create-user', 'update-user'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
-    private ?int $age = null;
+    #[Groups(['create-user'])]
+    private ?string $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
@@ -75,6 +96,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
     private ?Employee $employee = null;
+
+    #[Groups(['create-user', 'update-user'])]
+    private ?string $plainPassword = null;
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+
+    public function setPlainPassword(?string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
 
     public function __construct()
     {
@@ -485,7 +521,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $report->setReportee(null);
             }
         }
-
         return $this;
     }
 

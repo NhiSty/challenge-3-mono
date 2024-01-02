@@ -25,7 +25,7 @@ class TemporaryUser
     private ?string $lastName = null;
 
     #[ORM\Column]
-    private ?int $age = null;
+    private ?string $age = null;
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
