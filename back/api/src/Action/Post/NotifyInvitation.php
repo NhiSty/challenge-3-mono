@@ -21,17 +21,20 @@ class NotifyInvitation extends AbstractController
      */
     public function __invoke(): \Symfony\Component\HttpFoundation\JsonResponse
     {
+        
         $email = (new Email())
-            ->from('test@test.fr')
+            ->from('dev.mailing4@gmail.com')
             ->to('auralion4@gmail.com')
-            ->subject('Invitation')
-            ->text('Vous avez été invité à rejoindre le site !');
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
 
-        try {
             $this->mailer->send($email);
-        } catch (\Exception $e) {
-            return $this->json(['message' => $e]);
-        } ;
+        
 
         return $this->json(['message' => 'Email sent']);
     }
