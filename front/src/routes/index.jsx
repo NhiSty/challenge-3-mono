@@ -10,6 +10,8 @@ import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
 import ServicesPage from "@routes/ServicesPage";
+import AccountPage from "@routes/AccountPage";
+import EditAccountPage from "@routes/EditAccountPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,20 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: "/account",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <AccountPage />,
+      },
+      {
+        path: "edit",
+        element: <EditAccountPage />,
       },
     ],
   },

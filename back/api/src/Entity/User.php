@@ -31,10 +31,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read-user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email()]
+    #[Assert\Email]
     #[Groups(['create-user'])]
     private ?string $email = null;
 
@@ -42,27 +43,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var ?string The hashed password
      */
     #[ORM\Column]
     #[Groups(['create-user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
-    #[Groups(['create-user'])]
-    private ?string $age = null;
+    #[Groups(['create-user', 'update-user', 'read-user'])]
+    private ?int $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
