@@ -7,9 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Action\Post\NotifyInvitation;
 use App\Action\Post\EmployeeAction;
-use App\Entity\Employee;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,12 +25,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(normalizationContext: ['groups' => ['read-user']]),
         new Post(denormalizationContext: ['groups' => ['create-user']]),
-        new HttpOperation(
-            method: Request::METHOD_GET,
-            uriTemplate: '/notify',
-            controller: NotifyInvitation::class,
-            denormalizationContext: ['groups' => []],
-            read: false,),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/employee',

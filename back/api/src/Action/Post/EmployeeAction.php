@@ -2,8 +2,8 @@
 
 namespace App\Action\Post;
 
+use App\Controller\Mailer;
 use App\Entity\Employee;
-use App\Entity\Franchise;
 use App\Entity\User;
 use App\Repository\FranchiseRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsController]
 class EmployeeAction extends AbstractController
@@ -22,7 +24,10 @@ class EmployeeAction extends AbstractController
     {
     }
 
-    public function __invoke(FranchiseRepository $fr,Request $req): JsonResponse
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function __invoke(FranchiseRepository $fr, Request $req, Mailer $mailer, UserPasswordHasherInterface $hasher): JsonResponse
     {
 
         $data = json_decode($req->getContent(), true);
@@ -41,11 +46,9 @@ class EmployeeAction extends AbstractController
             return $this->json(['message' => 'Franchise not found'], 404);
         }
 
-
-
         $user = new User();
         $user->setEmail($email);
-        $user->setPassword($pwd);
+        $user->setPassword($hasher->hashPassword($user, $pwd));
         $user->setRoles(['ROLE_USER']);
         $user->setFirstName($firstName);
         $user->setLastName($lastName);
@@ -64,7 +67,9 @@ class EmployeeAction extends AbstractController
         $this->em->persist($user);
         $this->em->flush();
 
-        return $this->json(['message' => 'Employee created']);
+        $mailer->sendEmail();
+
+        return $this->json($data, 201);
     }
 
 }
