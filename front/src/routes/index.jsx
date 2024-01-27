@@ -12,6 +12,8 @@ import EmployeesPage from "@routes/EmployeesPage";
 import ServicesPage from "@routes/ServicesPage";
 import AccountPage from "@routes/AccountPage";
 import EditAccountPage from "@routes/EditAccountPage";
+import SearchPage from "@routes/SearchPage";
+import UserPage from "@routes/UserPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "search",
+        element: <SearchPage />,
+      },
+      {
+        path: "user/:userId",
+        element: <UserPage />,
       },
     ],
   },

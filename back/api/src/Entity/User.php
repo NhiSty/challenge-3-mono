@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
@@ -20,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`user`')]
 #[ApiResource(
     operations: [
+        new GetCollection(normalizationContext: ['groups' => ['read-user']]),
         new Get(normalizationContext: ['groups' => ['read-user']]),
         new Post(denormalizationContext: ['groups' => ['create-user']]),
         new Patch(denormalizationContext: ['groups' => ['update-user']]),

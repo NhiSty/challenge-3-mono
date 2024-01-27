@@ -12,6 +12,10 @@ const links = [
     to: "/planning",
   },
   {
+    text: "Rechercher",
+    to: "/search",
+  },
+  {
     text: "Dashboard",
     to: "/dashboard",
   },
