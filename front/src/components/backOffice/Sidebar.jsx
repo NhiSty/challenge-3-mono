@@ -17,7 +17,7 @@ export default function Sidebar({ children }) {
           ></label>
           <ul className="menu p-4 w-64 min-h-full text-base-content">
             <li className="mb-5 font-semibold text-lg">
-              <a href="/app/welcome">
+              <a href="/">
                 <img
                   className="mask mask-squircle w-7 h-7"
                   src="/vite.svg"

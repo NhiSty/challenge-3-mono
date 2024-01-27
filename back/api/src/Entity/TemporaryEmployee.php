@@ -3,11 +3,21 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use App\Repository\TemporaryEmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TemporaryEmployeeRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Post(
+            uriTemplate: '/temporary-employees',
+            name: 'TemporaryEmployee',
+            output: TemporaryEmployee::class,
+            normalizationContext: ['groups' => ['write-temporary-employee']],
+        )
+    ]
+)]
 class TemporaryEmployee
 {
     #[ORM\Id]
@@ -15,54 +25,67 @@ class TemporaryEmployee
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'temporaryEmployee', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?TemporaryUser $user_id = null;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    private ?string $token = null;
 
-    #[ORM\ManyToOne(inversedBy: 'temporaryEmployees')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Company $company_id = null;
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserId(): ?TemporaryUser
+    public function getEmail(): ?string
     {
-        return $this->user_id;
+        return $this->email;
     }
 
-    public function setUserId(TemporaryUser $user_id): static
+    public function setEmail(string $email): static
     {
-        $this->user_id = $user_id;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getToken(): ?string
     {
-        return $this->role;
+        return $this->token;
     }
 
-    public function setRole(string $role): static
+    public function setToken(string $token): static
     {
-        $this->role = $role;
+        $this->token = $token;
 
         return $this;
     }
 
-    public function getCompanyId(): ?Company
+    public function getFirstname(): ?string
     {
-        return $this->company_id;
+        return $this->firstname;
     }
 
-    public function setCompanyId(?Company $company_id): static
+    public function setFirstname(string $firstname): static
     {
-        $this->company_id = $company_id;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }

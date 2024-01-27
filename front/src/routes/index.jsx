@@ -10,6 +10,10 @@ import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
 import ServicesPage from "@routes/ServicesPage";
+import NewEmployeeFormPage from "@routes/NewEmployeeFormPage";
+import EditEmployeeFormPage from "@routes/EditEmployeeFormPage";
+import PersonsToRentPage from "@routes/PersonsToRentPage";
+import PersonToRentPage from "@routes/PersonToRentPage";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
+      {
+        path: "persons-to-rent",
+        element: <PersonsToRentPage />,
+      },
+      {
+        path: "persons-to-rent/:id",
+        element: <PersonToRentPage />,
+      }
     ],
   },
   {
@@ -54,11 +66,32 @@ const router = createBrowserRouter([
       },
       {
         path: "employees",
-        element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
-            <EmployeesPage />
-          </ProtectedRoute>
-        ),
+        children: [
+          {
+            path: "",
+            element: (
+              <ProtectedRoute roleAllowed={["manager"]}>
+                <EmployeesPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "new",
+            element: (
+              <ProtectedRoute roleAllowed={["manager"]}>
+                <NewEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "edit/:id",
+            element: (
+              <ProtectedRoute roleAllowed={["manager"]}>
+                <EditEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
         path: "services",

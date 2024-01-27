@@ -35,10 +35,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email()]
-    #[Groups(['create-user'])]
+    #[Groups(['create-user', 'employee:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['employee:read'])]
     private array $roles = [];
 
     /**
@@ -49,20 +50,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'employee:read'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'employee:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'employee:read'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
-    #[Groups(['create-user'])]
-    private ?string $age = null;
+    #[Groups(['create-user', 'employee:read'])]
+    private ?int $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
@@ -76,10 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Override::class, orphanRemoval: true)]
     private Collection $overrides;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class, orphanRemoval: true)]
+    #[Groups(['employee:read'])]
     private Collection $companies;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Review::class, orphanRemoval: true)]
