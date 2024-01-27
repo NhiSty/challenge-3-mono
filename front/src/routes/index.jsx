@@ -14,6 +14,7 @@ import AccountPage from "@routes/AccountPage";
 import EditAccountPage from "@routes/EditAccountPage";
 import SearchPage from "@routes/SearchPage";
 import UserPage from "@routes/UserPage";
+import PlanningPage from "@routes/PlanningPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "user/:userId",
         element: <UserPage />,
+      },
+      {
+        path: "planning",
+        element: <PlanningPage />,
       },
     ],
   },
