@@ -21,6 +21,7 @@
         "symfony/flex": "^2.2",
         "symfony/framework-bundle": "6.3.*",
         "symfony/mailer": "6.3.*",
+        "symfony/mailjet-mailer": "6.3.*",
         "symfony/mercure-bundle": "^0.3.5",
         "symfony/monolog-bundle": "^3.8",
         "symfony/property-access": "6.3.*",

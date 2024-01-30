@@ -4,6 +4,7 @@ namespace App\Action\Post;
 
 use App\Controller\Mailer;
 use App\Entity\Employee;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\FranchiseRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +62,7 @@ class EmployeeAction extends AbstractController
         $employee = new Employee();
         $employee->setUserId($user);
         $employee->setFranchiseId($franchise);
-        $employee->setRole('ROLE_EMPLOYEE');
+        $employee->setRole(Role::EMPLOYEE);
 
         $this->em->persist($employee);
         $this->em->persist($user);
