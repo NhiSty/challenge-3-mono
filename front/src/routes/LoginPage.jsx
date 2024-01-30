@@ -35,7 +35,7 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.error(error);
       toast.error("Une erreur s'est produite. Veuillez réessayer !");
       reset();
     }
