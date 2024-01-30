@@ -103,7 +103,7 @@ function CreateFranchiseFormModal({ opened, onClose }) {
   )
 }
 
-CreateFranchiseFormModal.propsTypes = {
-    opened: PropTypes.bool,
-    onClose: PropTypes.func,
+CreateFranchiseFormModal.propTypes = {
+    opened: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
 }

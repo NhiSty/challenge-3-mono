@@ -6,7 +6,6 @@ import EmailControl from "@components/employee/EmployeeForm/Controls/EmailContro
 import toTranslate from "@/utils/translate";
 import {Button, Stack} from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
-import {useEmployeesVC} from "@/hooks/useEmployeesVC";
 
 export default function EmployeeForm(props) {
   const methods = useForm({
