@@ -2,9 +2,9 @@ import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
 import {TextField} from "@mui/material";
 
-export default function LastnameControl() {
-  const name = "lastname";
-  const label = toTranslate("Lastname");
+export default function UsernameControl() {
+  const name = "username";
+  const label = toTranslate("Username");
   const {
     formState: { errors },
   } = useFormContext();
@@ -30,7 +30,7 @@ export default function LastnameControl() {
             id={name}
             name={name}
             label={label}
-            placeholder="Larue"
+            placeholder="Penelope Cruz"
             value={value}
             onChange={onChange}
             error={!!errorMessage}

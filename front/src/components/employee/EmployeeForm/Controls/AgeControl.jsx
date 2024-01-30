@@ -2,9 +2,9 @@ import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
 import {TextField} from "@mui/material";
 
-export default function LastnameControl() {
-  const name = "lastname";
-  const label = toTranslate("Lastname");
+export default function AgeControl() {
+  const name = "age";
+  const label = toTranslate("Age");
   const {
     formState: { errors },
   } = useFormContext();
@@ -17,7 +17,13 @@ export default function LastnameControl() {
     field: { value, onChange },
   } = useController({
     name,
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        positiveNumber: (value) => parseFloat(value) > 0,
+        majorNumber: (value) => parseFloat(value) >= 18,
+      },
+    },
     defaultValue: "",
   });
 
@@ -30,10 +36,11 @@ export default function LastnameControl() {
             id={name}
             name={name}
             label={label}
-            placeholder="Larue"
+            placeholder={label}
             value={value}
             onChange={onChange}
             error={!!errorMessage}
+            type={'number'}
         />
         {
             !!errorMessage && (

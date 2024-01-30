@@ -7,6 +7,9 @@ import toTranslate from "@/utils/translate";
 import {Button, Stack} from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
 import {useEmployeesVC} from "@/hooks/useEmployeesVC";
+import AgeControl from "@components/employee/EmployeeForm/Controls/AgeControl";
+import UsernameControl from "@components/employee/EmployeeForm/Controls/UsernameControl";
+import FranchiseControl from "@components/employee/EmployeeForm/Controls/FranchiseControl";
 
 export default function EmployeeForm(props) {
   const methods = useForm({
@@ -22,6 +25,9 @@ export default function EmployeeForm(props) {
             <FirstnameControl />
             <LastnameControl />
             <EmailControl />
+            <UsernameControl />
+            <AgeControl />
+            <FranchiseControl />
 
             <Stack direction={'row'} justifyContent={'flex-end'} spacing={2}>
               <Button

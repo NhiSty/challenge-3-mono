@@ -1,10 +1,10 @@
 import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
-import {TextField} from "@mui/material";
+import { Autocomplete } from "@mui/material";
 
-export default function LastnameControl() {
-  const name = "lastname";
-  const label = toTranslate("Lastname");
+export default function FranchiseControl() {
+  const name = "franchise";
+  const label = toTranslate("Franchise");
   const {
     formState: { errors },
   } = useFormContext();
@@ -21,19 +21,15 @@ export default function LastnameControl() {
     defaultValue: "",
   });
 
+
   return (
     <>
       <div className="mb-4">
-        <TextField
+        <Autocomplete
+            onChange={onChange}
+            value={value}
             size={'small'}
             fullWidth={true}
-            id={name}
-            name={name}
-            label={label}
-            placeholder="Larue"
-            value={value}
-            onChange={onChange}
-            error={!!errorMessage}
         />
         {
             !!errorMessage && (

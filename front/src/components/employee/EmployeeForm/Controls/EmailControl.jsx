@@ -1,6 +1,6 @@
 import { useController, useFormContext } from "react-hook-form";
-import { Input } from "@components/form/Input";
 import toTranslate from "@/utils/translate";
+import {TextField} from "@mui/material";
 
 export default function EmailControl() {
   const name = "email";
@@ -33,15 +33,22 @@ export default function EmailControl() {
   return (
     <>
       <div className="mb-4">
-        <Input
-          id={name}
-          name={name}
-          label={label}
-          placeholder={label}
-          value={value}
-          onChange={onChange}
-          error={errorMessage}
+        <TextField
+            size={'small'}
+            fullWidth={true}
+            id={name}
+            name={name}
+            label={label}
+            placeholder="exemple@gmail.com"
+            value={value}
+            onChange={onChange}
+            error={!!errorMessage}
         />
+        {
+            !!errorMessage && (
+                <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
+            )
+        }
       </div>
     </>
   );
