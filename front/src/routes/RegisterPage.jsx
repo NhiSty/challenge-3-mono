@@ -26,7 +26,7 @@ export default function RegisterPage() {
       username: "",
       firstName: "",
       lastName: "",
-      age: "",
+      age: 18,
     },
   });
 
@@ -65,7 +65,7 @@ export default function RegisterPage() {
 
         <Input
           id="password"
-          label="Password"
+          label="Mot de passe"
           type="password"
           icon={<Lock className="w-5 h-5" />}
           error={errors.password?.message}
@@ -106,7 +106,10 @@ export default function RegisterPage() {
           type="number"
           icon={<User className="w-5 h-5" />}
           error={errors.age?.message}
-          {...registerForm("age", { required: "L'âge est requis" })}
+          {...registerForm("age", {
+            required: "L'âge est requis",
+            setValueAs: (v) => Number(v),
+          })}
         />
 
         <div className="flex flex-row justify-end gap-2 pt-2">

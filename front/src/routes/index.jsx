@@ -12,8 +12,11 @@ import EmployeesPage from "@routes/EmployeesPage";
 import ServicesPage from "@routes/ServicesPage";
 import NewEmployeeFormPage from "@routes/NewEmployeeFormPage";
 import EditEmployeeFormPage from "@routes/EditEmployeeFormPage";
-import PersonsToRentPage from "@routes/PersonsToRentPage";
-import PersonToRentPage from "@routes/PersonToRentPage";
+import AccountPage from "@routes/AccountPage";
+import EditAccountPage from "@routes/EditAccountPage";
+import SearchPage from "@routes/SearchPage";
+import UserPage from "@routes/UserPage";
+import PlanningPage from "@routes/PlanningPage";
 
 const router = createBrowserRouter([
   {
@@ -34,13 +37,31 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "persons-to-rent",
-        element: <PersonsToRentPage />,
+        path: "search",
+        element: <SearchPage />,
       },
       {
-        path: "persons-to-rent/:id",
-        element: <PersonToRentPage />,
-      }
+        path: "user/:userId",
+        element: <UserPage />,
+      },
+      {
+        path: "planning",
+        element: <PlanningPage />,
+      },
+    ],
+  },
+  {
+    path: "/account",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <AccountPage />,
+      },
+      {
+        path: "edit",
+        element: <EditAccountPage />,
+      },
     ],
   },
   {
