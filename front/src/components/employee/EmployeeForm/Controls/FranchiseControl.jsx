@@ -1,6 +1,7 @@
 import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
-import { Autocomplete } from "@mui/material";
+import {Autocomplete, TextField} from "@mui/material";
+import useFranchiseVC from "@/hooks/useFranchiseVC";
 
 export default function FranchiseControl() {
   const name = "franchise";
@@ -21,15 +22,45 @@ export default function FranchiseControl() {
     defaultValue: "",
   });
 
+  const { franchiseOptions, isLoading } = useFranchiseVC();
+
+  const handleChange = (event, newValue) => {
+    onChange(newValue.value);
+  }
+
+  const getLabel = (value) => {
+    const franchise = franchiseOptions.find(franchise => franchise.value === value);
+    return franchise ? franchise.label : '';
+  }
+
+  console.log({
+    franchiseOptions,
+    value,
+    label: getLabel(value),
+  })
 
   return (
     <>
       <div className="mb-4">
         <Autocomplete
-            onChange={onChange}
-            value={value}
+            onChange={handleChange}
+            value={getLabel(value)}
             size={'small'}
             fullWidth={true}
+            options={franchiseOptions}
+            loading={isLoading}
+            disableClearable={true}
+            renderInput={
+              (params) => (
+                  <TextField
+                      {...params}
+                      label={label}
+                      variant={'outlined'}
+                      error={hasError}
+                      helperText={errorMessage}
+                  />
+              )
+            }
         />
         {
             !!errorMessage && (

@@ -16,12 +16,12 @@ export default function EmployeeForm(props) {
     defaultValues: props.defaultValues,
   });
 
-  const employeesFormMethods = useEmployeeFormVC(props.mode);
+  const { submitForm, cancelForm} = useEmployeeFormVC(props.mode);
 
   return (
       <Stack px={1}>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(employeesFormMethods)}>
+          <form onSubmit={methods.handleSubmit(submitForm)}>
             <FirstnameControl />
             <LastnameControl />
             <EmailControl />
@@ -31,7 +31,7 @@ export default function EmployeeForm(props) {
 
             <Stack direction={'row'} justifyContent={'flex-end'} spacing={2}>
               <Button
-                  onClick={() => employeesFormMethods.cancelForm()}
+                  onClick={() => cancelForm()}
                   variant={'outlined'}
                   color={'inherit'}
               >

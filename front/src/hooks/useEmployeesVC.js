@@ -23,12 +23,16 @@ export function useEmployeesVC() {
      * @param {Employee} employee
      */
     const createEmployee = (employee) => {
-        addEmployee(employee)
+        return addEmployee(employee)
             .then((response) => {
                 setEmployees([
                     ...employees,
                     response.data
                 ]);
+                return response;
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 

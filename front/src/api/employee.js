@@ -22,8 +22,13 @@ export async function fetchEmployeeById(id) {
  * @param {Employee} employee
  */
 export async function addEmployee(employee) {
-    const response = await apiClient.post("/employees", {
-        ...employee
+    const response = await apiClient.post("employee", {
+        firstname: employee.firstname,
+        lastname: employee.lastname,
+        franchise: employee.franchise,
+        username: employee.username,
+        email: employee.email,
+        age: typeof employee.age === 'number' ? employee.age : parseInt(employee.age),
     });
 
     return response;
