@@ -6,7 +6,6 @@ import EmailControl from "@components/employee/EmployeeForm/Controls/EmailContro
 import toTranslate from "@/utils/translate";
 import {Button, Stack} from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
-import {useEmployeesVC} from "@/hooks/useEmployeesVC";
 import AgeControl from "@components/employee/EmployeeForm/Controls/AgeControl";
 import UsernameControl from "@components/employee/EmployeeForm/Controls/UsernameControl";
 import FranchiseControl from "@components/employee/EmployeeForm/Controls/FranchiseControl";
