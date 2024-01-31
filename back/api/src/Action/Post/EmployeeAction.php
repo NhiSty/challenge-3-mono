@@ -33,10 +33,10 @@ class EmployeeAction extends AbstractController
 
         $data = json_decode($req->getContent(), true);
         $email = $data['email'];
-        $pwd = $data['password'];
+        $pwd = 'test123!';
         //$role = $data['role'];
-        $firstName = $data['firstName'];
-        $lastName = $data['lastName'];
+        $firstName = $data['firstname'];
+        $lastName = $data['lastname'];
         $age = $data['age'];
         $username = $data['username'];
         $franchise = $data['franchise'];
