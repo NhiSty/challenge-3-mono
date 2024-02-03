@@ -2,7 +2,7 @@ import Duration from "@/domain/planning/Duration";
 import Availability from "@/domain/planning/Availability";
 import Booking from "@/domain/planning/Booking";
 
-export default class Planning {
+export default class PlanningModel {
   /**
    * @param {ApiAvailability[]} availabilities
    * @param {ApiBooking[]} bookings
@@ -78,14 +78,15 @@ export default class Planning {
    * @param {Duration} start
    * @param {Duration} end
    * @returns {boolean}
-   * @private
    */
-  _isThereBookingOverlappingOnTimeWindow(start, end) {
+  isThereBookingOverlappingOnTimeWindow(start, end) {
     return this.bookings.some((booking) => {
-      const elementStart = Duration.fromDate(booking.start).toMinutes();
-      const elementEnd = elementStart + booking.duration.toMinutes();
+      const bookingStart = Duration.fromDate(booking.start);
+      // const bookingEnd = bookingStart.clone().addDuration(booking.duration);
 
-      return elementEnd > start.toMinutes() && elementStart < end.toMinutes();
+      return (
+        start.isSameOrBefore(bookingStart) && end.isSameOrAfter(bookingStart)
+      );
     });
   }
 
@@ -124,7 +125,7 @@ export default class Planning {
             return false;
           }
 
-          return this._isThereBookingOverlappingOnTimeWindow(start, end);
+          return this.isThereBookingOverlappingOnTimeWindow(start, end);
         });
 
         const foundAvailability = availability.find((availability) => {

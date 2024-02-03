@@ -23,7 +23,9 @@ export default function HomePage() {
           {toTranslate("Avec Rent-A-Dream, transformez vos rêves en réalité !")}
         </p>
         <p className="text-lg underline">
-          <Link to={'persons-to-rent'}>{toTranslate("Ne cherchez plus, CHOISISSEZ !")}</Link>
+          <Link to={"persons-to-rent"}>
+            {toTranslate("Ne cherchez plus, CHOISISSEZ !")}
+          </Link>
         </p>
       </div>
 

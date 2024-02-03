@@ -35,16 +35,28 @@ describe("Duration", () => {
     expect(duration.milliseconds).toBe(4);
   });
 
-  it("should create Time from time string", () => {
-    // Given
-    const duration = Duration.fromTimeString("10:30:28.287Z");
+  it.each([
+    ["10:30:28.287Z", 10, 30, 28, 287],
+    ["10:30:28", 10, 30, 28, 0],
+  ])(
+    "should create Time from time string",
+    (
+      durationString,
+      expectedHours,
+      expectedMinutes,
+      expectedSeconds,
+      expectedMilliseconds,
+    ) => {
+      // Given
+      const duration = Duration.fromTimeString(durationString);
 
-    // Then
-    expect(duration.hours).toBe(10);
-    expect(duration.minutes).toBe(30);
-    expect(duration.seconds).toBe(28);
-    expect(duration.milliseconds).toBe(287);
-  });
+      // Then
+      expect(duration.hours).toBe(expectedHours);
+      expect(duration.minutes).toBe(expectedMinutes);
+      expect(duration.seconds).toBe(expectedSeconds);
+      expect(duration.milliseconds).toBe(expectedMilliseconds);
+    },
+  );
 
   it("should create Time from datetime string", () => {
     // Given
@@ -127,13 +139,79 @@ describe("Duration", () => {
     expect(duration.milliseconds).toBe(0);
   });
 
-  it("should be after", () => {
+  it("should add duration", () => {
     // Given
-    const duration = new Duration(1, 0, 0, 0);
-    const other = new Duration(0, 0, 0, 0);
+    const duration = new Duration(9, 8, 7, 6);
+    const other = new Duration(1, 2, 3, 4);
+
+    // When
+    duration.addDuration(other);
 
     // Then
-    expect(duration.isSameOrAfter(other)).toBeTruthy();
+    expect(duration.hours).toBe(10);
+    expect(duration.minutes).toBe(10);
+    expect(duration.seconds).toBe(10);
+    expect(duration.milliseconds).toBe(10);
+  });
+
+  it("should add duration overflow", () => {
+    // Given
+    const duration = new Duration(9, 59, 59, 999);
+    const other = new Duration(0, 0, 0, 2);
+
+    // When
+    duration.addDuration(other);
+
+    // Then
+    expect(duration.hours).toBe(10);
+    expect(duration.minutes).toBe(0);
+    expect(duration.seconds).toBe(0);
+    expect(duration.milliseconds).toBe(1);
+  });
+
+  it.each([
+    ["13:00:00", "14:00:00", true],
+    ["13:30:00", "14:00:00", true],
+    ["13:30:00", "13:00:00", false],
+    ["15:00:00", "14:30:00", false],
+    ["15:00:00", "15:00:00", false],
+  ])("[%s] should be after [%s] [%s]", (before, after, isAfter) => {
+    // Given
+    const beforeDuration = Duration.fromTimeString(before);
+    const afterDuration = Duration.fromTimeString(after);
+
+    // Then
+    expect(afterDuration.isAfter(beforeDuration)).toBe(isAfter);
+  });
+
+  it.each([
+    ["13:00:00", "14:00:00", false],
+    ["13:30:00", "14:00:00", false],
+    ["13:30:00", "13:00:00", true],
+    ["15:00:00", "14:30:00", true],
+    ["15:00:00", "15:00:00", false],
+  ])("[%s] should be before [%s] [%s]", (before, after, isBefore) => {
+    // Given
+    const beforeDuration = Duration.fromTimeString(before);
+    const afterDuration = Duration.fromTimeString(after);
+
+    // Then
+    expect(afterDuration.isBefore(beforeDuration)).toBe(isBefore);
+  });
+
+  it.each([
+    ["13:00:00", "13:00:00", true],
+    ["13:30:00", "14:00:00", false],
+    ["13:30:00", "13:00:00", false],
+    ["15:00:00", "14:30:00", false],
+    ["15:00:00", "15:00:00", true],
+  ])("[%s] should be same as [%s] [%s]", (before, after, isSame) => {
+    // Given
+    const beforeDuration = Duration.fromTimeString(before);
+    const afterDuration = Duration.fromTimeString(after);
+
+    // Then
+    expect(afterDuration.isSame(beforeDuration)).toBe(isSame);
   });
 
   it("should normalize", () => {
@@ -148,5 +226,19 @@ describe("Duration", () => {
     expect(duration.minutes).toBe(0);
     expect(duration.seconds).toBe(1);
     expect(duration.milliseconds).toBe(0);
+  });
+
+  it("should parse date to duration", () => {
+    // Given
+    const date = new Date(2023, 5, 28, 6, 48, 52, 900);
+
+    // When
+    const duration = Duration.fromDate(date);
+
+    // Then
+    expect(duration.hours).toBe(6);
+    expect(duration.minutes).toBe(48);
+    expect(duration.seconds).toBe(52);
+    expect(duration.milliseconds).toBe(900);
   });
 });
