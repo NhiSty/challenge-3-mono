@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div>
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <main>
         <Outlet />
       </main>
     </div>

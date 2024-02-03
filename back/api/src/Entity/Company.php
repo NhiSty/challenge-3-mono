@@ -26,22 +26,18 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $kbis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'companies')]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'companies')]
     private ?User $owner = null;
 
-    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class)]
+    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class, cascade: ['persist', 'remove'])]
     private Collection $performances;
 
-    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class)]
+    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class, orphanRemoval: true)]
     private Collection $franchises;
-
-    #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: TemporaryEmployee::class, orphanRemoval: true)]
-    private Collection $temporaryEmployees;
 
     public function __construct()
     {
         $this->performances = new ArrayCollection();
-        $this->temporaryEmployees = new ArrayCollection();
         $this->franchises = new ArrayCollection();
     }
 
@@ -152,36 +148,6 @@ class Company
             // set the owning side to null (unless already changed)
             if ($franchise->getCompanyId() === $this) {
                 $franchise->setCompanyId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, TemporaryEmployee>
-     */
-    public function getTemporaryEmployees(): Collection
-    {
-        return $this->temporaryEmployees;
-    }
-
-    public function addTemporaryEmployee(TemporaryEmployee $temporaryEmployee): static
-    {
-        if (!$this->temporaryEmployees->contains($temporaryEmployee)) {
-            $this->temporaryEmployees->add($temporaryEmployee);
-            $temporaryEmployee->setCompanyId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTemporaryEmployee(TemporaryEmployee $temporaryEmployee): static
-    {
-        if ($this->temporaryEmployees->removeElement($temporaryEmployee)) {
-            // set the owning side to null (unless already changed)
-            if ($temporaryEmployee->getCompanyId() === $this) {
-                $temporaryEmployee->setCompanyId(null);
             }
         }
 

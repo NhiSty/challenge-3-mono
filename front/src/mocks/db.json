@@ -1,0 +1,72 @@
+{
+  "employees": [
+    {
+      "firstname": "Junior",
+      "lastname": "Junio",
+      "name": "Junior Junio",
+      "email": "junior@junior.com",
+      "role": "Waiting",
+      "id": 6
+    },
+    {
+      "name": "Erw Junio",
+      "email": "erwan.bg@gmail.com",
+      "role": "Waiting",
+      "id": 7
+    },
+    {
+      "name": "zzz zzzz",
+      "email": "thomas.jallu@gmail.com",
+      "role": "Waiting",
+      "id": 8
+    }
+  ],
+  "performances": [],
+  "companies": [
+    {
+      "company_name": "Compagnie 1",
+      "company_address": "1 rue de la compagnie",
+      "company_city": "Paris",
+      "company_zipcode": "75000",
+      "company_country": "France",
+      "company_phone": "0102030405",
+      "company_email": "contact@company.com",
+      "company_website": "www.company.com",
+      "company_siret": "12345678912345",
+      "company_status": "Approved",
+      "franchises": [
+        {
+          "franchise_name": "Franchise 1",
+          "franchise_address": "1 rue de la franchise",
+          "franchise_city": "Paris",
+          "franchise_zipcode": "75000",
+          "franchise_country": "France",
+          "franchise_phone": "0102030405",
+          "franchise_email": "franchise-1@g.com",
+          "franchise_manager": "Toto Jal"
+        },
+        {
+          "franchise_name": "Franchise 2",
+          "franchise_address": "2 rue de la franchise",
+          "franchise_city": "Paris",
+          "franchise_zipcode": "75000",
+          "franchise_country": "France",
+          "franchise_phone": "0102030405",
+          "franchise_email": "franchise-2@g.com",
+          "franchise_manager": "Toto Jall"
+        },
+        {
+          "franchise_name": "Franchise 3",
+          "franchise_address": "3 rue de la franchise",
+          "franchise_city": "Paris",
+          "franchise_zipcode": "75000",
+          "franchise_country": "France",
+          "franchise_phone": "0102030405",
+          "franchise_email": "franchise-2@g.com",
+          "franchise_manager": "Toto Jalll"
+        }
+      ],
+      "id": 1
+    }
+  ]
+}
