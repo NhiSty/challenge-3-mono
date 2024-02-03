@@ -2,10 +2,10 @@ import { apiClient } from ".";
 
 export async function login(email, password) {
   try {
-  const response = await apiClient.post("/api/login", {
-    email,
-    password,
-  });
+    const response = await apiClient.post("/api/login", {
+      email,
+      password,
+    });
 
     if (!response.ok) {
       const errorMessage = await response.text();
@@ -28,8 +28,6 @@ export async function register(data) {
     lastName: data.lastName,
     age: data.age,
   });
-
-
 
   return response;
 }

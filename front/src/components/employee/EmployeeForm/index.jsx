@@ -4,7 +4,7 @@ import FirstnameControl from "@components/employee/EmployeeForm/Controls/Firstna
 import LastnameControl from "@components/employee/EmployeeForm/Controls/LastnameControl";
 import EmailControl from "@components/employee/EmployeeForm/Controls/EmailControl";
 import toTranslate from "@/utils/translate";
-import {Button, Stack} from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
 
 export default function EmployeeForm(props) {
@@ -15,34 +15,29 @@ export default function EmployeeForm(props) {
   const employeesFormMethods = useEmployeeFormVC(props.mode);
 
   return (
-      <Stack px={1}>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(employeesFormMethods)}>
-            <FirstnameControl />
-            <LastnameControl />
-            <EmailControl />
+    <Stack px={1}>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(employeesFormMethods)}>
+          <FirstnameControl />
+          <LastnameControl />
+          <EmailControl />
 
-            <Stack direction={'row'} justifyContent={'flex-end'} spacing={2}>
-              <Button
-                  onClick={() => employeesFormMethods.cancelForm()}
-                  variant={'outlined'}
-                  color={'inherit'}
-              >
-                {toTranslate("Cancel")}
-              </Button>
+          <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
+            <Button
+              onClick={() => employeesFormMethods.cancelForm()}
+              variant={"outlined"}
+              color={"inherit"}
+            >
+              {toTranslate("Cancel")}
+            </Button>
 
-              <Button
-                  type={'submit'}
-                  variant={'contained'}
-                  color={'primary'}
-              >
-                {toTranslate("Submit")}
-              </Button>
-            </Stack>
-
-          </form>
-        </FormProvider>
-      </Stack>
+            <Button type={"submit"} variant={"contained"} color={"primary"}>
+              {toTranslate("Submit")}
+            </Button>
+          </Stack>
+        </form>
+      </FormProvider>
+    </Stack>
   );
 }
 
