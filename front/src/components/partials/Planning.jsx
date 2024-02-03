@@ -15,7 +15,7 @@
  * @typedef {"monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"} Day
  */
 
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
 
@@ -26,19 +26,22 @@ import PlanningModel from "@/domain/planning/PlanningModel";
  * @constructor
  */
 const Planning = ({ availabilities, bookings }) => {
-  const { columns: planning, timeSlots } = useMemo(
-    () => new PlanningModel(availabilities, bookings).buildPlanning(30),
-    [availabilities, bookings],
-  );
+  const { columns: planning, timeSlots } = useMemo(() => {
+    const startDate = new Date("2024-01-22T00:00:00.000Z");
+    return new PlanningModel(availabilities, bookings).buildPlanning(
+      startDate,
+      30,
+    );
+  }, [availabilities, bookings]);
 
   return (
     <div
       className="grid grid-cols-7 grid-flow-col gap-1"
       style={{ gridTemplateRows: `repeat(${timeSlots + 1}, minmax(0, 1fr))` }}
     >
-      {planning.map((dayPlanning) => {
+      {planning.map((dayPlanning, index) => {
         return (
-          <>
+          <Fragment key={index}>
             <div className="h-full flex justify-center items-center text-center">
               {dayPlanning.columnName}
             </div>
@@ -64,7 +67,7 @@ const Planning = ({ availabilities, bookings }) => {
                 </div>
               );
             })}
-          </>
+          </Fragment>
         );
       })}
     </div>

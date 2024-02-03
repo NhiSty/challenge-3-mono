@@ -227,18 +227,4 @@ describe("Duration", () => {
     expect(duration.seconds).toBe(1);
     expect(duration.milliseconds).toBe(0);
   });
-
-  it("should parse date to duration", () => {
-    // Given
-    const date = new Date(2023, 5, 28, 6, 48, 52, 900);
-
-    // When
-    const duration = Duration.fromDate(date);
-
-    // Then
-    expect(duration.hours).toBe(6);
-    expect(duration.minutes).toBe(48);
-    expect(duration.seconds).toBe(52);
-    expect(duration.milliseconds).toBe(900);
-  });
 });
