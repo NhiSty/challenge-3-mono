@@ -1,9 +1,13 @@
 import {useEffect, useState} from "react";
 import {addEmployee, fetchAllEmployees, removeEmployee} from "@/api/employee";
+import {useNavigate} from "react-router-dom";
+import { toast } from 'react-toastify';
+import toTranslate from "@/utils/translate";
 
 export function useEmployeesVC() {
     const [employees, setEmployees] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLoading(true);
@@ -29,9 +33,12 @@ export function useEmployeesVC() {
                     ...employees,
                     response.data
                 ]);
+                navigate("/manager/employees");
+                toast.success(toTranslate('Employé créé avec succès.'));
                 return response;
             })
             .catch((error) => {
+                toast.error(toTranslate('Erreur lors de la création de l\'employé.'));
                 console.log(error);
             });
     }

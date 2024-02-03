@@ -8,10 +8,8 @@ export default function AgeControl() {
   const {
     formState: { errors },
   } = useFormContext();
-  const hasError = errors[name];
-  const errorMessage = hasError
-    ? `${label} ${toTranslate("est obligatoire")}`
-    : "";
+  const error = errors[name];
+  const errored = !!error;
 
   const {
     field: { value, onChange },
@@ -39,12 +37,22 @@ export default function AgeControl() {
             placeholder={label}
             value={value}
             onChange={onChange}
-            error={!!errorMessage}
+            error={!!errored}
             type={'number'}
         />
         {
-            !!errorMessage && (
-                <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
+            (errored && error.type === 'required') && (
+                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('is required')}`}</div>
+            )
+        }
+        {
+            (errored && error.type === 'positiveNumber') && (
+                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('must be positive')}`}</div>
+            )
+        }
+        {
+            (errored && error.type === 'majorNumber') && (
+                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('must be greater than 18')}`}</div>
             )
         }
       </div>

@@ -16,7 +16,7 @@ export default function EmployeesPage() {
                     onClick={() => navigate("/manager/employees/new")}
                 >
                     <Plus size={20} />
-                    {toTranslate("New invitation")}
+                    {toTranslate("New employee")}
                 </Button>
             </Stack>
             <Card>
@@ -24,32 +24,6 @@ export default function EmployeesPage() {
                     title={
                         <Typography>
                             {toTranslate("Employees")}
-                        </Typography>
-                    }
-                />
-                <CardContent>
-                    <Stack
-                        direction={'row'}
-                        justifyContent={'space-between'}
-                        alignItems={'center'}
-                        width={'100%'}
-                        mb={4}
-                    >
-                        <Typography
-                            variant={'h5'}
-                        >
-                            {toTranslate("Employees")}
-                        </Typography>
-                    </Stack>
-                    <EmployeesTable />
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader
-                    title={
-                        <Typography>
-                            {toTranslate("Employees invited")}
                         </Typography>
                     }
                 />

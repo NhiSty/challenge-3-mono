@@ -5,17 +5,15 @@ export default function useEmployeeFormVC(mode) {
     const methodsEmployee= useEmployeesVC();
     const navigate = useNavigate();
 
-    const submitForm = (employee) => {
+    const submitForm = async (employee) => {
         if (mode === "creation") {
-            methodsEmployee.createEmployee(employee);
+            await methodsEmployee.createEmployee(employee);
         } else if (mode === "edition") {
-            methodsEmployee.updateEmployee(employee.id, employee);
+            await methodsEmployee.updateEmployee(employee.id, employee);
         }
         else {
             throw new Error("Mode unknown");
         }
-
-        navigate("/manager/employees");
     }
 
     const cancelForm = () => {

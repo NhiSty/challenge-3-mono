@@ -7,11 +7,11 @@ export async function login(email, password) {
       password,
     });
 
-    if (!response.ok) {
-      const errorMessage = await response.text();
+    if (!response.status === 200) {
+      const errorMessage = await response.text;
       throw new Error(errorMessage);
     }
-    const responseData = await response.json();
+    const responseData = await response.data;
 
     localStorage.setItem("token", responseData.token);
   } catch (error) {

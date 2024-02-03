@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 
 export const ROLES = {
     ADMIN: "ROLE_ADMIN",
@@ -7,24 +8,34 @@ export const ROLES = {
 
 export default function useToken() {
     const getToken = () => {
-        const tokenString = localStorage.getItem("token");
-        const userToken = JSON.parse(tokenString);
-        return userToken?.token;
+        return  localStorage.getItem("token");
     };
 
     const getRoles = () => {
-        const tokenString = localStorage.getItem("token");
-        const userToken = JSON.parse(tokenString);
-        return userToken?.roles;
+        const tokenString = getToken();
+        const jwtDecoded = jwtDecode(tokenString);
+        return jwtDecoded?.roles;
     }
 
     const saveToken = (userToken) => {
         localStorage.setItem("token", userToken);
     };
 
+    const tokenIsValid = () => {
+        const token = getToken();
+        if (!token) {
+            return false;
+        }
+
+        const jwtDecoded = jwtDecode(token);
+        const now = Date.now().valueOf() / 1000;
+        return jwtDecoded.exp > now;
+    }
+
     return {
         setToken: saveToken,
         token: getToken(),
-        roles: getRoles()
+        roles: getRoles(),
+        isValid: tokenIsValid(),
     };
 }
