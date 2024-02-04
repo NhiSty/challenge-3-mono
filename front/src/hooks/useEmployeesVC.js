@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {addEmployee, fetchAllEmployees, removeEmployee} from "@/api/employee";
+import {addEmployee, fetchAllEmployees, removeEmployee, updateEmployee as updateEmployeeCall} from "@/api/employee";
 import {useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
 import toTranslate from "@/utils/translate";
@@ -58,15 +58,20 @@ export function useEmployeesVC() {
     }
 
     const updateEmployee = (id, employee) => {
-        updateEmployee(id, employee)
+        return updateEmployeeCall(id, employee)
             .then((response) => {
                 setEmployees(employees.map((employee) => {
                     if (employee.id === id) {
                         return response.data;
                     }
-
                     return employee;
                 }));
+                toast.success(toTranslate('Employé modifié avec succès.'));
+                navigate("/manager/employees")
+            })
+            .catch((error) => {
+                toast.error(toTranslate('Erreur lors de la modification de l\'employé.'));
+                console.log(error);
             });
     }
 

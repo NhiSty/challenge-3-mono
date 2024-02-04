@@ -33,12 +33,6 @@ export default function FranchiseControl() {
     return franchise ? franchise.label : '';
   }
 
-  console.log({
-    franchiseOptions,
-    value,
-    label: getLabel(value),
-  })
-
   return (
     <>
       <div className="mb-4">

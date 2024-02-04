@@ -1,8 +1,8 @@
-import { apiClient } from ".";
+import {apiPublicClient} from "@/api/index";
 
 export async function login(email, password) {
   try {
-    const response = await apiClient.post("/api/login", {
+    const response = await apiPublicClient.post("/api/login", {
       email,
       password,
     });
@@ -20,7 +20,7 @@ export async function login(email, password) {
 }
 
 export async function register(data) {
-  const response = await apiClient.post("/users", {
+  const response = await apiPublicClient.post("/users", {
     email: data.email,
     password: data.password,
     username: data.username,
@@ -28,9 +28,6 @@ export async function register(data) {
     lastName: data.lastName,
     age: data.age,
   });
-
-
-
   return response;
 }
 

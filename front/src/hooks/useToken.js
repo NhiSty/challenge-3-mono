@@ -8,11 +8,14 @@ export const ROLES = {
 
 export default function useToken() {
     const getToken = () => {
-        return  localStorage.getItem("token");
+        return  localStorage.getItem("token") || null;
     };
 
     const getRoles = () => {
         const tokenString = getToken();
+        if (!tokenString) {
+            return [];
+        }
         const jwtDecoded = jwtDecode(tokenString);
         return jwtDecoded?.roles;
     }
@@ -32,10 +35,15 @@ export default function useToken() {
         return jwtDecoded.exp > now;
     }
 
+    const removeToken = () => {
+        localStorage.removeItem("token");
+    }
+
     return {
         setToken: saveToken,
         token: getToken(),
         roles: getRoles(),
         isValid: tokenIsValid(),
+        removeToken,
     };
 }

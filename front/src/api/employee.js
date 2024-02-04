@@ -54,9 +54,3 @@ export async function updateEmployee(id, employee) {
     return response;
 }
 
-export async function createInvitation(id) {
-    const response = await apiClient.post(`/employees/${id}/invitation`);
-
-    return response;
-}
-
