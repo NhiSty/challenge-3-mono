@@ -3,7 +3,15 @@ import {
   ISO_TIME_REGEX,
 } from "@/domain/planning/dateUtils";
 
+/**
+ * Represents a duration of time
+ */
 export default class Duration {
+  #hours = 0;
+  #minutes = 0;
+  #seconds = 0;
+  #milliseconds = 0;
+
   /**
    * @param {number} hours
    * @param {number} minutes
@@ -11,24 +19,30 @@ export default class Duration {
    * @param {number} milliseconds
    */
   constructor(hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
-    this._hours = hours;
-    this._minutes = minutes;
-    this._seconds = seconds;
-    this._milliseconds = milliseconds;
+    this.#hours = hours;
+    this.#minutes = minutes;
+    this.#seconds = seconds;
+    this.#milliseconds = milliseconds;
     this.normalize();
   }
 
+  /**
+   * Fixes overflowed values
+   * @returns {Duration}
+   */
   normalize() {
-    this.addSeconds(Math.floor(this._milliseconds / 1000));
-    this._milliseconds %= 1000;
-    this.addMinutes(Math.floor(this._seconds / 60));
-    this._seconds %= 60;
-    this.addHours(Math.floor(this._minutes / 60));
-    this._minutes %= 60;
+    this.addSeconds(Math.floor(this.#milliseconds / 1000));
+    this.#milliseconds %= 1000;
+    this.addMinutes(Math.floor(this.#seconds / 60));
+    this.#seconds %= 60;
+    this.addHours(Math.floor(this.#minutes / 60));
+    this.#minutes %= 60;
     return this;
   }
 
   /**
+   * Parses an ISO duration string into a Duration object
+   * @example "PT1H30M" => Duration(1, 30, 0, 0)
    * @param {string} isoDuration
    * @returns {Duration}
    */
@@ -49,6 +63,8 @@ export default class Duration {
   }
 
   /**
+   * Parses an ISO time string into a Duration object
+   * @example "T01:30:00" => Duration(1, 30, 0, 0)
    * @param {string} time
    * @returns {Duration}
    */
@@ -67,50 +83,53 @@ export default class Duration {
   }
 
   /**
-   * @param {Date} date
+   * @param milliseconds
    * @returns {Duration}
    */
-  static fromDate(date) {
-    return new Duration(
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-      date.getMilliseconds(),
-    );
-  }
-
   addMilliseconds(milliseconds) {
-    this._milliseconds += milliseconds;
-    if (this._milliseconds >= 1000) {
-      const seconds = Math.floor(this._milliseconds / 1000);
+    this.#milliseconds += milliseconds;
+    if (this.#milliseconds >= 1000) {
+      const seconds = Math.floor(this.#milliseconds / 1000);
       this.addSeconds(seconds);
-      this._milliseconds %= 1000;
+      this.#milliseconds %= 1000;
     }
     return this;
   }
 
+  /**
+   * @param seconds
+   * @returns {Duration}
+   */
   addSeconds(seconds) {
-    this._seconds += seconds;
-    if (this._seconds >= 60) {
-      const minutes = Math.floor(this._seconds / 60);
+    this.#seconds += seconds;
+    if (this.#seconds >= 60) {
+      const minutes = Math.floor(this.#seconds / 60);
       this.addMinutes(minutes);
-      this._seconds %= 60;
+      this.#seconds %= 60;
     }
     return this;
   }
 
+  /**
+   * @param minutes
+   * @returns {Duration}
+   */
   addMinutes(minutes) {
-    this._minutes += minutes;
-    if (this._minutes >= 60) {
-      const hours = Math.floor(this._minutes / 60);
+    this.#minutes += minutes;
+    if (this.#minutes >= 60) {
+      const hours = Math.floor(this.#minutes / 60);
       this.addHours(hours);
-      this._minutes %= 60;
+      this.#minutes %= 60;
     }
     return this;
   }
 
+  /**
+   * @param hours
+   * @returns {Duration}
+   */
   addHours(hours) {
-    this._hours += hours;
+    this.#hours += hours;
     return this;
   }
 
@@ -126,48 +145,63 @@ export default class Duration {
     return this;
   }
 
+  /**
+   * @param {Duration} other
+   * @returns {boolean}
+   */
   isAfter(other) {
     return this.toMilliseconds() > other.toMilliseconds();
   }
 
+  /**
+   * @param {Duration} other
+   * @returns {boolean}
+   */
   isBefore(other) {
     return this.toMilliseconds() < other.toMilliseconds();
   }
 
+  /**
+   * @param {Duration} other
+   * @returns {boolean}
+   */
   isSame(other) {
     return this.toMilliseconds() === other.toMilliseconds();
   }
 
+  /**
+   * @param {Duration} other
+   * @returns {boolean}
+   */
   isSameOrAfter(other) {
     return this.isSame(other) || this.isAfter(other);
   }
 
+  /**
+   * @param {Duration} other
+   * @returns {boolean}
+   */
   isSameOrBefore(other) {
     return this.isSame(other) || this.isBefore(other);
   }
 
+  /**
+   * @returns {Duration}
+   */
   clone() {
     return new Duration(
-      this._hours,
-      this._minutes,
-      this._seconds,
-      this._milliseconds,
+      this.#hours,
+      this.#minutes,
+      this.#seconds,
+      this.#milliseconds,
     );
-  }
-
-  get hours() {
-    return this._hours;
-  }
-
-  get minutes() {
-    return this._minutes;
   }
 
   /**
    * @returns {number}
    */
   toMinutes() {
-    return this._hours * 60 + this._minutes;
+    return this.#hours * 60 + this.#minutes;
   }
 
   /**
@@ -175,32 +209,62 @@ export default class Duration {
    */
   toMilliseconds() {
     return (
-      this._hours * 60 * 60 * 1000 +
-      this._minutes * 60 * 1000 +
-      this._seconds * 1000 +
-      this._milliseconds
+      this.#hours * 60 * 60 * 1000 +
+      this.#minutes * 60 * 1000 +
+      this.#seconds * 1000 +
+      this.#milliseconds
     );
   }
 
-  get seconds() {
-    return this._seconds;
-  }
-
-  get milliseconds() {
-    return this._milliseconds;
+  /**
+   * @returns {number}
+   */
+  get hours() {
+    return this.#hours;
   }
 
   /**
+   * @returns {number}
+   */
+  get minutes() {
+    return this.#minutes;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get seconds() {
+    return this.#seconds;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get milliseconds() {
+    return this.#milliseconds;
+  }
+
+  /**
+   * @param {number} value
+   * @param {"H" | "M" | "S"} label
+   * @returns {string}
+   */
+  #formatPart(value, label) {
+    return value > 0 ? `${value}${label}` : "";
+  }
+
+  /**
+   * Formats the duration as an ISO 8601 string
    * @returns {string}
    */
   toString() {
-    return `PT${this._hours}H${this._minutes}M${this._seconds}S`;
+    return `PT${this.#formatPart(this.#hours, "H")}${this.#formatPart(this.#minutes, "M")}${this.#formatPart(this.#seconds, "S")}`;
   }
 
   /**
    * @returns {string}
    */
   toLocaleTimeString() {
-    return `${this._hours.toString().padStart(2, "0")}:${this._minutes.toString().padStart(2, "0")}`;
+    return `${this.#hours.toString().padStart(2, "0")}:${this.#minutes.toString().padStart(2, "0")}`;
   }
 }
