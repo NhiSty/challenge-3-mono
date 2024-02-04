@@ -75,22 +75,11 @@ export default class PlanningModel {
   }
 
   /**
-   * @param {Duration} start
-   * @param {Duration} end
-   * @returns {boolean}
+   * @param {Date} startDate Start of the week
+   * @param {number} precision
+   * @returns {{columns: {columnName: string, column: {start: Duration, end: Duration, isAvailable: boolean, isBooked: boolean, booking: Booking}[]}[], timeSlots: number}}
    */
-  isThereBookingOverlappingOnTimeWindow(start, end) {
-    return this.bookings.some((booking) => {
-      const bookingStart = Duration.fromDate(booking.start);
-      // const bookingEnd = bookingStart.clone().addDuration(booking.duration);
-
-      return (
-        start.isSameOrBefore(bookingStart) && end.isSameOrAfter(bookingStart)
-      );
-    });
-  }
-
-  buildPlanning(precision = 30) {
+  buildPlanning(startDate, precision = 30) {
     const availabilitiesByWeekday = this._availabilitiesByWeekday();
     const columns = [];
 
@@ -121,11 +110,14 @@ export default class PlanningModel {
 
         const foundBooking = this.bookings.find((booking) => {
           const weekDay = booking.start.getDay();
-          if (weekDay !== toWeekdayIndex(key)) {
+          if (
+            weekDay !== toWeekdayIndex(key) ||
+            !booking.isSameDay(startDate)
+          ) {
             return false;
           }
 
-          return this.isThereBookingOverlappingOnTimeWindow(start, end);
+          return booking.isOverlapping(start, end);
         });
 
         const foundAvailability = availability.find((availability) => {
@@ -144,9 +136,15 @@ export default class PlanningModel {
       }
 
       columns.push({
-        columnName: key,
+        columnName: startDate.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        }),
         column,
       });
+
+      startDate.setDate(startDate.getDate() + 1);
     }
 
     return { columns, timeSlots };
