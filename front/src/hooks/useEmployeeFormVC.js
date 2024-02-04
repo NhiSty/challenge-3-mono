@@ -1,11 +1,11 @@
-import {useEmployeesVC} from "@/hooks/useEmployeesVC";
-import {useNavigate} from "react-router-dom";
+import { useEmployeesVC } from "@/hooks/useEmployeesVC";
+import { useNavigate } from "react-router-dom";
 
 export default function useEmployeeFormVC(mode) {
-    const methodsEmployee= useEmployeesVC();
-    const navigate = useNavigate();
+  const methodsEmployee = useEmployeesVC();
+  const navigate = useNavigate();
 
-    const submitForm = async (employee) => {
+  const submitForm = async (employee) => {
         if (mode === "creation") {
             await methodsEmployee.createEmployee(employee);
         } else if (mode === "edition") {
@@ -14,14 +14,14 @@ export default function useEmployeeFormVC(mode) {
         else {
             throw new Error("Mode unknown");
         }
-    }
+    };
 
-    const cancelForm = () => {
-        navigate("/manager/employees");
-    }
+  const cancelForm = () => {
+    navigate("/manager/employees");
+  };
 
-    return {
-        submitForm,
-        cancelForm
-    }
+  return {
+    submitForm,
+    cancelForm,
+  };
 }

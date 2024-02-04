@@ -7,8 +7,8 @@ export const ROLES = {
 }
 
 export default function useToken() {
-    const getToken = () => {
-        return  localStorage.getItem("token") || null;
+  const getToken = () => {
+    return  localStorage.getItem("token") || null;
     };
 
     const getRoles = () => {
@@ -16,15 +16,15 @@ export default function useToken() {
         if (!tokenString) {
             return [];
         }
-        const jwtDecoded = jwtDecode(tokenString);
-        return jwtDecoded?.roles;
-    }
+    const jwtDecoded = jwtDecode(tokenString);
+    return jwtDecoded?.roles;
+  }
 
-    const saveToken = (userToken) => {
-        localStorage.setItem("token", userToken);
-    };
+  const saveToken = (userToken) => {
+    localStorage.setItem("token", userToken);
+  };
 
-    const tokenIsValid = () => {
+  const tokenIsValid = () => {
         const token = getToken();
         if (!token) {
             return false;

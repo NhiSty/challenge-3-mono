@@ -1,11 +1,18 @@
 import toTranslate from "@/utils/translate";
 import { Plus } from "lucide-react";
 import EmployeesTable from "@components/employee/EmployeesTable";
-import {Button, Card, CardContent, CardHeader, Stack, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeesPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
     return (
         <Stack direction={'column'} spacing={2}>

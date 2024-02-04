@@ -58,10 +58,10 @@ export default class Duration {
       throw new Error(`Invalid ISO time: ${time}`);
     }
 
-    const hours = parseInt(match.groups.hours);
-    const minutes = parseInt(match.groups.minutes);
-    const seconds = parseInt(match.groups.seconds);
-    const milliseconds = parseInt(match.groups.milliseconds);
+    const hours = parseInt(match.groups.hours ?? 0);
+    const minutes = parseInt(match.groups.minutes ?? 0);
+    const seconds = parseInt(match.groups.seconds ?? 0);
+    const milliseconds = parseInt(match.groups.milliseconds ?? 0);
 
     return new Duration(hours, minutes, seconds, milliseconds);
   }
@@ -115,67 +115,35 @@ export default class Duration {
   }
 
   /**
-   * @param {Duration} other
-   * @returns {boolean}
+   * @param {Duration} duration
+   * @returns {Duration}
    */
-  isSameOrAfter(other) {
-    if (this.hours < other.hours) {
-      return false;
-    }
-    if (this.hours > other.hours) {
-      return true;
-    }
-    if (this.minutes < other.minutes) {
-      return false;
-    }
-    if (this.minutes > other.minutes) {
-      return true;
-    }
-    if (this.seconds < other.seconds) {
-      return false;
-    }
-    if (this.seconds > other.seconds) {
-      return true;
-    }
-    if (this.milliseconds < other.milliseconds) {
-      return false;
-    }
-    if (this.milliseconds > other.milliseconds) {
-      return true;
-    }
-    return true;
+  addDuration(duration) {
+    this.addHours(duration.hours);
+    this.addMinutes(duration.minutes);
+    this.addSeconds(duration.seconds);
+    this.addMilliseconds(duration.milliseconds);
+    return this;
   }
 
-  /**
-   * @param {Duration} other
-   * @returns {boolean}
-   */
+  isAfter(other) {
+    return this.toMilliseconds() > other.toMilliseconds();
+  }
+
+  isBefore(other) {
+    return this.toMilliseconds() < other.toMilliseconds();
+  }
+
+  isSame(other) {
+    return this.toMilliseconds() === other.toMilliseconds();
+  }
+
+  isSameOrAfter(other) {
+    return this.isSame(other) || this.isAfter(other);
+  }
+
   isSameOrBefore(other) {
-    if (this.hours > other.hours) {
-      return false;
-    }
-    if (this.hours < other.hours) {
-      return true;
-    }
-    if (this.minutes > other.minutes) {
-      return false;
-    }
-    if (this.minutes < other.minutes) {
-      return true;
-    }
-    if (this.seconds > other.seconds) {
-      return false;
-    }
-    if (this.seconds < other.seconds) {
-      return true;
-    }
-    if (this.milliseconds > other.milliseconds) {
-      return false;
-    }
-    if (this.milliseconds < other.milliseconds) {
-      return true;
-    }
-    return true;
+    return this.isSame(other) || this.isBefore(other);
   }
 
   clone() {

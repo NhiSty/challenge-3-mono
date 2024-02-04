@@ -1,38 +1,36 @@
-import {useEffect, useState} from "react";
-import {addEmployee, fetchAllEmployees, removeEmployee, updateEmployee as updateEmployeeCall} from "@/api/employee";
+import { useEffect, useState } from "react";
+import { addEmployee, fetchAllEmployees, removeEmployee , updateEmployee as updateEmployeeCall} from "@/api/employee";
 import {useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
 import toTranslate from "@/utils/translate";
 
 export function useEmployeesVC() {
-    const [employees, setEmployees] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        setIsLoading(true);
-        fetchAllEmployees()
-            .then((response => response.json()))
-            .then((data) => {
-                setEmployees(data['hydra:member'] || []);
-            })
-            .finally(
-                () => {
-                    setIsLoading(false);
-                }
-            );
-    }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    fetchAllEmployees()
+      .then((response) => response.json())
+      .then((data) => {
+        setEmployees(data["hydra:member"] || []);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
-    /**
-     * @param {Employee} employee
-     */
-    const createEmployee = (employee) => {
-        return addEmployee(employee)
+  /**
+   * @param {Employee} employee
+   */
+  const createEmployee = (employee) => {
+    return addEmployee(employee)
             .then((response) => {
                 setEmployees([
                     ...employees,
-                    response.data
-                ]);
+                    response.data]);
+    });
                 navigate("/manager/employees");
                 toast.success(toTranslate('Employé créé avec succès.'));
                 return response;
@@ -40,22 +38,21 @@ export function useEmployeesVC() {
             .catch((error) => {
                 toast.error(toTranslate('Erreur lors de la création de l\'employé.'));
                 console.log(error);
-            });
-    }
+  };
 
-    const deleteEmployee = (id) => {
-        removeEmployee(id)
-            .then((data) => {
-                console.log({data})
-                if (data.status !== 204) {
-                    return;
-                }
-                setEmployees(employees.filter((employee) => employee.id !== id));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+  const deleteEmployee = (id) => {
+    removeEmployee(id)
+      .then((data) => {
+        console.log({ data });
+        if (data.status !== 204) {
+          return;
+        }
+        setEmployees(employees.filter((employee) => employee.id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
     const updateEmployee = (id, employee) => {
         return updateEmployeeCall(id, employee)
@@ -75,18 +72,16 @@ export function useEmployeesVC() {
             });
     }
 
-    const getOneEmployeeById = (id) => {
-        return employees.find((employee) => employee.id === id);
-    }
+  const getOneEmployeeById = (id) => {
+    return employees.find((employee) => employee.id === id);
+  };
 
-
-    return {
-        employees,
-        createEmployee,
-        deleteEmployee,
-        getOneEmployeeById,
-        updateEmployee,
-        isLoading,
-    };
+  return {
+    employees,
+    createEmployee,
+    deleteEmployee,
+    getOneEmployeeById,
+    updateEmployee,
+    isLoading,
+  };
 }
-

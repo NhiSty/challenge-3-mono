@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} EmployeePayload
  * @property {number|undefined} id

@@ -28,6 +28,7 @@ export async function register(data) {
     lastName: data.lastName,
     age: data.age,
   });
+
   return response;
 }
 

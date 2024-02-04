@@ -1,6 +1,6 @@
 import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 
 export default function FirstnameControl() {
   const name = "firstname";
@@ -24,15 +24,15 @@ export default function FirstnameControl() {
     <>
       <div className="mb-4">
         <TextField
-            size={'small'}
-            fullWidth={true}
-            id={name}
-            name={name}
-            label={label}
-            placeholder="Jacqluine"
-            value={value}
-            onChange={onChange}
-            error={!!errorMessage}
+          size={"small"}
+          fullWidth={true}
+          id={name}
+          name={name}
+          label={label}
+          placeholder="Jacqluine"
+          value={value}
+          onChange={onChange}
+          error={!!errorMessage}
         />
         {
             !!errorMessage && (

@@ -1,7 +1,7 @@
 export const ISO_DURATION_REGEX =
   /^P(?:(?<years>[0-9]+)Y)?(?:(?<months>[0-9]+)M)?(?:(?<days>[0-9]+)D)?(?:T(?:(?<hours>[0-9]+)H)?(?:(?<minutes>[0-9]+)M)?(?:(?<seconds>[0-9.]+)S)?)?$/;
 export const ISO_TIME_REGEX =
-  /T?(?<hours>[0-9]+):(?<minutes>[0-9]+):(?<seconds>[0-9]+)\.(?<milliseconds>[0-9]+)[+Z]?/;
+  /T?(?<hours>[0-9]+):(?<minutes>[0-9]+):(?<seconds>[0-9]+)(?:\.(?<milliseconds>[0-9]+))?[+Z]?/;
 
 /**
  * @param {Date} date
