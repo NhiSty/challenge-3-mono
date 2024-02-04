@@ -3,12 +3,26 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Patch\EmployeePatch;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ApiResource(
+    operations: [
+        new GetCollection(normalizationContext: ['groups' => ['employee:read']]),
+        new HttpOperation(
+            method: Request::METHOD_PATCH,
+            uriTemplate: '/employees/{id}',
+            status: 201,
+            controller: EmployeePatch::class,
+            read: false,
+        )
+    ],
     normalizationContext: ['groups' => ['employee:read']],
     denormalizationContext: ['groups' => ['write:employee']],
 )]
