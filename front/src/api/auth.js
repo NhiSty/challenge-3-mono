@@ -1,17 +1,17 @@
-import { apiClient } from ".";
+import { apiPublicClient } from "@/api/index";
 
 export async function login(email, password) {
   try {
-    const response = await apiClient.post("/api/login", {
+    const response = await apiPublicClient.post("/api/login", {
       email,
       password,
     });
 
-    if (!response.ok) {
-      const errorMessage = await response.text();
+    if (response.status !== 200) {
+      const errorMessage = await response.text;
       throw new Error(errorMessage);
     }
-    const responseData = await response.json();
+    const responseData = await response.data;
 
     localStorage.setItem("token", responseData.token);
   } catch (error) {
@@ -20,7 +20,7 @@ export async function login(email, password) {
 }
 
 export async function register(data) {
-  const response = await apiClient.post("/users", {
+  return await apiPublicClient.post("/users", {
     email: data.email,
     password: data.password,
     username: data.username,
@@ -28,8 +28,6 @@ export async function register(data) {
     lastName: data.lastName,
     age: data.age,
   });
-
-  return response;
 }
 
 /**

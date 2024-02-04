@@ -6,25 +6,31 @@ import EmailControl from "@components/employee/EmployeeForm/Controls/EmailContro
 import toTranslate from "@/utils/translate";
 import { Button, Stack } from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
+import AgeControl from "@components/employee/EmployeeForm/Controls/AgeControl";
+import UsernameControl from "@components/employee/EmployeeForm/Controls/UsernameControl";
+import FranchiseControl from "@components/employee/EmployeeForm/Controls/FranchiseControl";
 
 export default function EmployeeForm(props) {
   const methods = useForm({
     defaultValues: props.defaultValues,
   });
 
-  const employeesFormMethods = useEmployeeFormVC(props.mode);
+  const { submitForm, cancelForm } = useEmployeeFormVC(props.mode);
 
   return (
     <Stack px={1}>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(employeesFormMethods)}>
+        <form onSubmit={methods.handleSubmit(submitForm)}>
           <FirstnameControl />
           <LastnameControl />
           <EmailControl />
+          <UsernameControl />
+          <AgeControl />
+          <FranchiseControl />
 
           <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
             <Button
-              onClick={() => employeesFormMethods.cancelForm()}
+              onClick={cancelForm}
               variant={"outlined"}
               color={"inherit"}
             >

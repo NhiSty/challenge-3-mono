@@ -29,12 +29,25 @@ class UserFixtures extends Fixture
 
         $manager->persist($user);
 
+        $admin = new User();
+        $admin
+            ->setEmail('admin@gmail.com')
+            ->setPassword($pwd)
+            ->setRoles(['ROLE_ADMIN'])
+            ->setFirstName($faker->firstName())
+            ->setLastName($faker->lastName())
+            ->setAge($faker->numberBetween(18, 99))
+            ->setBiography($faker->text(100))
+            ->setUsername($faker->userName());
+
+        $manager->persist($admin);
+
         for($i=0; $i<10; $i++){
             $user = new User();
             $user
                 ->setEmail($faker->email())
                 ->setPassword($pwd)
-                ->setRoles($faker->randomElement([['ROLE_USER'], ['ROLE_ADMIN']]))
+                ->setRoles($faker->randomElement([['ROLE_USER'], ['ROLE_MANAGER']]))
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
                 ->setAge($faker->numberBetween(18, 99))

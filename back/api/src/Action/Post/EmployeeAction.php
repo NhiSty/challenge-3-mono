@@ -4,6 +4,7 @@ namespace App\Action\Post;
 
 use App\Controller\Mailer;
 use App\Entity\Employee;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\FranchiseRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,10 +33,10 @@ class EmployeeAction extends AbstractController
 
         $data = json_decode($req->getContent(), true);
         $email = $data['email'];
-        $pwd = $data['password'];
+        $pwd = 'test123!';
         //$role = $data['role'];
-        $firstName = $data['firstName'];
-        $lastName = $data['lastName'];
+        $firstName = $data['firstname'];
+        $lastName = $data['lastname'];
         $age = $data['age'];
         $username = $data['username'];
         $franchise = $data['franchise'];
@@ -61,7 +62,7 @@ class EmployeeAction extends AbstractController
         $employee = new Employee();
         $employee->setUserId($user);
         $employee->setFranchiseId($franchise);
-        $employee->setRole('ROLE_EMPLOYEE');
+        $employee->setRole(Role::EMPLOYEE);
 
         $this->em->persist($employee);
         $this->em->persist($user);

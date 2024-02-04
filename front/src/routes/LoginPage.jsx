@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import toTranslate from "@/utils/translate.js";
+import useToken, { ROLES } from "@/hooks/useToken";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { roles } = useToken();
   const {
     handleSubmit,
     register,
@@ -32,7 +34,11 @@ export default function LoginPage() {
 
     try {
       await login(data.email, data.password);
-      navigate("/");
+      if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.MANAGER)) {
+        navigate("/manager/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       setLoading(false);
       console.error(error);

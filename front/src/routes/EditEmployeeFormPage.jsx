@@ -5,6 +5,7 @@ import toTranslate from "@/utils/translate";
 
 export default function EditEmployeeFormPage() {
   const { state } = useLocation();
+  const franchiseId = state["franchise_id"].split("franchises/")[1];
 
   return (
     <>
@@ -20,9 +21,13 @@ export default function EditEmployeeFormPage() {
           <EmployeeForm
             mode={"edition"}
             defaultValues={{
-              firstname: state.firstname,
-              lastname: state.lastname,
-              email: state.email,
+              id: state.id,
+              firstname: state["user_id"].firstName,
+              lastname: state["user_id"].lastName,
+              email: state["user_id"].email,
+              username: state["user_id"].username,
+              age: state["user_id"].age,
+              franchise: parseInt(franchiseId),
             }}
           />
         </CardContent>

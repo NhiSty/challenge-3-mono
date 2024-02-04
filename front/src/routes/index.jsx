@@ -17,6 +17,7 @@ import EditAccountPage from "@routes/EditAccountPage";
 import SearchPage from "@routes/SearchPage";
 import UserPage from "@routes/UserPage";
 import PlanningPage from "@routes/PlanningPage";
+import { ROLES } from "@/hooks/useToken";
 
 const router = createBrowserRouter([
   {
@@ -56,11 +57,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <AccountPage />,
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <AccountPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "edit",
-        element: <EditAccountPage />,
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <EditAccountPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -72,7 +81,7 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <DashboardPage />
           </ProtectedRoute>
         ),
@@ -80,7 +89,7 @@ const router = createBrowserRouter([
       {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
             <CompanyPage />
           </ProtectedRoute>
         ),
@@ -91,7 +100,7 @@ const router = createBrowserRouter([
           {
             path: "",
             element: (
-              <ProtectedRoute roleAllowed={["manager"]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EmployeesPage />
               </ProtectedRoute>
             ),
@@ -99,7 +108,7 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: (
-              <ProtectedRoute roleAllowed={["manager"]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <NewEmployeeFormPage />
               </ProtectedRoute>
             ),
@@ -107,7 +116,7 @@ const router = createBrowserRouter([
           {
             path: "edit/:id",
             element: (
-              <ProtectedRoute roleAllowed={["manager"]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EditEmployeeFormPage />
               </ProtectedRoute>
             ),
@@ -117,7 +126,7 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <ServicesPage />
           </ProtectedRoute>
         ),

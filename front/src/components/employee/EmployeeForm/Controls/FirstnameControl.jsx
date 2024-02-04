@@ -29,11 +29,14 @@ export default function FirstnameControl() {
           id={name}
           name={name}
           label={label}
-          placeholder="Firstname"
+          placeholder="Jacqueline"
           value={value}
           onChange={onChange}
           error={!!errorMessage}
         />
+        {!!errorMessage && (
+          <div className="text-red-500 text-xs mt-1">{errorMessage}</div>
+        )}
       </div>
     </>
   );
