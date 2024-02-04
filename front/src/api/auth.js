@@ -1,4 +1,4 @@
-import {apiPublicClient} from "@/api/index";
+import { apiPublicClient } from "@/api/index";
 
 export async function login(email, password) {
   try {
