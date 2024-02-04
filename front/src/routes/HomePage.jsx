@@ -1,4 +1,5 @@
 import toTranslate from "@/utils/translate.js";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -22,7 +23,9 @@ export default function HomePage() {
           {toTranslate("Avec Rent-A-Dream, transformez vos rêves en réalité !")}
         </p>
         <p className="text-lg underline">
-          {toTranslate("Ne cherchez plus, CHOISISSEZ !")}
+          <Link to={"persons-to-rent"}>
+            {toTranslate("Ne cherchez plus, CHOISISSEZ !")}
+          </Link>
         </p>
       </div>
 

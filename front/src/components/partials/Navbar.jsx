@@ -12,6 +12,10 @@ const links = [
     to: "/planning",
   },
   {
+    text: "Rechercher",
+    to: "/search",
+  },
+  {
     text: "Dashboard",
     to: "/dashboard",
   },
@@ -59,7 +63,7 @@ export function Navbar() {
         </div>
 
         <div className="navbar-center lg:navbar-start gap-2">
-          <Link className="lg:btn lg:btn-ghost" to={"/"}>
+          <Link className="lg:btn lg:btn-ghost" to="/">
             Rent-A-Dream
           </Link>
 

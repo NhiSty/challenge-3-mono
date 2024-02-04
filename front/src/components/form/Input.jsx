@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 export const Input = forwardRef(
-  ({ id, label, error, className, ...props }, ref) => {
+  ({ id, label, error, className, icon, ...props }, ref) => {
     return (
       <div className={classNames("relative mb-6 group", className)}>
         {label && (
@@ -36,7 +36,7 @@ export const Input = forwardRef(
                 : "group-focus-within:border-purple-500",
 
               {
-                "pl-10": props.icon,
+                "pl-10": icon,
               },
             )}
           />
@@ -48,7 +48,7 @@ export const Input = forwardRef(
             )}
             aria-hidden="true"
           >
-            {props.icon}
+            {icon}
           </div>
         </div>
         {error && (

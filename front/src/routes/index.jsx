@@ -10,6 +10,14 @@ import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
 import ServicesPage from "@routes/ServicesPage";
+import NewEmployeeFormPage from "@routes/NewEmployeeFormPage";
+import EditEmployeeFormPage from "@routes/EditEmployeeFormPage";
+import AccountPage from "@routes/AccountPage";
+import EditAccountPage from "@routes/EditAccountPage";
+import SearchPage from "@routes/SearchPage";
+import UserPage from "@routes/UserPage";
+import PlanningPage from "@routes/PlanningPage";
+import { ROLES } from "@/hooks/useToken";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +37,40 @@ const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
+      {
+        path: "search",
+        element: <SearchPage />,
+      },
+      {
+        path: "user/:userId",
+        element: <UserPage />,
+      },
+      {
+        path: "planning",
+        element: <PlanningPage />,
+      },
+    ],
+  },
+  {
+    path: "/account",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <AccountPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "edit",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <EditAccountPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
@@ -39,7 +81,7 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <DashboardPage />
           </ProtectedRoute>
         ),
@@ -47,23 +89,44 @@ const router = createBrowserRouter([
       {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
             <CompanyPage />
           </ProtectedRoute>
         ),
       },
       {
         path: "employees",
-        element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
-            <EmployeesPage />
-          </ProtectedRoute>
-        ),
+        children: [
+          {
+            path: "",
+            element: (
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+                <EmployeesPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "new",
+            element: (
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+                <NewEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "edit/:id",
+            element: (
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+                <EditEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
         path: "services",
         element: (
-          <ProtectedRoute roleAllowed={["manager"]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <ServicesPage />
           </ProtectedRoute>
         ),

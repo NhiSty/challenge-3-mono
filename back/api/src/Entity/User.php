@@ -2,15 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Action\Post\EmployeeAction;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -20,49 +27,60 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: '`user`')]
 #[ApiResource(
     operations: [
+        new GetCollection(normalizationContext: ['groups' => ['read-user']]),
         new Get(normalizationContext: ['groups' => ['read-user']]),
         new Post(denormalizationContext: ['groups' => ['create-user']]),
+        new HttpOperation(
+            method: Request::METHOD_POST,
+            uriTemplate: '/employee',
+            controller: EmployeeAction::class,
+            denormalizationContext: ['groups' => []],
+            read: false,),
         new Patch(denormalizationContext: ['groups' => ['update-user']]),
     ],
     normalizationContext: ['groups' => ['read-user', 'read-user-mutation']],
 )]
+#[ApiFilter(RangeFilter::class, properties: ["age"])]
+#[ApiFilter(SearchFilter::class, properties: ["username" => "ipartial", "firstName" => "ipartial"])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read-user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email()]
-    #[Groups(['create-user'])]
+    #[Assert\Email]
+    #[Groups(['create-user', 'employee:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['employee:read'])]
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var ?string The hashed password
      */
     #[ORM\Column]
     #[Groups(['create-user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
-    #[Groups(['create-user'])]
-    private ?string $age = null;
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
+    private ?int $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
@@ -76,10 +94,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Override::class, orphanRemoval: true)]
     private Collection $overrides;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class, orphanRemoval: true)]
+    #[Groups(['employee:read'])]
     private Collection $companies;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Review::class, orphanRemoval: true)]

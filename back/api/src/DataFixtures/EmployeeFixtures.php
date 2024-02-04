@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Employee;
 use App\Entity\Franchise;
+use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -19,14 +20,21 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface
         $franchises = $manager->getRepository(Franchise::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
 
-        for($i=0; $i<10; $i++){
+        for($i=0; $i<9; $i++){
             $object = (new Employee())
-                ->setRole($faker->randomElement(['CEO', 'EMPLOYEE']))
+                ->setRole($faker->randomElement([Role::EMPLOYEE, Role::MANAGER]))
                 ->setFranchiseId($franchises[$i])
                 ->setUserId($users[$i]);
 
             $manager->persist($object);
         }
+
+        $ceo = (new Employee())
+            ->setRole(Role::CEO)
+            ->setFranchiseId($franchises[9])
+            ->setUserId($users[9]);
+
+        $manager->persist($ceo);
 
         $manager->flush();
     }
