@@ -19,9 +19,17 @@ export default function useFranchiseVC() {
     label: franchise.franchiseName,
   }));
 
+  const getLabel = (value) => {
+    const franchise = franchiseOptions.find(
+        (franchise) => franchise.value === value,
+    );
+    return franchise ? franchise.label : "";
+  };
+
   return {
     franchises,
     franchiseOptions,
     isLoading,
+    getLabel,
   };
 }

@@ -29,7 +29,7 @@ export default function FirstnameControl() {
           id={name}
           name={name}
           label={label}
-          placeholder="Jacqluine"
+          placeholder="Jacqueline"
           value={value}
           onChange={onChange}
           error={!!errorMessage}

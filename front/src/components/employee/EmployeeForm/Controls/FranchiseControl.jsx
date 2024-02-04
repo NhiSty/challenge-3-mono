@@ -22,17 +22,10 @@ export default function FranchiseControl() {
     defaultValue: "",
   });
 
-  const { franchiseOptions, isLoading } = useFranchiseVC();
+  const { franchiseOptions, isLoading, getLabel } = useFranchiseVC();
 
   const handleChange = (event, newValue) => {
     onChange(newValue.value);
-  };
-
-  const getLabel = (value) => {
-    const franchise = franchiseOptions.find(
-      (franchise) => franchise.value === value,
-    );
-    return franchise ? franchise.label : "";
   };
 
   return (

@@ -30,7 +30,7 @@ export default function EmployeeForm(props) {
 
           <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
             <Button
-              onClick={() => cancelForm()}
+              onClick={cancelForm}
               variant={"outlined"}
               color={"inherit"}
             >
