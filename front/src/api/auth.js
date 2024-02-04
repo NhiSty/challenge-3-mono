@@ -1,4 +1,4 @@
-import { apiPublicClient } from "@/api/index";
+import {apiPublicClient} from "@/api/index";
 
 export async function login(email, password) {
   try {
@@ -7,7 +7,7 @@ export async function login(email, password) {
       password,
     });
 
-    if (!response.status === 200) {
+    if (response.status !== 200) {
       const errorMessage = await response.text;
       throw new Error(errorMessage);
     }
@@ -20,7 +20,7 @@ export async function login(email, password) {
 }
 
 export async function register(data) {
-  const response = await apiPublicClient.post("/users", {
+  return await apiPublicClient.post("/users", {
     email: data.email,
     password: data.password,
     username: data.username,
@@ -28,8 +28,6 @@ export async function register(data) {
     lastName: data.lastName,
     age: data.age,
   });
-
-  return response;
 }
 
 /**
