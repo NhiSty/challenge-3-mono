@@ -1,6 +1,6 @@
 import { useController, useFormContext } from "react-hook-form";
 import toTranslate from "@/utils/translate";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 
 export default function AgeControl() {
   const name = "age";
@@ -29,32 +29,26 @@ export default function AgeControl() {
     <>
       <div className="mb-4">
         <TextField
-            size={'small'}
-            fullWidth={true}
-            id={name}
-            name={name}
-            label={label}
-            placeholder={label}
-            value={value}
-            onChange={onChange}
-            error={!!errored}
-            type={'number'}
+          size={"small"}
+          fullWidth={true}
+          id={name}
+          name={name}
+          label={label}
+          placeholder={label}
+          value={value}
+          onChange={onChange}
+          error={!!errored}
+          type={"number"}
         />
-        {
-            (errored && error.type === 'required') && (
-                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('is required')}`}</div>
-            )
-        }
-        {
-            (errored && error.type === 'positiveNumber') && (
-                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('must be positive')}`}</div>
-            )
-        }
-        {
-            (errored && error.type === 'majorNumber') && (
-                <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate('must be greater than 18')}`}</div>
-            )
-        }
+        {errored && error.type === "required" && (
+          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("is required")}`}</div>
+        )}
+        {errored && error.type === "positiveNumber" && (
+          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("must be positive")}`}</div>
+        )}
+        {errored && error.type === "majorNumber" && (
+          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("must be greater than 18")}`}</div>
+        )}
       </div>
     </>
   );

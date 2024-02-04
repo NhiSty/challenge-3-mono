@@ -15,7 +15,7 @@ export default function EmployeeForm(props) {
     defaultValues: props.defaultValues,
   });
 
-  const { submitForm, cancelForm} = useEmployeeFormVC(props.mode);
+  const { submitForm, cancelForm } = useEmployeeFormVC(props.mode);
 
   return (
     <Stack px={1}>
@@ -24,9 +24,9 @@ export default function EmployeeForm(props) {
           <FirstnameControl />
           <LastnameControl />
           <EmailControl />
-            <UsernameControl />
-            <AgeControl />
-            <FranchiseControl />
+          <UsernameControl />
+          <AgeControl />
+          <FranchiseControl />
 
           <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
             <Button

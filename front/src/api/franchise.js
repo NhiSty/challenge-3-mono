@@ -1,5 +1,5 @@
-import {apiClient} from "@/api/index";
+import { apiClient } from "@/api/index";
 
 export function getFranchises() {
-    return apiClient.get('/franchises');
+  return apiClient.get("/franchises");
 }

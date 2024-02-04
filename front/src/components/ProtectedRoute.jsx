@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import useToken, {ROLES} from "@/hooks/useToken";
+import useToken, { ROLES } from "@/hooks/useToken";
 
 export default function ProtectedRoute({ children, roleAllowed }) {
   const { isValid, roles, removeToken } = useToken();
@@ -8,7 +8,8 @@ export default function ProtectedRoute({ children, roleAllowed }) {
 
   // Todo faire en sorte de récupérer le rôle de l'user via son token (jwt) et s'il match avec le rôle passé en props alors c'est good
   // Todo donc il faut aussi faire un hook pour récupérer le token de l'utilisateur et le décoder pour récupérer les données de l'user
-  const isAuthorized = isValid && roles.some((role) => roleAllowed.includes(role));
+  const isAuthorized =
+    isValid && roles.some((role) => roleAllowed.includes(role));
 
   if (!isConnected) {
     removeToken();
@@ -19,7 +20,7 @@ export default function ProtectedRoute({ children, roleAllowed }) {
     if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.MANAGER)) {
       return <Navigate to="/manager/dashboard" />;
     }
-    
+
     return <Navigate to="/" />;
   }
 

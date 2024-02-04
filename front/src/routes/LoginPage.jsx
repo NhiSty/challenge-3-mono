@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import toTranslate from "@/utils/translate.js";
-import useToken, {ROLES} from "@/hooks/useToken";
+import useToken, { ROLES } from "@/hooks/useToken";
 
 export default function LoginPage() {
   const navigate = useNavigate();
