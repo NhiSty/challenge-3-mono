@@ -1,4 +1,21 @@
 {
-    "translation": "traduction",
-    "Ce soir je mange une pastèque" : "Tonight I eat a watermelon"
+  "fr": {
+    "tiredOfSolitudeAndConfinement": "Marre de la solitude et du confinement ?",
+    "feelingLonely" : "Vous vous sentez seul ?",
+    "dontHaveAnyoneToShareYourPassionsAndDiscussionsWith": "Vous n'avez personne avec qui partager vos passions et vos discussions ?",
+    "lookingForNewExperiences": "Vous cherchez de nouvelles expériences ?",
+    "turnYourDreamsIntoRealityWithRentADream": "Réalisez vos rêves avec Rent-A-Dream !",
+    "lookNoFurtherChoose": "Ne cherchez plus, CHOISISSEZ !"
+  },
+  "en": {
+    "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
+    "feelingLonely" : "Feeling lonely?",
+    "dontHaveAnyoneToShareYourPassionsAndDiscussionsWith": "Don't have anyone to share your passions and discussions with?",
+    "lookingForNewExperiences": "Looking for new experiences?",
+    "turnYourDreamsIntoRealityWithRentADream": "Turn your dreams into reality with Rent-A-Dream!",
+    "lookNoFurtherChoose": "Look no further, CHOOSE!"
+  }
 }
+
+
+

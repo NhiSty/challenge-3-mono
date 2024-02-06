@@ -4,7 +4,7 @@ import ErrorPage from "@routes/ErrorPage.jsx";
 import Layout from "@components/partials/Layout.jsx";
 import RegisterPage from "@routes/RegisterPage.jsx";
 import LoginPage from "@routes/LoginPage.jsx";
-import ProtectedRoute from "@components/ProtectedRoute";
+import ProtectedRoute from "@components/partials/ProtectedRoute";
 import DashboardPage from "@routes/DashboardPage";
 import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";

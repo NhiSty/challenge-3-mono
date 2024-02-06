@@ -1,18 +1,18 @@
 import { LayoutDashboard, LogIn, LogOut, User, UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import toTranslate from "@/utils/translate.js";
+import useToken from "@/hooks/useToken";
 
 export function NavBarButtons() {
   const navigate = useNavigate();
+  const { isValid: isConnected, removeToken } = useToken();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    removeToken();
     navigate("/");
   };
 
-  const isConnected = localStorage.getItem("token");
-
-  if (isConnected !== null) {
+  if (isConnected) {
     return (
       <div className="dropdown dropdown-end">
         <button type="button" role="menu" tabIndex={0}>
