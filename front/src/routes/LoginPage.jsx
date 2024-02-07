@@ -10,15 +10,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import toTranslate from "@/utils/translate.js";
 import useToken, { ROLES } from "@/hooks/useToken";
-import {useTranslation} from "react-i18next";
 
 export default function LoginPage() {
-  const { t } = useTranslation();
-
-  const test = t('Welcome to React');
-
-
-  console.log(test)
   const navigate = useNavigate();
   const { roles } = useToken();
   const {
