@@ -1,5 +1,5 @@
 import { MenuIcon } from "lucide-react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavBarButtons } from "@components/partials/NavBarButton.jsx";
 import useToken from "@/hooks/useToken";
 import SwitchLanguage from "@components/partials/SwitchLanguage";

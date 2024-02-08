@@ -2,14 +2,15 @@ import { useForm } from "react-hook-form";
 import { Input } from "@components/form/Input";
 import { Loader2, Lock, User, UserPlus } from "lucide-react";
 import Button from "@components/base/Button";
-import toTranslate from "@/utils/translate";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { updateUser } from "@/api/user";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EditAccountForm({ user }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const {
     handleSubmit,
@@ -97,7 +98,7 @@ export default function EditAccountForm({ user }) {
           disabled={!isValid || isLoading}
           icon={isLoading ? Loader2 : UserPlus}
         >
-          {toTranslate("Mettre à jour")}
+          {t("update")}
         </Button>
       </div>
     </form>

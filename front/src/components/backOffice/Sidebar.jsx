@@ -1,9 +1,11 @@
 import { LayoutDashboard, Building2, Users, BookOpenText } from "lucide-react";
 import { Link } from "react-router-dom";
-import toTranslate from "@/utils/translate";
 import PropTypes from "prop-types";
+import { useTranslation } from "@/translation/useTranslation";
+import SwitchLanguage from "@components/partials/SwitchLanguage";
 
 export default function Sidebar({ children }) {
+  const { t } = useTranslation();
   return (
     <>
       <div className="drawer sm:drawer-open">
@@ -30,30 +32,34 @@ export default function Sidebar({ children }) {
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/dashboard"}>
                 <LayoutDashboard />
-                {toTranslate("Dashboard")}
+                {t("dashboard")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/company"}>
                 <Building2 />
-                {toTranslate("My company")}
+                {t("myCompany")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/employees"}>
                 <Users />
-                {toTranslate("Employees")}
+                {t("employees")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/services"}>
                 <BookOpenText />
-                {toTranslate("Service")}
+                {t("service")}
               </Link>
             </li>
+
+            <div className={"px-4 py-2"}>
+              <SwitchLanguage />
+            </div>
           </ul>
         </div>
       </div>

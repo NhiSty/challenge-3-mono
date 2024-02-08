@@ -13,6 +13,7 @@ export const TranslationContext = createContext({
 });
 
 const TranslationProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true);
   const [translations, setTranslations] = useState(null);
   const [locale, setLocale] = useStorage(
     "locale",
@@ -21,11 +22,19 @@ const TranslationProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    apiPublicClient.get("/translations").then((response) => {
-      const translations = response.data;
-      setTranslations(translations);
-    });
+    setLoading(true);
+    apiPublicClient
+      .get("/translations")
+      .then((response) => {
+        const translations = response.data;
+        setTranslations(translations);
+      })
+      .finally(() => setLoading(false));
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <TranslationContext.Provider value={{ translations, locale, setLocale }}>

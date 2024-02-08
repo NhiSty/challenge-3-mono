@@ -3,7 +3,7 @@ import { Switch } from "@mui/material";
 import { useTranslation } from "@/translation/useTranslation";
 
 export default function SwitchLanguage() {
-  const { setLocale, locale, t } = useTranslation();
+  const { setLocale, locale } = useTranslation();
 
   return (
     <div className="flex items-center">

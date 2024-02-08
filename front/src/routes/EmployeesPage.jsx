@@ -1,4 +1,3 @@
-import toTranslate from "@/utils/translate";
 import { Plus } from "lucide-react";
 import EmployeesTable from "@components/employee/EmployeesTable";
 import {
@@ -10,9 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EmployeesPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Stack direction={"column"} spacing={2}>
@@ -23,13 +24,11 @@ export default function EmployeesPage() {
           onClick={() => navigate("/manager/employees/new")}
         >
           <Plus size={20} />
-          {toTranslate("New employee")}
+          {t("newEmployee")}
         </Button>
       </Stack>
       <Card>
-        <CardHeader
-          title={<Typography>{toTranslate("Employees")}</Typography>}
-        />
+        <CardHeader title={<Typography>{t("employees")}</Typography>} />
         <CardContent>
           <Stack
             direction={"row"}
@@ -38,7 +37,7 @@ export default function EmployeesPage() {
             width={"100%"}
             mb={4}
           >
-            <Typography variant={"h5"}>{toTranslate("Employees")}</Typography>
+            <Typography variant={"h5"}>{t("employees")}</Typography>
           </Stack>
           <EmployeesTable />
         </CardContent>

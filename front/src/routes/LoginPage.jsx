@@ -8,11 +8,12 @@ import { login } from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import toTranslate from "@/utils/translate.js";
 import useToken, { ROLES } from "@/hooks/useToken";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { roles } = useToken();
   const {
     handleSubmit,
@@ -55,7 +56,7 @@ export default function LoginPage() {
       >
         <Input
           id="email"
-          label="Email"
+          label={t("email")}
           icon={<User className="w-5 h-5" />}
           error={errors.email?.message}
           {...register("email", { required: "Email address is required" })}
@@ -63,7 +64,7 @@ export default function LoginPage() {
 
         <Input
           id="password"
-          label="Password"
+          label={t("password")}
           type="password"
           icon={<Lock className="w-5 h-5" />}
           error={errors.password?.message}
@@ -78,16 +79,16 @@ export default function LoginPage() {
             icon={loading ? Loader2 : LogIn}
             iconClassName={classNames({ "animate-spin": loading })}
           >
-            {toTranslate("Se connecter")}
+            {t("login")}
           </Button>
         </div>
       </form>
 
       <div>
         <p className="mt-3 font-bold text-center">
-          {toTranslate("Don't have an account ? ")}
+          {t("dontHaveAnAccount")}
           <a className="text-primary" href="/register">
-            {toTranslate("S'inscrire")}
+            {t("signUp")}
           </a>
         </p>
       </div>

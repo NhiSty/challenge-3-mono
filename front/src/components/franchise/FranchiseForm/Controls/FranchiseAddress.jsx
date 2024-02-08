@@ -1,19 +1,18 @@
 import { Input } from "@components/form/Input";
-import toTranslate from "@/utils/translate";
 import { useController, useFormContext } from "react-hook-form";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function FranchiseAddress() {
+  const { t } = useTranslation();
   // todo : bien adapter, là c'est juste pour la démo
   const {
     formState: { errors },
   } = useFormContext();
   const name = "franchise_address";
-  const label = toTranslate("Adresse de la franchise");
+  const label = t("franchiseAddress");
   const error = errors[name];
   const requiredErrorMessage =
-    error?.type === "required"
-      ? `${label} ${toTranslate("est obligatoire")}`
-      : "";
+    error?.type === "required" ? `${label} ${t("isRequired")}` : "";
 
   const {
     field: { value, onChange },
