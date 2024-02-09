@@ -39,8 +39,11 @@ class CompanyDemandDecisionAction extends AbstractController
             $company = new Company();
             $company->setStatus(true);
             $company->setCompanyName($companyDemand->getCompanyName());
-            //$company->setKbis($companyDemand->getKbis());
+            $company->setKbis($companyDemand->getKbis());
             $company->setOwner($companyDemand->getAuthor());
+            $company->setLatitude($companyDemand->getLatitude());
+            $company->setLongitude($companyDemand->getLongitude());
+            $company->setAddress($companyDemand->getAddress());
             $user = $companyDemand->getAuthor();
             $user->setRoles([Role::CEO->value]);
 

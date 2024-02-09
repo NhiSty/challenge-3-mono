@@ -59,7 +59,7 @@ class Mailer extends AbstractController
         $this->mailer->send($email);
     }
 
-    public function sendCompanyDemandEmail(CompanyDemand $companyDemand): void
+    public function sendCompanyDemandEmail(CompanyDemand $companyDemand, string $pwd, string $email): void
     {
         $firstName = $companyDemand->getAuthor()->getFirstName();
         $lastName = $companyDemand->getAuthor()->getLastName();
@@ -71,6 +71,11 @@ class Mailer extends AbstractController
         <p>Bonjour {$firstName} {$lastName},</p>
 
         <p>Votre demande de création pour la compagnie {$companyName} a bien été reçue. Nous vous remercions pour votre confiance.</p>
+
+        <p>Votre compte a aussi été créé avec succès. Voici vos identifiants :</p>
+
+        <p>Email : {$email}</p>
+        <p>Mot de passe : {$pwd}</p>
 
         <p>Nous vous tiendrons informé de l'avancement de votre demande dans les plus brefs délais.</p>
 

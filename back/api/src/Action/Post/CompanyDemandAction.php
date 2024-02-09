@@ -33,7 +33,10 @@ class CompanyDemandAction extends AbstractController
         $lastname = $data['lastname'];
         $email = $data['email'];
         $companyName = $data['companyName'];
-        //$kbis = $data['kbis'] ?? null;
+        $kbis = $data['kbis'];
+        $latitude = $data['latitude'];
+        $longitude = $data['longitude'];
+        $address = $data['address'];
         $pwd = 'test123!'; //$randomStringGenerator->generateRandomString(16);
 
         $useExist = $userRepository->findOneBy(['email' => $email]);
@@ -59,13 +62,17 @@ class CompanyDemandAction extends AbstractController
 
         $companyDemand = new CompanyDemand();
         $companyDemand->setCompanyName($companyName);
-        //$companyDemand->setKbis($kbis);
+        $companyDemand->setKbis($kbis);
         $companyDemand->setStatus(DemandStatus::PENDING);
         $companyDemand->setAuthor($user);
+        $companyDemand->setLatitude($latitude);
+        $companyDemand->setLongitude($longitude);
+        $companyDemand->setAddress($address);
+
 
         $this->em->persist($companyDemand);
 
-        $mailer->sendCompanyDemandEmail($companyDemand);
+        $mailer->sendCompanyDemandEmail($companyDemand, $pwd, $email);
 
         $this->em->flush();
 

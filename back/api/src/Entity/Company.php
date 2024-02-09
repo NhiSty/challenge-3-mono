@@ -23,7 +23,7 @@ class Company
     #[ORM\Column]
     private ?bool $status = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $kbis = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'companies')]
@@ -34,6 +34,15 @@ class Company
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class, orphanRemoval: true)]
     private Collection $franchises;
+
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longitude = null;
 
     public function __construct()
     {
@@ -150,6 +159,42 @@ class Company
                 $franchise->setCompanyId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): static
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

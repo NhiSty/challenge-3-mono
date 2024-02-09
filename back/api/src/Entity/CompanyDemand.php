@@ -78,7 +78,7 @@ class CompanyDemand
     #[Groups(['company_demand:read'])]
     private ?string $companyName = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[ORM\Column]
     #[Groups(['company_demand:read'])]
     private $kbis = null;
 
@@ -90,6 +90,15 @@ class CompanyDemand
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['company_demand:read'])]
     private ?User $author = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column]
+    private ?float $latitude = null;
+
+    #[ORM\Column]
+    private ?float $longitude = null;
 
     public function getId(): ?int
     {
@@ -140,6 +149,42 @@ class CompanyDemand
     public function setAuthor(User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): static
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }
