@@ -19,6 +19,7 @@ import UserPage from "@routes/UserPage";
 import PlanningPage from "@routes/PlanningPage";
 import { ROLES } from "@/hooks/useToken";
 import NewCompanyFormPage from "@routes/NewCompanyFormPage";
+import PublicRoute from "@components/PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: "new-company",
-        element: <NewCompanyFormPage />,
+        element: (
+            <PublicRoute>
+              <NewCompanyFormPage />
+            </PublicRoute>
+        ),
       }
     ],
   },
