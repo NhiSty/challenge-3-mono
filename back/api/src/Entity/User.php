@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email]
-    #[Groups(['create-user', 'employee:read'])]
+    #[Groups(['create-user', 'employee:read', 'company_demand:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -71,11 +71,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read', 'company_demand:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read', 'company_demand:read'])]
     private ?string $lastName = null;
 
     #[ORM\Column(nullable: true)]

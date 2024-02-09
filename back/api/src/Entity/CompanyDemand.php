@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Post\CompanyDemandDecisionAction;
 use App\Action\Post\CompanyDemandAction;
@@ -11,10 +12,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
 use ApiPlatform\OpenApi\Model;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyDemandRepository::class)]
 #[ApiResource(
     operations: [
+        new GetCollection(normalizationContext: ['groups' => ['company_demand:read']]),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/company_demands',
@@ -68,19 +71,24 @@ class CompanyDemand
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['company_demand:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company_demand:read'])]
     private ?string $companyName = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[Groups(['company_demand:read'])]
     private $kbis = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company_demand:read'])]
     private ?DemandStatus $status = null;
 
     #[ORM\OneToOne(inversedBy: 'companyDemand', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['company_demand:read'])]
     private ?User $author = null;
 
     public function getId(): ?int
