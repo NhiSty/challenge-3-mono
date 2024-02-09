@@ -10,19 +10,19 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class TranslationProvider implements ProviderInterface
 {
-    private const TRANSLATION_PATH =  '/public/uploads/translation/translation.json';
+    public const TRANSLATION_PATH =  '/public/uploads/translation/translation.json';
 
     public function __construct(
         protected KernelInterface $kernel,
     ) {
-      
+
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
        $data = $this->getTranslationData();
-       return [json_decode($data)];
-     
+       return json_decode($data);
+
     }
 
 

@@ -1,10 +1,11 @@
 import { useController, useFormContext } from "react-hook-form";
-import toTranslate from "@/utils/translate";
 import { TextField } from "@mui/material";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function AgeControl() {
+  const { t } = useTranslation();
   const name = "age";
-  const label = toTranslate("Age");
+  const label = t("age");
   const {
     formState: { errors },
   } = useFormContext();
@@ -41,13 +42,13 @@ export default function AgeControl() {
           type={"number"}
         />
         {errored && error.type === "required" && (
-          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("is required")}`}</div>
+          <div className="text-red-500 text-xs mt-1">{`${label} ${t("isRequired")}`}</div>
         )}
         {errored && error.type === "positiveNumber" && (
-          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("must be positive")}`}</div>
+          <div className="text-red-500 text-xs mt-1">{`${label} ${t("mustBePositive")}`}</div>
         )}
         {errored && error.type === "majorNumber" && (
-          <div className="text-red-500 text-xs mt-1">{`${label} ${toTranslate("must be greater than 18")}`}</div>
+          <div className="text-red-500 text-xs mt-1">{`${label} ${t("mustBeGreaterThan")} 18`}</div>
         )}
       </div>
     </>

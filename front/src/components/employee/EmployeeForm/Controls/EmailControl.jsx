@@ -1,20 +1,19 @@
 import { useController, useFormContext } from "react-hook-form";
-import toTranslate from "@/utils/translate";
 import { TextField } from "@mui/material";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EmailControl() {
+  const { t } = useTranslation();
   const name = "email";
-  const label = toTranslate("Email");
+  const label = t("email");
   const {
     formState: { errors },
   } = useFormContext();
   const error = errors[name];
   const requiredErrorMessage =
-    error?.type === "required"
-      ? `${label} ${toTranslate("est obligatoire")}`
-      : "";
+    error?.type === "required" ? `${label} ${t("isRequired")}` : "";
   const patternErrorMessage =
-    error?.type === "pattern" ? `${label} ${toTranslate("est invalide")}` : "";
+    error?.type === "pattern" ? `${label} ${t("isInvalid")}` : "";
   const errorMessage = requiredErrorMessage || patternErrorMessage;
 
   const {

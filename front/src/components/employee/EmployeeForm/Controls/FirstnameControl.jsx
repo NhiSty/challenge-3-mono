@@ -1,17 +1,16 @@
 import { useController, useFormContext } from "react-hook-form";
-import toTranslate from "@/utils/translate";
 import { TextField } from "@mui/material";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function FirstnameControl() {
+  const { t } = useTranslation();
   const name = "firstname";
-  const label = toTranslate("Firstname");
+  const label = t("firstname");
   const {
     formState: { errors },
   } = useFormContext();
   const hasError = errors[name];
-  const errorMessage = hasError
-    ? `${label} ${toTranslate("Ce champ est obligatoire")}`
-    : "";
+  const errorMessage = hasError ? `${label} ${t("isRequired")}` : "";
   const {
     field: { value, onChange },
   } = useController({
