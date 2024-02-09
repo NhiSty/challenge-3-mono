@@ -7,12 +7,13 @@ import {
 } from "@/api/employee";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import toTranslate from "@/utils/translate";
+import { useTranslation } from "@/translation/useTranslation";
 
 export function useEmployeesVC() {
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,11 +35,11 @@ export function useEmployeesVC() {
       .then((response) => {
         setEmployees([...employees, response.data]);
         navigate("/manager/employees");
-        toast.success(toTranslate("Employé créé avec succès."));
+        toast.success(t("successfullyCreatedEmployee"));
         return response;
       })
       .catch((error) => {
-        toast.error(toTranslate("Erreur lors de la création de l'employé."));
+        toast.error(t("employeeCreationError"));
         console.log(error);
       });
   };
@@ -68,13 +69,11 @@ export function useEmployeesVC() {
             return employee;
           }),
         );
-        toast.success(toTranslate("Employé modifié avec succès."));
+        toast.success(t("successfullyUpdatedEmployee"));
         navigate("/manager/employees");
       })
       .catch((error) => {
-        toast.error(
-          toTranslate("Erreur lors de la modification de l'employé."),
-        );
+        toast.error(t("employeeModificationError"));
         console.log(error);
       });
   };

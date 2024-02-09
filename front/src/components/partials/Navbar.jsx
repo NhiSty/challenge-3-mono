@@ -1,6 +1,8 @@
 import { MenuIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavBarButtons } from "@components/partials/NavBarButton.jsx";
+import useToken from "@/hooks/useToken";
+import SwitchLanguage from "@components/partials/SwitchLanguage";
 
 const links = [
   {
@@ -22,7 +24,9 @@ const links = [
 ];
 
 export function Navbar() {
-  const isConnected = localStorage.getItem("token");
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+  const { isValid: isConnected } = useToken();
 
   return (
     <nav className="sticky top-0 border-b border-purple-300 bg-purple-400/[0.55] z-10 backdrop-blur-sm">
@@ -81,6 +85,7 @@ export function Navbar() {
         </div>
 
         <div className="navbar-end lg:mr-2">
+          <SwitchLanguage />
           <NavBarButtons />
         </div>
       </div>

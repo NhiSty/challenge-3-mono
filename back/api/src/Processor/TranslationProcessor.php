@@ -2,6 +2,8 @@
 
 namespace App\Processor;
 
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProcessorInterface;
 use App\State\TranslationProvider;
 use App\ValueObject\Translation;
 use Symfony\Component\HttpKernel\KernelInterface;

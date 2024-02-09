@@ -1,11 +1,12 @@
 import EmployeeForm from "@components/employee/EmployeeForm";
 import { useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import toTranslate from "@/utils/translate";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EditEmployeeFormPage() {
   const { state } = useLocation();
   const franchiseId = state["franchise_id"].split("franchises/")[1];
+  const { t } = useTranslation();
 
   return (
     <>
@@ -13,7 +14,7 @@ export default function EditEmployeeFormPage() {
         <CardHeader
           title={
             <Typography variant={"h6"} sx={{ textAlign: "center" }}>
-              {toTranslate("Edit Employee")}
+              {t("editEmployee")}
             </Typography>
           }
         />

@@ -1,14 +1,15 @@
 import { FormProvider, useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import EmailControl from "@components/form/Controls/EmailControl";
-import toTranslate from "@/utils/translate";
 import { Button, Stack } from "@mui/material";
 import useEmployeeFormVC from "@/hooks/useEmployeeFormVC";
 import AgeControl from "@components/employee/EmployeeForm/Controls/AgeControl";
 import FranchiseControl from "@components/employee/EmployeeForm/Controls/FranchiseControl";
 import TextFieldControl from "@components/form/Controls/TextFieldControl";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EmployeeForm(props) {
+  const { t } = useTranslation();
   const methods = useForm({
     defaultValues: props.defaultValues,
   });
@@ -45,13 +46,12 @@ export default function EmployeeForm(props) {
               <Button
                   onClick={cancelForm}
                   variant={"outlined"}
-                  color={"inherit"}
-              >
-                {toTranslate("Cancel")}
+                  color={"inherit"}>
+              {t("cancel")}
               </Button>
 
               <Button type={"submit"} variant={"contained"} color={"primary"}>
-                {toTranslate("Submit")}
+                {t("submit")}
               </Button>
             </Stack>
           </form>

@@ -21,7 +21,7 @@ export default function useFranchiseVC() {
 
   const getLabel = (value) => {
     const franchise = franchiseOptions.find(
-        (franchise) => franchise.value === value,
+      (franchise) => franchise.value === value,
     );
     return franchise ? franchise.label : "";
   };

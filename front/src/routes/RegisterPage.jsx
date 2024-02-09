@@ -8,10 +8,11 @@ import { register } from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import toTranslate from "@/utils/translate.js";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const {
     handleSubmit,
@@ -120,7 +121,7 @@ export default function RegisterPage() {
             icon={loading ? Loader2 : UserPlus}
             iconClassName={classNames({ "animate-spin": loading })}
           >
-            {toTranslate("S'inscrire")}
+            {t("signUp")}
           </Button>
         </div>
       </form>
@@ -129,7 +130,7 @@ export default function RegisterPage() {
         <p className="mt-3 font-bold text-center">
           Vous avez déjà un compte ?{" "}
           <a className="text-primary" href="/login">
-            {toTranslate("Connexion")}
+            {t("login")}
           </a>
         </p>
       </div>

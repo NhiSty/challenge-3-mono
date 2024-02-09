@@ -1,13 +1,14 @@
-import toTranslate from "@/utils/translate";
 import { XCircle, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Table from "@components/base/Table";
 import { Avatar, Chip, IconButton, Stack } from "@mui/material";
 import { useEmployeesVC } from "@/hooks/useEmployeesVC";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function EmployeesTable() {
   const navigate = useNavigate();
   const employeeMethods = useEmployeesVC();
+  const { t } = useTranslation();
 
   if (employeeMethods.isLoading) {
     return <div>Loading...</div>;
@@ -15,14 +16,7 @@ export default function EmployeesTable() {
 
   return (
     <>
-      <Table
-        thead={[
-          toTranslate("Name"),
-          toTranslate("Email"),
-          toTranslate("Role"),
-          toTranslate("Actions"),
-        ]}
-      >
+      <Table thead={[t("name"), t("email"), t("role"), t("actions")]}>
         {employeeMethods.employees.map((employee) => (
           <tr key={employee["@id"]}>
             <td>

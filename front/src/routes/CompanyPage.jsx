@@ -1,14 +1,15 @@
 import Card from "@components/base/Card";
-import toTranslate from "@/utils/translate";
 import Table from "@components/base/Table";
 import { useEffect, useState } from "react";
 import Modal from "@components/base/Modal";
 import PropTypes from "prop-types";
 import FranchiseForm from "@components/franchise/FranchiseForm";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function CompanyPage() {
   const [company, setCompany] = useState();
   const [modalOpened, setModalOpened] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch("http://localhost:3000/companies/1", {
@@ -25,32 +26,30 @@ export default function CompanyPage() {
       <div className={"flex flex-row justify-between items-start"}>
         <Card classNames={"w-1/3 mr-4"}>
           <div className={"flex flex-col items-center"}>
-            <h1 className={"text-3xl font-bold"}>
-              {toTranslate("My company")}
-            </h1>
+            <h1 className={"text-3xl font-bold"}>{t("myCompany")}</h1>
             <table className={"table-auto mt-5"}>
               <tbody>
                 <tr>
                   <td className={"px-4 py-2"}>
-                    <strong>{toTranslate("Name")}</strong>
+                    <strong>{t("name")}</strong>
                   </td>
                   <td className={"px-4 py-2"}>{company?.company_name}</td>
                 </tr>
                 <tr>
                   <td className={"px-4 py-2"}>
-                    <strong>{toTranslate("Address")}</strong>
+                    <strong>{t("address")}</strong>
                   </td>
                   <td className={"px-4 py-2"}>{company?.company_address}</td>
                 </tr>
                 <tr>
                   <td className={"px-4 py-2"}>
-                    <strong>{toTranslate("Phone")}</strong>
+                    <strong>{t("phone")}</strong>
                   </td>
                   <td className={"px-4 py-2"}>{company?.company_phone}</td>
                 </tr>
                 <tr>
                   <td className={"px-4 py-2"}>
-                    <strong>{toTranslate("Email")}</strong>
+                    <strong>{t("email")}</strong>
                   </td>
                   <td className={"px-4 py-2"}>{company?.company_email}</td>
                 </tr>
@@ -65,26 +64,19 @@ export default function CompanyPage() {
                 "flex flex-row items-center justify-between w-full mb-5"
               }
             >
-              <h1 className={"text-xl font-bold"}>
-                {toTranslate("My franchises")}
-              </h1>
+              <h1 className={"text-xl font-bold"}>{t("myFranchises")}</h1>
               <button
                 onClick={() => setModalOpened(true)}
                 className={
                   "btn btn-sm bg-gray-800 hover:bg-gray-300 text-white hover:text-black"
                 }
               >
-                {toTranslate("Add franchise")}
+                {t("addFranchise")}
               </button>
             </div>
             <Table
               classNames={"mt-5"}
-              thead={[
-                toTranslate("Name"),
-                toTranslate("Manager"),
-                toTranslate("Phone"),
-                toTranslate("Address"),
-              ]}
+              thead={[t("name"), t("manager"), t("phone"), t("address")]}
             >
               {company?.franchises.map((franchise) => (
                 <tr key={franchise.id}>

@@ -1,18 +1,17 @@
 import { useController, useFormContext } from "react-hook-form";
-import toTranslate from "@/utils/translate";
 import { Autocomplete, TextField } from "@mui/material";
 import useFranchiseVC from "@/hooks/useFranchiseVC";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function FranchiseControl() {
+  const { t } = useTranslation();
   const name = "franchise";
-  const label = toTranslate("Franchise");
+  const label = t("franchise");
   const {
     formState: { errors },
   } = useFormContext();
   const hasError = errors[name];
-  const errorMessage = hasError
-    ? `${label} ${toTranslate("est obligatoire")}`
-    : "";
+  const errorMessage = hasError ? `${label} ${t("isRequired")}` : "";
 
   const {
     field: { value, onChange },

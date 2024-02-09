@@ -1,31 +1,24 @@
-import toTranslate from "@/utils/translate.js";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "@/translation/useTranslation";
+
 export default function HomePage() {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-indigo-600 flex">
       <div className="w-1/2 flex flex-col justify-center items-start p-10 text-white">
-        <h1 className="text-4xl font-bold mb-4">
-          {toTranslate("Vous vous sentez seul ?")}
-        </h1>
+        <h1 className="text-4xl font-bold mb-4">{t("feelingLonely")}</h1>
         <p className="text-lg mb-4">
-          {toTranslate(
-            "Vous n'avez personne avec qui partager vos passions et vos discussions ?",
-          )}
+          {t("dontHaveAnyoneToShareYourPassionsAndDiscussionsWith")}
         </p>
+        <p className="text-lg mb-4">{t("tiredOfSolitudeAndConfinement")}</p>
+        <p className="text-lg mb-4">{t("lookingForNewExperiences")}</p>
         <p className="text-lg mb-4">
-          {toTranslate("Marre de la solitude et du confinement ?")}
-        </p>
-        <p className="text-lg mb-4">
-          {toTranslate("Envie de nouvelles expériences ?")}
-        </p>
-        <p className="text-lg mb-4">
-          {toTranslate("Avec Rent-A-Dream, transformez vos rêves en réalité !")}
+          {t("turnYourDreamsIntoRealityWithRentADream")}
         </p>
         <p className="text-lg underline">
-          <Link to={"persons-to-rent"}>
-            {toTranslate("Ne cherchez plus, CHOISISSEZ !")}
-          </Link>
+          <Link to={"persons-to-rent"}>{t("lookNoFurtherChoose")}</Link>
         </p>
       </div>
 

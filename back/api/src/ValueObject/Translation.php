@@ -5,16 +5,13 @@ namespace App\ValueObject;
 use ApiPlatform\Metadata\Get;
 use App\State\TranslationProvider;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 
 #[ApiResource(
     operations: [
-        new GetCollection(),
-        new Get(),
-        
+        new Get(
+            formats: ["json"],
+        ),
     ],
-    paginationEnabled: false,
-    // normalizationContext: ['groups' => ['color:read']],
     provider: TranslationProvider::class
 )]
 
@@ -26,12 +23,12 @@ class Translation
 
     public function __construct(string $id, string $key, string $translation)
     {
-    
+
         $this->key = $key;
         $this->translation = $translation;
     }
 
- 
+
     public function getKey(): string
     {
         return $this->key;
