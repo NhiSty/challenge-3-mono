@@ -47,7 +47,10 @@
     "update": "Mettre à jour",
     "password": "Mot de passe",
     "becomeServiceProvider": "Devenir un prestataire",
-    "companyName": "Nom de l'entreprise"
+    "companyName": "Nom de l'entreprise",
+    "demands": "Demandes",
+    "companyDemands": "Demandes prestataire"
+
 
 
   },
@@ -99,7 +102,9 @@
     "update": "Update",
     "password": "Password",
     "becomeServiceProvider": "Become a service provider",
-    "companyName": "Company name"
+    "companyName": "Company name",
+    "demands": "Demands",
+    "companyDemands": "Company demands"
   }
 }
 

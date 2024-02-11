@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Post\CompanyDemandDecisionAction;
 use App\Action\Post\CompanyDemandAction;
 use App\Repository\CompanyDemandRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
 use ApiPlatform\OpenApi\Model;
@@ -66,6 +67,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         )
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['status' => 'exact'])]
 class CompanyDemand
 {
     #[ORM\Id]
@@ -92,12 +94,15 @@ class CompanyDemand
     private ?User $author = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company_demand:read'])]
     private ?string $address = null;
 
     #[ORM\Column]
+    #[Groups(['company_demand:read'])]
     private ?float $latitude = null;
 
     #[ORM\Column]
+    #[Groups(['company_demand:read'])]
     private ?float $longitude = null;
 
     public function getId(): ?int

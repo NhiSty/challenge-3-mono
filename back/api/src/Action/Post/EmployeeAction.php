@@ -56,6 +56,7 @@ class EmployeeAction extends AbstractController
         $user->setAge($age);
       //  $user->setBiography($faker->text(100));
         $user->setUsername($username);
+        $user->setIsFirstConnection(true);
 
         $this->em->persist($user);
 

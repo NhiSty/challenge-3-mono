@@ -122,6 +122,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'author', cascade: ['persist', 'remove'])]
     private ?CompanyDemand $companyDemand = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_first_connection = null;
+
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -576,6 +579,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->companyDemand = $companyDemand;
+
+        return $this;
+    }
+
+    public function isIsFirstConnection(): ?bool
+    {
+        return $this->is_first_connection;
+    }
+
+    public function setIsFirstConnection(bool $is_first_connection): static
+    {
+        $this->is_first_connection = $is_first_connection;
 
         return $this;
     }

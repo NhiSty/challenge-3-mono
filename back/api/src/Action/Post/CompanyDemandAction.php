@@ -57,6 +57,7 @@ class CompanyDemandAction extends AbstractController
         $user->setRoles(['COMPANY_DEMAND']);
         $user->setFirstName($firstname);
         $user->setLastName($lastname);
+        $user->setIsFirstConnection(true);
 
         $this->em->persist($user);
 
