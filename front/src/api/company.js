@@ -4,6 +4,10 @@ export function getCompanyRequests() {
     return apiClient.get('/company_demands');
 }
 
+export function getCompanyPendingRequest() {
+    return apiClient.get(`/company_demands?status=pending`);
+}
+
 export function requestCompanyCreation(company) {
   return apiPublicClient.post('/company_demands', {
     companyName: company.companyName,
