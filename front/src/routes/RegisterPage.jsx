@@ -56,59 +56,63 @@ export default function RegisterPage() {
       >
         <Input
           id="email"
-          label="Email"
+          label={t("email")}
           icon={<UserPlus className="w-5 h-5" />}
           error={errors.email?.message}
           {...registerForm("email", {
-            required: "L'adresse e-mail est requise",
+            required: t("emailRequired"),
           })}
         />
 
         <Input
           id="password"
-          label="Mot de passe"
+          label={t("password")}
           type="password"
           icon={<Lock className="w-5 h-5" />}
           error={errors.password?.message}
           {...registerForm("password", {
-            required: "Le mot de passe est requis",
+            required: t("passwordRequired"),
           })}
         />
 
         <Input
           id="username"
-          label="Nom d'utilisateur"
+          label={t("username")}
           icon={<User className="w-5 h-5" />}
           error={errors.username?.message}
           {...registerForm("username", {
-            required: "Le nom d'utilisateur est requis",
+            required: t("usernameRequired"),
           })}
         />
 
         <Input
           id="firstName"
-          label="Prénom"
+          label={t("firstname")}
           icon={<User className="w-5 h-5" />}
           error={errors.firstName?.message}
-          {...registerForm("firstName", { required: "Le prénom est requis" })}
+          {...registerForm("firstName", {
+            required: t("firstNameRequired"),
+          })}
         />
 
         <Input
           id="lastName"
-          label="Nom"
+          label={t("name")}
           icon={<User className="w-5 h-5" />}
           error={errors.lastName?.message}
-          {...registerForm("lastName", { required: "Le nom est requis" })}
+          {...registerForm("lastName", {
+            required: t("lastNameRequired"),
+          })}
         />
 
         <Input
           id="age"
-          label="Âge"
+          label={t("age")}
           type="number"
           icon={<User className="w-5 h-5" />}
           error={errors.age?.message}
           {...registerForm("age", {
-            required: "L'âge est requis",
+            required: t("ageRequired"),
             setValueAs: (v) => Number(v),
           })}
         />
@@ -128,7 +132,7 @@ export default function RegisterPage() {
 
       <div>
         <p className="mt-3 font-bold text-center">
-          Vous avez déjà un compte ?{" "}
+          {t("alreadyHaveAnAccount")} {" "}
           <a className="text-primary" href="/login">
             {t("login")}
           </a>

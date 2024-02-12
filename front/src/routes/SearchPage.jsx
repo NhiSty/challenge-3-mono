@@ -3,8 +3,12 @@ import useTokens from "@/hooks/useTokens";
 import { useForm } from "react-hook-form";
 import {Card, CardContent, Grid, TextField, Button, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function SearchPage() {
+
+  const { t } = useTranslation();
+
   const [results, setResults] = useState([]);
   const tokens = useTokens();
 
@@ -44,53 +48,41 @@ export default function SearchPage() {
 
   return (
       <div className="m-4">
-        <h1 className="text-2xl font-bold mb-4">Rechercher un utilisateur</h1>
+        <h1 className="text-2xl font-bold mb-4">
+            {t("searchUser")}
+        </h1>
 
         <Card>
           <CardContent className="bg-gray-100 shadow-lg">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container direction="row" spacing={2} alignItems="center">
-                <Grid item xs={2}>
+            <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col lg:flex-row gap-3"}>
                   <TextField
-                      label="Nom d'utilisateur"
+                      label={t("username")}
                       variant="outlined"
                       {...register("username")}
                   />
-                </Grid>
-                <Grid item xs={2}>
                   <TextField
-                      label="Prénom"
+                      label={t("firstname")}
                       variant="outlined"
                       {...register("firstName")}
                   />
-                </Grid>
-                <Grid item xs={2}>
                   <TextField
                       label="Age minimum"
                       variant="outlined"
                       type="number"
                       {...register("minimumAge")}
                   />
-                </Grid>
-                <Grid item xs={2}>
                   <TextField
                       label="Age maximum"
                       variant="outlined"
                       type="number"
                       {...register("maximumAge")}
                   />
-                </Grid>
-                <Grid item xs={1}>
                   <Button variant="contained" color="primary" type="submit">
-                    Rechercher
+                    {t("search")}
                   </Button>
-                </Grid>
-                <Grid item xs={1}>
                   <Button variant="contained" color="secondary" onClick={resetForm}>
-                    Réinitialiser
+                    {t("resetUserFilter")}
                   </Button>
-                </Grid>
-              </Grid>
             </form>
           </CardContent>
         </Card>
@@ -113,7 +105,7 @@ export default function SearchPage() {
               ))
           ) : (
               <Typography variant="h6" color="textSecondary">
-                aucun résultat.
+                {t("noResultFound")}
               </Typography>
           )}
         </Grid>

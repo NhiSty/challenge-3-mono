@@ -3,30 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import { NavBarButtons } from "@components/partials/NavBarButton.jsx";
 import useToken from "@/hooks/useToken";
 import SwitchLanguage from "@components/partials/SwitchLanguage";
-
-const links = [
-  {
-    text: "Home",
-    to: "/",
-  },
-  {
-    text: "Planning",
-    to: "/planning",
-  },
-  {
-    text: "Rechercher",
-    to: "/search",
-  },
-  {
-    text: "Dashboard",
-    to: "/dashboard",
-  },
-];
+import { useTranslation } from "@/translation/useTranslation";
 
 export function Navbar() {
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const { isValid: isConnected } = useToken();
+  const { t } = useTranslation();
+
+  const links = [
+
+    {
+      text: t("home"),
+      to: "/",
+    },
+    {
+      text: "Planning",
+      to: "/planning",
+    },
+    {
+      text: t("search"),
+      to: "/search",
+    },
+    {
+      text: "Dashboard",
+      to: "/dashboard",
+    },
+  ];
 
   return (
     <nav className="sticky top-0 border-b border-purple-300 bg-purple-400/[0.55] z-10 backdrop-blur-sm">
