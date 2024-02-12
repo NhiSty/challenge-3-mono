@@ -1,4 +1,10 @@
-import { LayoutDashboard, Building2, Users, BookOpenText, FolderClock } from "lucide-react";
+import {
+  LayoutDashboard,
+  Building2,
+  Users,
+  BookOpenText,
+  FolderClock,
+} from "lucide-react";
 
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -22,9 +28,9 @@ export default function Sidebar({ children }) {
             <li className="mb-5 font-semibold text-lg">
               <a href="/">
                 <img
-                    className="mask mask-squircle w-7 h-7"
-                    src="/vite.svg"
-                    alt="DashWind Logo"
+                  className="mask mask-squircle w-7 h-7"
+                  src="/vite.svg"
+                  alt="DashWind Logo"
                 />
                 DashFinder
               </a>
@@ -32,28 +38,28 @@ export default function Sidebar({ children }) {
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/dashboard"}>
-                <LayoutDashboard/>
+                <LayoutDashboard />
                 {t("dashboard")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/company"}>
-                <Building2/>
+                <Building2 />
                 {t("myCompany")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/employees"}>
-                <Users/>
+                <Users />
                 {t("employees")}
               </Link>
             </li>
 
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/services"}>
-                <BookOpenText/>
+                <BookOpenText />
                 {t("service")}
               </Link>
             </li>
@@ -66,7 +72,7 @@ export default function Sidebar({ children }) {
             </li>
 
             <div className={"px-4 py-2"}>
-              <SwitchLanguage/>
+              <SwitchLanguage />
             </div>
           </ul>
         </div>

@@ -1,19 +1,19 @@
-import {apiClient, apiPublicClient} from "@/api/index";
+import { apiClient, apiPublicClient } from "@/api/index";
 
 export function getCompanyRequests() {
-    return apiClient.get('/company_demands');
+  return apiClient.get("/company_demands");
 }
 
 export function getCompanyPendingRequest() {
-    return apiClient.get(`/company_demands?status=pending`);
+  return apiClient.get(`/company_demands?status=pending`);
 }
 
 export function getCompanyRequest(id) {
-    return apiClient.get(`/company_demands/${id}`);
+  return apiClient.get(`/company_demands/${id}`);
 }
 
 export function requestCompanyCreation(company) {
-  return apiPublicClient.post('/company_demands', {
+  return apiPublicClient.post("/company_demands", {
     companyName: company.companyName,
     kbis: company.kbis,
     email: company.email,
@@ -27,12 +27,12 @@ export function requestCompanyCreation(company) {
 
 export function acceptCompanyRequest(id) {
   return apiClient.post(`/company_demands/${id}/decision`, {
-      status: 'accepted',
+    status: "accepted",
   });
 }
 
 export function rejectCompanyRequest(id) {
-    return apiClient.post(`/company_demands/${id}/decision`, {
-        status: 'rejected',
-    });
+  return apiClient.post(`/company_demands/${id}/decision`, {
+    status: "rejected",
+  });
 }

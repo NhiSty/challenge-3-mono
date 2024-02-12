@@ -1,5 +1,5 @@
-import {Input} from "@mui/material";
-import * as blobUtil from 'blob-util'
+import { Input } from "@mui/material";
+import * as blobUtil from "blob-util";
 import PropTypes from "prop-types";
 
 /**
@@ -9,23 +9,26 @@ import PropTypes from "prop-types";
  * @constructor
  */
 export default function InputFileUpload({ onChange }) {
-    const handleFileChange = (e) => {
-        const blobFile = blobUtil.createBlob([e.target.files[0]], {type: e.target.files[0].type});
-        blobUtil.blobToDataURL(blobFile).then(function (dataURL) {
-            onChange(dataURL);
-        })
-    }
+  const handleFileChange = (e) => {
+    const blobFile = blobUtil.createBlob([e.target.files[0]], {
+      type: e.target.files[0].type,
+    });
+    blobUtil.blobToDataURL(blobFile).then(function (dataURL) {
+      onChange(dataURL);
+    });
+  };
 
-    return (
-        <Input
-            inputProps={{ accept: ["application/pdf", "image/jpeg", "image/jpg", "image/png"] }}
-            type="file"
-            onChange={handleFileChange}
-        />
-    )
+  return (
+    <Input
+      inputProps={{
+        accept: ["application/pdf", "image/jpeg", "image/jpg", "image/png"],
+      }}
+      type="file"
+      onChange={handleFileChange}
+    />
+  );
 }
 
 InputFileUpload.propTypes = {
-    onChange: PropTypes.func.isRequired,
-}
-
+  onChange: PropTypes.func.isRequired,
+};

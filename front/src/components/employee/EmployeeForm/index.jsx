@@ -17,46 +17,43 @@ export default function EmployeeForm(props) {
   const { submitForm, cancelForm } = useEmployeeFormVC(props.mode);
 
   return (
-      <Stack px={1}>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(submitForm)}>
-            <TextFieldControl
-                name={"firstname"}
-                label={toTranslate("Firstname")}
-                placeholder={"Jacqueline"}
-                required={true}
-            />
-            <TextFieldControl
-                name={"lastname"}
-                label={toTranslate("Lastname")}
-                placeholder={"Dupont"}
-                required={true}
-            />
-            <EmailControl />
-            <TextFieldControl
-                name={'username'}
-                label={toTranslate('Username')}
-                placeholder={'Penelope Cruz'}
-                required={true}
-            />
-            <AgeControl />
-            <FranchiseControl />
+    <Stack px={1}>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(submitForm)}>
+          <TextFieldControl
+            name={"firstname"}
+            label={toTranslate("Firstname")}
+            placeholder={"Jacqueline"}
+            required={true}
+          />
+          <TextFieldControl
+            name={"lastname"}
+            label={toTranslate("Lastname")}
+            placeholder={"Dupont"}
+            required={true}
+          />
+          <EmailControl />
+          <TextFieldControl
+            name={"username"}
+            label={toTranslate("Username")}
+            placeholder={"Penelope Cruz"}
+            required={true}
+          />
+          <AgeControl />
+          <FranchiseControl />
 
-            <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
-              <Button
-                  onClick={cancelForm}
-                  variant={"outlined"}
-                  color={"inherit"}>
+          <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
+            <Button onClick={cancelForm} variant={"outlined"} color={"inherit"}>
               {t("cancel")}
-              </Button>
+            </Button>
 
-              <Button type={"submit"} variant={"contained"} color={"primary"}>
-                {t("submit")}
-              </Button>
-            </Stack>
-          </form>
-        </FormProvider>
-      </Stack>
+            <Button type={"submit"} variant={"contained"} color={"primary"}>
+              {t("submit")}
+            </Button>
+          </Stack>
+        </form>
+      </FormProvider>
+    </Stack>
   );
 }
 
