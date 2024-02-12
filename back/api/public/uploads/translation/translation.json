@@ -53,8 +53,10 @@
     "companyDemand": "Demande prestataire",
     "pending": "En attente",
     "accepted": "Acceptée",
-    "rejected": "Rejetée"
-
+    "rejected": "Rejetée",
+    "noPendingDemands": "Aucune demande en attente",
+    "refuse": "Refuser",
+    "accept": "Accepter"
 
   },
   "en": {
@@ -111,7 +113,10 @@
     "companyDemand": "Company demand",
     "pending": "Pending",
     "accepted": "Accepted",
-    "rejected": "Rejected"
+    "rejected": "Rejected",
+    "noPendingDemands": "No pending demands",
+    "refuse": "Refuse",
+    "accept": "Accept"
   }
 }
 
