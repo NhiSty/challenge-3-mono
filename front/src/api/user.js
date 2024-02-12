@@ -15,7 +15,7 @@ export function updateUser(partialUser) {
     method: "PATCH",
     headers: {
       authorization: `Bearer ${token}`,
-      "content-type": "application/merge-patch+json",
+      "content-type": "application/json",
     },
     body: JSON.stringify(partialUser),
   }).then((res) => {
