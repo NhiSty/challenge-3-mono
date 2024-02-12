@@ -1,9 +1,6 @@
 import UserProfile from "@components/partials/UserProfile";
 import { Link } from "react-router-dom";
 import useCurrentUser from "@/hooks/useCurrentUser";
-/*
-import {Button} from "@mui/material";
-*/
 import {Button} from "@mui/material";
 
 export default function AccountPage() {
