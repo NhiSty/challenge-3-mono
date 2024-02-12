@@ -39,7 +39,6 @@ export default function SearchPage() {
     );
     const result = await response.json();
 
-    console.log(result["hydra:member"])
     setResults(result["hydra:member"]);
   };
 
