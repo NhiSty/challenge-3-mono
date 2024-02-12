@@ -33,16 +33,6 @@ export function NavBarButtons() {
           </li>
 
           <li role="menuitem">
-            <Link
-              to="/dashboard"
-              className="hover:bg-primary hover:text-text-100"
-            >
-              {t("dashboard")}
-              <LayoutDashboard aria-hidden="true" className="w-5 h-5 ml-auto" />
-            </Link>
-          </li>
-
-          <li role="menuitem">
             <button
               onClick={handleLogout}
               className="hover:bg-primary hover:text-text-100"

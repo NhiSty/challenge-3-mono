@@ -34,7 +34,7 @@ export function useEmployeesVC() {
     return addEmployee(employee)
       .then((response) => {
         setEmployees([...employees, response.data]);
-        navigate("/manager/employees");
+        navigate("/manage/employees");
         toast.success(t("successfullyCreatedEmployee"));
         return response;
       })
@@ -69,7 +69,7 @@ export function useEmployeesVC() {
           }),
         );
         toast.success(t("successfullyUpdatedEmployee"));
-        navigate("/manager/employees");
+        navigate("/employees");
       })
       .catch((error) => {
         toast.error(t("employeeModificationError"));

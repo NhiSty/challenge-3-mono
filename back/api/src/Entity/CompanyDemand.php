@@ -20,8 +20,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CompanyDemandRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(normalizationContext: ['groups' => ['company_demand:read']]),
-        new GetCollection(normalizationContext: ['groups' => ['company_demand:read']]),
+        new Get(
+            normalizationContext: ['groups' => ['company_demand:read']],
+            security: 'is_granted("ROLE_ADMIN")'
+        ),
+        new GetCollection(
+            normalizationContext: ['groups' => ['company_demand:read']],
+            security: 'is_granted("ROLE_ADMIN")'
+        ),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/company_demands',
@@ -66,6 +72,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                     ])
                 )
             ),
+            security: 'is_granted("ROLE_ADMIN")',
             read: false,
         )
     ]

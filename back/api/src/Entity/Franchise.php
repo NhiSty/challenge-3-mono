@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource(
     operations: [
         new GetCollection(
-            provider: FranchiseStateProvider::class,
+            security: 'is_granted("ROLE_CEO")',
+            provider: FranchiseStateProvider::class
         )
     ]
 )]

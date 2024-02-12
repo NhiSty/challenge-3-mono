@@ -1,15 +1,24 @@
 import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 
 export const ROLES = {
   ADMIN: "ROLE_ADMIN",
   CEO: "ROLE_CEO",
+  EMPLOYEE: "ROLE_EMPLOYEE",
   USER: "ROLE_USER",
 };
 
 export default function useToken() {
+  const [token, setToken] = useState(null);
+  const [roles, setRoles] = useState([]);
   const getToken = () => {
     return localStorage.getItem("token") || null;
   };
+
+  useEffect(() => {
+    setToken(getToken());
+    setRoles(getRoles());
+  }, []);
 
   const getRoles = () => {
     const tokenString = getToken();
@@ -21,6 +30,7 @@ export default function useToken() {
   };
 
   const saveToken = (userToken) => {
+    setToken(userToken);
     localStorage.setItem("token", userToken);
   };
 
@@ -41,7 +51,7 @@ export default function useToken() {
 
   return {
     setToken: saveToken,
-    token: getToken(),
+    token,
     roles: getRoles(),
     isValid: tokenIsValid(),
     removeToken,

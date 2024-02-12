@@ -18,7 +18,7 @@ export default function ProtectedRoute({ children, roleAllowed }) {
 
   if (!isAuthorized) {
     if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.CEO)) {
-      return <Navigate to="/manager/dashboard" />;
+      return <Navigate to="/manage" />;
     }
 
     return <Navigate to="/" />;

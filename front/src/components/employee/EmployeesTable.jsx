@@ -37,7 +37,7 @@ export default function EmployeesTable() {
               <Stack direction={"row"} spacing={1}>
                 <IconButton
                   onClick={() =>
-                    navigate(`/manager/employees/edit/${employee.id}`, {
+                    navigate(`/manage/employees/edit/${employee.id}`, {
                       state: { ...employee },
                     })
                   }

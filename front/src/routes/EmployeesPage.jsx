@@ -21,7 +21,7 @@ export default function EmployeesPage() {
         <Button
           variant={"contained"}
           color={"primary"}
-          onClick={() => navigate("/manager/employees/new")}
+          onClick={() => navigate("/manage/employees/new")}
         >
           <Plus size={20} />
           {t("newEmployee")}

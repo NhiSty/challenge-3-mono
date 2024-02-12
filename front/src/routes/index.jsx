@@ -51,7 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "planning",
-        element: <PlanningPage />,
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.EMPLOYEE]}>
+            <PlanningPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "new-company",
@@ -86,12 +90,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/manager",
+    path: "manage",
     element: <BackOfficeLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
+        path: "",
         element: (
           <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
             <DashboardPage />

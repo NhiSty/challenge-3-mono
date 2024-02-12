@@ -36,6 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/employee',
             controller: EmployeeAction::class,
             denormalizationContext: ['groups' => []],
+            security: 'is_granted("ROLE_CEO")',
             read: false,),
         new Patch(denormalizationContext: ['groups' => ['update-user']]),
     ],

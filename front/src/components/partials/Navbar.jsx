@@ -1,27 +1,9 @@
 import { MenuIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBarButtons } from "@components/partials/NavBarButton.jsx";
-import useToken from "@/hooks/useToken";
+import useToken, { ROLES } from "@/hooks/useToken";
 import SwitchLanguage from "@components/partials/SwitchLanguage";
-
-const links = [
-  {
-    text: "Home",
-    to: "/",
-  },
-  {
-    text: "Planning",
-    to: "/planning",
-  },
-  {
-    text: "Rechercher",
-    to: "/search",
-  },
-  {
-    text: "Dashboard",
-    to: "/dashboard",
-  },
-];
+import AccessControl from "@components/AccessControl";
 
 export function Navbar() {
   // eslint-disable-next-line no-unused-vars
@@ -43,26 +25,34 @@ export function Navbar() {
               <MenuIcon className="w-6 h-6" />
             </button>
 
-            <ul
-              role="menu"
-              tabIndex={0}
-              className="dropdown-content menu menu-md"
-            >
-              {links.map(
-                (link) =>
-                  isConnected && (
-                    <li role="menuitem" key={link.to}>
-                      <Link
-                        to={link.to}
-                        className="hover:bg-primary-500 hover:text-text-100"
-                        exact-active-classname="text-primary"
-                      >
-                        {link.text}
-                      </Link>
-                    </li>
-                  ),
-              )}
-            </ul>
+            {isConnected && (
+              <ul
+                role="menu"
+                tabIndex={0}
+                className="dropdown-content menu menu-md"
+              >
+                <AccessControl permissions={[ROLES.EMPLOYEE]}>
+                  <li role="menuitem" key={"/planning"}>
+                    <Link
+                      to={"/planning"}
+                      className="hover:bg-primary-500 hover:text-text-100"
+                      exact-active-classname="text-primary"
+                    >
+                      {"Planning"}
+                    </Link>
+                  </li>
+                </AccessControl>
+                <li role="menuitem" key={"/search"}>
+                  <Link
+                    to={"/search"}
+                    className="hover:bg-primary-500 hover:text-text-100"
+                    exact-active-classname="text-primary"
+                  >
+                    {"Rechercher"}
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
 
@@ -71,17 +61,28 @@ export function Navbar() {
             Rent-A-Dream
           </Link>
 
-          {isConnected &&
-            links.map((link) => (
+          {isConnected && (
+            <>
+              <AccessControl permissions={[ROLES.EMPLOYEE]}>
+                <Link
+                  className="hidden lg:btn lg:btn-ghost"
+                  key={"/planning"}
+                  exact-active-classname="text-primary"
+                  to={"/planning"}
+                >
+                  {"Planning"}
+                </Link>
+              </AccessControl>
               <Link
                 className="hidden lg:btn lg:btn-ghost"
-                key={link.to}
+                key={"/search"}
                 exact-active-classname="text-primary"
-                to={link.to}
+                to={"/search"}
               >
-                {link.text}
+                {"Rechercher"}
               </Link>
-            ))}
+            </>
+          )}
         </div>
 
         <div className="navbar-end lg:mr-2">

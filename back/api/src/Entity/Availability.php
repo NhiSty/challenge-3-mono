@@ -30,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/users/{id}/availabilities',
             controller: AvailabilityAction::class,
             denormalizationContext: ['groups' => []],
+            security: 'is_granted("ROLE_EMPLOYEE")',
             read: false,
         ),
         new Delete(),
