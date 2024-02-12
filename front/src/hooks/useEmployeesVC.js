@@ -47,7 +47,6 @@ export function useEmployeesVC() {
   const deleteEmployee = (id) => {
     removeEmployee(id)
       .then((data) => {
-        console.log({ data });
         if (data.status !== 204) {
           return;
         }
