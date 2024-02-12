@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Post\CompanyDemandDecisionAction;
@@ -18,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CompanyDemandRepository::class)]
 #[ApiResource(
     operations: [
+        new Get(normalizationContext: ['groups' => ['company_demand:read']]),
         new GetCollection(normalizationContext: ['groups' => ['company_demand:read']]),
         new HttpOperation(
             method: Request::METHOD_POST,

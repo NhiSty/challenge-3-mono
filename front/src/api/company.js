@@ -8,6 +8,10 @@ export function getCompanyPendingRequest() {
     return apiClient.get(`/company_demands?status=pending`);
 }
 
+export function getCompanyRequest(id) {
+    return apiClient.get(`/company_demands/${id}`);
+}
+
 export function requestCompanyCreation(company) {
   return apiPublicClient.post('/company_demands', {
     companyName: company.companyName,
@@ -23,12 +27,12 @@ export function requestCompanyCreation(company) {
 
 export function acceptCompanyRequest(id) {
   return apiClient.post(`/company_demands/${id}/decision`, {
-    decision: 'accepted',
+      status: 'accepted',
   });
 }
 
 export function rejectCompanyRequest(id) {
     return apiClient.post(`/company_demands/${id}/decision`, {
-        decision: 'rejected',
+        status: 'rejected',
     });
 }

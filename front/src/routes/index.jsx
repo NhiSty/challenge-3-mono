@@ -20,6 +20,8 @@ import PlanningPage from "@routes/PlanningPage";
 import { ROLES } from "@/hooks/useToken";
 import NewCompanyFormPage from "@routes/NewCompanyFormPage";
 import PublicRoute from "@components/PublicRoute";
+import DemandsPages from "@routes/DemandsPages";
+import DemandDetails from "@routes/DemandDetails";
 
 const router = createBrowserRouter([
   {
@@ -68,17 +70,17 @@ const router = createBrowserRouter([
       {
         path: "",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.USER]}>
-            <AccountPage />
-          </ProtectedRoute>
+            <ProtectedRoute roleAllowed={[ROLES.USER]}>
+              <AccountPage />
+            </ProtectedRoute>
         ),
       },
       {
         path: "edit",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.USER]}>
-            <EditAccountPage />
-          </ProtectedRoute>
+            <ProtectedRoute roleAllowed={[ROLES.USER]}>
+              <EditAccountPage />
+            </ProtectedRoute>
         ),
       },
     ],
@@ -91,17 +93,17 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
-            <DashboardPage />
-          </ProtectedRoute>
+            <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <DashboardPage />
+            </ProtectedRoute>
         ),
       },
       {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
-            <CompanyPage />
-          </ProtectedRoute>
+            <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+              <CompanyPage />
+            </ProtectedRoute>
         ),
       },
       {
@@ -110,35 +112,51 @@ const router = createBrowserRouter([
           {
             path: "",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
-                <EmployeesPage />
-              </ProtectedRoute>
+                <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+                  <EmployeesPage />
+                </ProtectedRoute>
             ),
           },
           {
             path: "new",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
-                <NewEmployeeFormPage />
-              </ProtectedRoute>
+                <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+                  <NewEmployeeFormPage />
+                </ProtectedRoute>
             ),
           },
           {
             path: "edit/:id",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
-                <EditEmployeeFormPage />
-              </ProtectedRoute>
+                <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+                  <EditEmployeeFormPage />
+                </ProtectedRoute>
             ),
           },
         ],
       },
       {
+        path: "demands",
+        element: (
+            <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+              <DemandsPages />
+            </ProtectedRoute>
+        ),
+      },
+      {
+        path: "demands/:id",
+        element: (
+            <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+              <DemandDetails />
+            </ProtectedRoute>
+        ),
+      },
+      {
         path: "services",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
-            <ServicesPage />
-          </ProtectedRoute>
+            <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ServicesPage />
+            </ProtectedRoute>
         ),
       },
     ],

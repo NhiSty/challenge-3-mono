@@ -49,8 +49,11 @@
     "becomeServiceProvider": "Devenir un prestataire",
     "companyName": "Nom de l'entreprise",
     "demands": "Demandes",
-    "companyDemands": "Demandes prestataire"
-
+    "companyDemands": "Demandes prestataire",
+    "companyDemand": "Demande prestataire",
+    "pending": "En attente",
+    "accepted": "Acceptée",
+    "rejected": "Rejetée"
 
 
   },
@@ -104,7 +107,11 @@
     "becomeServiceProvider": "Become a service provider",
     "companyName": "Company name",
     "demands": "Demands",
-    "companyDemands": "Company demands"
+    "companyDemands": "Company demands",
+    "companyDemand": "Company demand",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected"
   }
 }
 

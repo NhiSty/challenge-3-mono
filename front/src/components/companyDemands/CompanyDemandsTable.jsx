@@ -1,15 +1,15 @@
 import Table from "@components/base/Table";
-import useCompanyDemands from "@/hooks/useCompanyDemands";
 import {useEffect} from "react";
 import {useTranslation} from "@/translation/useTranslation";
 import TableLineSkeleton from "@components/base/TableLineSkeleton";
 import {IconButton} from "@mui/material";
 import { ArrowUpRightSquareIcon } from "lucide-react";
 import {useNavigate} from "react-router-dom";
+import useCompanyDemandsVC from "@/hooks/useCompanyDemandsVC";
 
 export default function CompanyDemandsTable() {
     const { t } = useTranslation();
-    const { getPendingDemands, loading, demands } = useCompanyDemands();
+    const { getPendingDemands, loading, demands } = useCompanyDemandsVC();
     const navigate = useNavigate();
 
     useEffect(() => {
