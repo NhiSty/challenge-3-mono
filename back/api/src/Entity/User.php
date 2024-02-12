@@ -29,7 +29,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(normalizationContext: ['groups' => ['read-user']]),
         new Get(normalizationContext: ['groups' => ['read-user']]),
-        new Post(denormalizationContext: ['groups' => ['create-user']]),
+        new Post(denormalizationContext: ['groups' => ['create-user']],
+            validationContext: ['groups' => ['create-user']]),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/employee',
@@ -63,7 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var ?string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['create-user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
@@ -292,7 +292,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->availabilities->contains($availability)) {
             $this->availabilities->add($availability);
-            $availability->setUserId($this);
+            $availability->setUser($this);
         }
 
         return $this;
@@ -303,7 +303,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->availabilities->removeElement($availability)) {
             // set the owning side to null (unless already changed)
             if ($availability->getUserId() === $this) {
-                $availability->setUserId(null);
+                $availability->setUser(null);
             }
         }
 
