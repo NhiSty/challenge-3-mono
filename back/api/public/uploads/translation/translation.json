@@ -45,9 +45,12 @@
     "role": "Rôle",
     "isInvalid": "est invalide",
     "update": "Mettre à jour",
-    "password": "Mot de passe"
-
-
+    "password": "Mot de passe",
+    "userProfile": "Profil de l'utilisateur",
+    "editUserProfile": "Modifier mon profil",
+    "userNotFound": "Utilisateur introuvable",
+    "notInformed": "Non renseingé(e)",
+    "loading": "Chargement..."
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -95,7 +98,12 @@
     "role": "Role",
     "isInvalid": "is invalid",
     "update": "Update",
-    "password": "Password"
+    "password": "Password",
+    "userProfile": "User Profile",
+    "editUserProfile": "Edit profile",
+    "userNotFound": "User not found",
+    "notInformed": "Not informed",
+    "loading": "Loading..."
   }
 }
 

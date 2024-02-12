@@ -10,7 +10,7 @@ export default function UserPage() {
     <div>
       {isLoading ? (
         <div>
-          <h1>Chargement...</h1>
+          <h1>{t("loading")}</h1>
         </div>
       ) : (
         <>
