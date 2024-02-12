@@ -8,9 +8,12 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\ValueObject\ResetPassword;
 use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Message;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsController]
 class ResetPasswordController
@@ -22,17 +25,22 @@ class ResetPasswordController
     {
     }
 
-    public function __invoke(ResetPassword $dto)
+    public function __invoke(ResetPassword $dto, Request $request, UserPasswordHasherInterface $hasher)
     {
         $user = $this->userRepository->findOneBy(['email' => $dto->getEmail()]);
+        $data = json_decode($request->getContent(), true);
+        $newPassword = $data['newPassword'];
 
         if (null === $user) {
             throw new EntityNotFoundException('email not found');
         }
 
-//        $message = new Message();
-//        $this->mailer->send($message);
+        if ($user->isIsFirstConnection()) {
+            $user->setIsFirstConnection(false);
+        }
 
-        return $user;
+        $user->setPassword($hasher->hashPassword($user, $newPassword));
+
+        return new JsonResponse(200);
     }
 }

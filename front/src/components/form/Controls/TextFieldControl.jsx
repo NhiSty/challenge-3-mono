@@ -1,21 +1,35 @@
 import { useController, useFormContext } from "react-hook-form";
+import toTranslate from "@/utils/translate";
 import { TextField } from "@mui/material";
-import { useTranslation } from "@/translation/useTranslation";
+import PropTypes from "prop-types";
 
-export default function FirstnameControl() {
-  const { t } = useTranslation();
-  const name = "firstname";
-  const label = t("firstname");
+/**
+ * Pour être utiliser, il faut qu'il soit wrapper dans un <FormProvider> avec useForm()
+ * @param name
+ * @param label
+ * @param placeholder
+ * @param required
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export default function TextFieldControl({
+  name,
+  label,
+  placeholder,
+  required,
+}) {
   const {
     formState: { errors },
   } = useFormContext();
   const hasError = errors[name];
-  const errorMessage = hasError ? `${label} ${t("isRequired")}` : "";
+  const errorMessage = hasError
+    ? `${label} ${toTranslate("Ce champ est obligatoire")}`
+    : "";
   const {
     field: { value, onChange },
   } = useController({
     name,
-    rules: { required: true },
+    rules: { required },
     defaultValue: "",
   });
 
@@ -28,7 +42,7 @@ export default function FirstnameControl() {
           id={name}
           name={name}
           label={label}
-          placeholder="Jacqueline"
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           error={!!errorMessage}
@@ -40,3 +54,10 @@ export default function FirstnameControl() {
     </>
   );
 }
+
+TextFieldControl.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+};

@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email]
-    #[Groups(['create-user', 'employee:read'])]
+    #[Groups(['create-user', 'employee:read', 'company_demand:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -71,14 +71,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read', 'company_demand:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
+    #[Groups(['create-user', 'update-user', 'read-user', 'employee:read', 'company_demand:read'])]
     private ?string $lastName = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['create-user', 'update-user', 'read-user', 'employee:read'])]
     private ?int $age = null;
 
@@ -118,6 +118,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['create-user', 'update-user'])]
     private ?string $plainPassword = null;
+
+    #[ORM\OneToOne(mappedBy: 'author', cascade: ['persist', 'remove'])]
+    private ?CompanyDemand $companyDemand = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $is_first_connection = null;
 
     public function getPlainPassword(): ?string
     {
@@ -556,6 +562,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getCompanyDemand(): ?CompanyDemand
+    {
+        return $this->companyDemand;
+    }
+
+    public function setCompanyDemand(CompanyDemand $companyDemand): static
+    {
+        // set the owning side of the relation if necessary
+        if ($companyDemand->getAuthor() !== $this) {
+            $companyDemand->setAuthor($this);
+        }
+
+        $this->companyDemand = $companyDemand;
+
+        return $this;
+    }
+
+    public function isIsFirstConnection(): ?bool
+    {
+        return $this->is_first_connection;
+    }
+
+    public function setIsFirstConnection(bool $is_first_connection): static
+    {
+        $this->is_first_connection = $is_first_connection;
 
         return $this;
     }

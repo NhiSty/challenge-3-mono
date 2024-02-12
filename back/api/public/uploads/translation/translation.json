@@ -45,8 +45,24 @@
     "role": "Rôle",
     "isInvalid": "est invalide",
     "update": "Mettre à jour",
-    "password": "Mot de passe"
-
+    "password": "Mot de passe",
+    "becomeServiceProvider": "Devenir un prestataire",
+    "companyName": "Nom de l'entreprise",
+    "demands": "Demandes",
+    "companyDemands": "Demandes prestataire",
+    "companyDemand": "Demande prestataire",
+    "pending": "En attente",
+    "accepted": "Acceptée",
+    "rejected": "Rejetée",
+    "noPendingDemands": "Aucune demande en attente",
+    "refuse": "Refuser",
+    "accept": "Accepter",
+    "yourRequestHasBeenSent": "Votre demande a été envoyée",
+    "anErrorOccurred": "Une erreur s'est produite",
+    "RentADreamCanHelpYou": "Rent-A-Dream peut vous aider",
+    "joinUsHere": "Rejoignez-nous ici",
+    "lestGo": "C'est parti",
+    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?"
 
   },
   "en": {
@@ -95,7 +111,24 @@
     "role": "Role",
     "isInvalid": "is invalid",
     "update": "Update",
-    "password": "Password"
+    "password": "Password",
+    "becomeServiceProvider": "Become a service provider",
+    "companyName": "Company name",
+    "demands": "Demands",
+    "companyDemands": "Company demands",
+    "companyDemand": "Company demand",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "noPendingDemands": "No pending demands",
+    "refuse": "Refuse",
+    "accept": "Accept",
+    "yourRequestHasBeenSent": "Your request has been sent",
+    "anErrorOccurred": "An error occurred",
+    "RentADreamCanHelpYou": "Rent-A-Dream can help you",
+    "joinUsHere": "Join us here",
+    "lestGo": "Let's go",
+    "wantToOpenYourOwnCompany": "Want to open your own company ?"
   }
 }
 

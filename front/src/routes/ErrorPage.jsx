@@ -11,7 +11,7 @@ export default function ErrorPage() {
       <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="text-center p-8 bg-white rounded shadow-lg">
-          <h2 className="text-3xl font-bold mb-4">{'Oops'}</h2>
+          <h2 className="text-3xl font-bold mb-4">{"Oops"}</h2>
           <img
             src="/assets/error-illustration.svg"
             alt="Error"

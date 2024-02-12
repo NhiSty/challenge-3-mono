@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Bienvenue chez {{ companyName }}
+{% endblock %}
+
+{% block body %}
+    <h1>Bonjour {{ firstname }} {{ lastname }},</h1>
+    <p>
+        Vous venez d'être ajouter à la compagnie {{ companyName }} sur Rent-A-Dream.
+    </p>
+    <p>
+        Voici vos informations de connexion :
+    </p>
+    <ul>
+        <li>Nom de l'entreprise : {{ companyName }}</li>
+        <li>Email : {{ identifier }}</li>
+        <li>Mot de passe : {{ pwd }}</li>
+    </ul>
+    <p>
+        N'oubliez pas de changer votre mot de passe après votre première connexion.
+    </p>
+    <p>
+        Cordialement,
+    </p>
+    <p>
+        Cordialement, <br>
+    </p>
+{% endblock %}

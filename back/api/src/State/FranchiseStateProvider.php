@@ -20,7 +20,7 @@ class FranchiseStateProvider implements ProviderInterface
         $franchises = $this->provider->provide($operation, $uriVariables, $context)->getQuery()->getResult();
         if (in_array('ROLE_ADMIN', $roles)) {
             return $franchises;
-        } else if (in_array('ROLE_MANAGER', $roles)) {
+        } else if (in_array('ROLE_CEO', $roles)) {
             $employee = $this->security->getUser()->getEmployee();
 
             foreach ($franchises as $franchise) {
