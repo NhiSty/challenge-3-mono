@@ -58,7 +58,11 @@
     "refuse": "Refuser",
     "accept": "Accepter",
     "yourRequestHasBeenSent": "Votre demande a été envoyée",
-    "anErrorOccurred": "Une erreur s'est produite"
+    "anErrorOccurred": "Une erreur s'est produite",
+    "RentADreamCanHelpYou": "Rent-A-Dream peut vous aider",
+    "joinUsHere": "Rejoignez-nous ici",
+    "lestGo": "C'est parti",
+    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?"
 
   },
   "en": {
@@ -120,7 +124,11 @@
     "refuse": "Refuse",
     "accept": "Accept",
     "yourRequestHasBeenSent": "Your request has been sent",
-    "anErrorOccurred": "An error occurred"
+    "anErrorOccurred": "An error occurred",
+    "RentADreamCanHelpYou": "Rent-A-Dream can help you",
+    "joinUsHere": "Join us here",
+    "lestGo": "Let's go",
+    "wantToOpenYourOwnCompany": "Want to open your own company ?"
   }
 }
 
