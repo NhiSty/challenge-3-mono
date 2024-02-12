@@ -2,6 +2,17 @@ import Duration from "@/domain/planning/Duration";
 import Availability from "@/domain/planning/Availability";
 import Booking from "@/domain/planning/Booking";
 
+/** @type {Day[]} */
+const DAYS = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
+
 export default class PlanningModel {
   /**
    * @param {ApiAvailability[]} availabilities
@@ -50,28 +61,40 @@ export default class PlanningModel {
    * @returns {Record<Day, Availability[]>}
    */
   _availabilitiesByWeekday() {
-    return this.availabilities.reduce((acc, availability) => {
-      const day = availability.weekDay;
-      if (!acc[day]) {
-        acc[day] = [];
+    /** @type {Record<Day, Availability[]>} */
+    const availabilities = {};
+
+    for (const day of DAYS) {
+      if (!availabilities[day]) {
+        availabilities[day] = [];
       }
-      acc[day].push(availability);
-      return acc;
-    }, {});
+
+      for (const availability of this.availabilities) {
+        if (availability.weekDay === day) {
+          availabilities[day].push(availability);
+        }
+      }
+    }
+
+    return availabilities;
   }
 
   /** @returns {Duration} */
   _findFirstAvailability() {
-    return this.availabilities.sort((a, b) => {
-      return a.start.isSameOrAfter(b.start);
-    })[0].start;
+    return (
+      this.availabilities.sort((a, b) => {
+        return a.start.isSameOrAfter(b.start);
+      })[0]?.start ?? new Duration()
+    );
   }
 
   /** @returns {Duration} */
   _findLastAvailability() {
-    return this.availabilities.sort((a, b) => {
-      return b.end.isSameOrAfter(a.end);
-    })[0].end;
+    return (
+      this.availabilities.sort((a, b) => {
+        return b.end.isSameOrAfter(a.end);
+      })[0]?.end ?? new Duration(24)
+    );
   }
 
   /**
@@ -79,7 +102,7 @@ export default class PlanningModel {
    * @param {number} precision
    * @returns {{columns: {columnName: string, column: {start: Duration, end: Duration, isAvailable: boolean, isBooked: boolean, booking: Booking}[]}[], timeSlots: number}}
    */
-  buildPlanning(startDate, precision = 30) {
+  buildPlanning(startDate, precision = 60) {
     const availabilitiesByWeekday = this._availabilitiesByWeekday();
     const columns = [];
 

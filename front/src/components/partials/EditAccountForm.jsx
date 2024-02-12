@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { updateUser } from "@/api/user";
 import { useTranslation } from "@/translation/useTranslation";
-import {Card} from "@mui/material";
+import { Card } from "@mui/material";
 
 export default function EditAccountForm({ user }) {
   const navigate = useNavigate();
@@ -39,9 +39,8 @@ export default function EditAccountForm({ user }) {
   };
 
   return (
-      <Card classNames={"w-1/3 mr-4 mt-3"}>
-
-        <form
+    <Card classNames={"w-1/3 mr-4 mt-3"}>
+      <form
         className="bg-white shadow-md rounded p-8 w-96"
         onSubmit={handleSubmit(onSubmit)}
       >

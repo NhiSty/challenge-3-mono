@@ -2,9 +2,9 @@
 
 namespace App\ValueObject;
 
+use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\State\TranslationProvider;
-use ApiPlatform\Metadata\ApiResource;
 
 #[ApiResource(
     operations: [

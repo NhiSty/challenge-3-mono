@@ -1,4 +1,11 @@
-import { LayoutDashboard, Building2, Users, BookOpenText } from "lucide-react";
+import {
+  LayoutDashboard,
+  Building2,
+  Users,
+  BookOpenText,
+  FolderClock,
+} from "lucide-react";
+
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "@/translation/useTranslation";
@@ -54,6 +61,13 @@ export default function Sidebar({ children }) {
               <Link className="font-normal" to={"/manager/services"}>
                 <BookOpenText />
                 {t("service")}
+              </Link>
+            </li>
+
+            <li className={"mb-2"}>
+              <Link className="font-normal" to={"/manager/demands"}>
+                <FolderClock />
+                {t("demands")}
               </Link>
             </li>
 

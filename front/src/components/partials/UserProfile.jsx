@@ -13,9 +13,8 @@ export default function UserProfile({ user }) {
         </h1>
        <Card classNames={"w-1/3 mr-4 mt-3"}>
         {user ? (
-            <div>
-              <h1 className="text-xl font-bold mb-4">{user?.username}</h1>
-
+          <div>
+            <h1 className="text-xl font-bold mb-4">{user?.username}</h1>
               <dl>
                 <div className="flex gap-4 mb-2">
                   <dt className="font-bold">
@@ -47,7 +46,7 @@ export default function UserProfile({ user }) {
             </div>
         )}
       </Card>
-      </>
+    </>
   );
 }
 

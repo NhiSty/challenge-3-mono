@@ -50,7 +50,24 @@
     "editUserProfile": "Modifier mon profil",
     "userNotFound": "Utilisateur introuvable",
     "notInformed": "Non renseingé(e)",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "becomeServiceProvider": "Devenir un prestataire",
+    "companyName": "Nom de l'entreprise",
+    "demands": "Demandes",
+    "companyDemands": "Demandes prestataire",
+    "companyDemand": "Demande prestataire",
+    "pending": "En attente",
+    "accepted": "Acceptée",
+    "rejected": "Rejetée",
+    "noPendingDemands": "Aucune demande en attente",
+    "refuse": "Refuser",
+    "accept": "Accepter",
+    "yourRequestHasBeenSent": "Votre demande a été envoyée",
+    "anErrorOccurred": "Une erreur s'est produite",
+    "RentADreamCanHelpYou": "Rent-A-Dream peut vous aider",
+    "joinUsHere": "Rejoignez-nous ici",
+    "lestGo": "C'est parti",
+    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -103,7 +120,24 @@
     "editUserProfile": "Edit profile",
     "userNotFound": "User not found",
     "notInformed": "Not informed",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "becomeServiceProvider": "Become a service provider",
+    "companyName": "Company name",
+    "demands": "Demands",
+    "companyDemands": "Company demands",
+    "companyDemand": "Company demand",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "noPendingDemands": "No pending demands",
+    "refuse": "Refuse",
+    "accept": "Accept",
+    "yourRequestHasBeenSent": "Your request has been sent",
+    "anErrorOccurred": "An error occurred",
+    "RentADreamCanHelpYou": "Rent-A-Dream can help you",
+    "joinUsHere": "Join us here",
+    "lestGo": "Let's go",
+    "wantToOpenYourOwnCompany": "Want to open your own company ?"
   }
 }
 

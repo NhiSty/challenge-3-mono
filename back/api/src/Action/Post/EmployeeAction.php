@@ -56,6 +56,7 @@ class EmployeeAction extends AbstractController
         $user->setAge($age);
       //  $user->setBiography($faker->text(100));
         $user->setUsername($username);
+        $user->setIsFirstConnection(true);
 
         $this->em->persist($user);
 
@@ -68,7 +69,8 @@ class EmployeeAction extends AbstractController
         $this->em->persist($user);
         $this->em->flush();
 
-        $mailer->sendEmail();
+        $company = $franchise->getCompanyId();
+        $mailer->sendEmail($user, $company, $pwd);
 
         return $this->json($data, 201);
     }

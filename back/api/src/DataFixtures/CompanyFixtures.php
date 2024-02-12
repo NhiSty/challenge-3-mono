@@ -22,7 +22,8 @@ class CompanyFixtures extends Fixture implements DependentFixtureInterface
                 ->setCompanyName($faker->company)
                 ->setKbis($faker->word . '_' . $faker->randomNumber(5))
                 ->setStatus($faker->boolean)
-                ->setOwner($users[$i]);
+                ->setOwner($users[$i])
+                ->setAddress($faker->address);
 
             $manager->persist($object);
         }

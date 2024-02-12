@@ -19,10 +19,10 @@ class AvailabilityFixtures extends Fixture implements DependentFixtureInterface
 
         for($i=0; $i<10; $i++){
             $object = (new Availability())
-                ->setWeekDay($faker->randomElement(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']))
+                ->setWeekDay($faker->randomElement(["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]))
                 ->setStartTime($faker->dateTimeBetween('08:00', '12:00'))
                 ->setEndTime($faker->dateTimeBetween('13:00', '18:00'))
-                ->setUserId($users[$i]);
+                ->setUser($users[$i]);
 
             $manager->persist($object);
         }

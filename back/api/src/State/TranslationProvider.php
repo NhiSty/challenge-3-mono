@@ -2,10 +2,9 @@
 
 namespace App\State;
 
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use ApiPlatform\Metadata\CollectionOperationInterface;
-use App\ValueObject\Translation;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class TranslationProvider implements ProviderInterface

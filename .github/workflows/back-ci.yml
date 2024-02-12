@@ -1,4 +1,4 @@
-name: CI back
+name: Back/Integration
 
 on:
   push:

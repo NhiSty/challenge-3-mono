@@ -1,6 +1,6 @@
 /**
  * @typedef ApiAvailability
- * @property {string} week_day (eg. monday)
+ * @property {Day} week_day (eg. monday)
  * @property {string} start_time (eg. 2024-01-27T09:43:06.888Z)
  * @property {string} end_time (eg. 2024-01-27T09:43:43.283Z)
  */
@@ -19,6 +19,12 @@ import { Fragment, useMemo } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
 
+function getMondayOfCurrentWeek(today = new Date()) {
+  const day = today.getDay();
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(today.setDate(diff));
+}
+
 /**
  * @param {ApiAvailability[]} availabilities
  * @param {ApiBooking[]} bookings
@@ -27,10 +33,10 @@ import PlanningModel from "@/domain/planning/PlanningModel";
  */
 const Planning = ({ availabilities, bookings }) => {
   const { columns: planning, timeSlots } = useMemo(() => {
-    const startDate = new Date("2024-01-22T00:00:00.000Z");
+    const startDate = getMondayOfCurrentWeek();
     return new PlanningModel(availabilities, bookings).buildPlanning(
       startDate,
-      30,
+      60,
     );
   }, [availabilities, bookings]);
 

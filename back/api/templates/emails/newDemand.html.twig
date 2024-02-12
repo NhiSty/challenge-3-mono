@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Confirmation de la prise en compte de votre demande
+{% endblock %}
+
+{% block body %}
+    <h1>Bonjour {{ firstname }} {{ lastname }},</h1>
+    <p>
+        Nous avons bien reçu votre demande de création d'entreprise {{ companyName }}. Elle est actuellement en cours de traitement.
+    </p>
+    <p>
+        Voici vos informations de connexion :
+    </p>
+    <ul>
+        <li>Nom de l'entreprise : {{ companyName }}</li>
+        <li>Email : {{ identifier }}</li>
+        <li>Mot de passe : {{ pwd }}</li>
+    </ul>
+    <p>
+        Vous recevrez un autre e-mail une fois que votre demande aura été traitée. En attendant, vous pouvez vous connecter avec les identifiants ci-dessus.
+    </p>
+    <p>
+        N'oubliez pas de changer votre mot de passe après votre première connexion.
+    </p>
+    <p>
+        Cordialement,
+    </p>
+    <p>
+        L'équipe Rent-A-Dream
+    </p>
+{% endblock %}
