@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { updateUser } from "@/api/user";
 import { useTranslation } from "@/translation/useTranslation";
+import {Card} from "@mui/material";
 
 export default function EditAccountForm({ user }) {
   const navigate = useNavigate();
@@ -38,70 +39,73 @@ export default function EditAccountForm({ user }) {
   };
 
   return (
-    <form
-      className="bg-white shadow-md rounded p-8 w-96"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Input
-        id="username"
-        label="Nom d'utilisateur"
-        icon={<User className="w-5 h-5" />}
-        error={errors.username?.message}
-        {...registerForm("username", {
-          required: "Le nom d'utilisateur est requis",
-        })}
-      />
+      <Card classNames={"w-1/3 mr-4 mt-3"}>
 
-      <Input
-        id="firstName"
-        label="Prénom"
-        icon={<User className="w-5 h-5" />}
-        error={errors.firstName?.message}
-        {...registerForm("firstName", { required: "Le prénom est requis" })}
-      />
+        <form
+        className="bg-white shadow-md rounded p-8 w-96"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Input
+          id="username"
+          label="Nom d'utilisateur"
+          icon={<User className="w-5 h-5" />}
+          error={errors.username?.message}
+          {...registerForm("username", {
+            required: "Le nom d'utilisateur est requis",
+          })}
+        />
 
-      <Input
-        id="lastName"
-        label="Nom"
-        icon={<User className="w-5 h-5" />}
-        error={errors.lastName?.message}
-        {...registerForm("lastName", { required: "Le nom est requis" })}
-      />
+        <Input
+          id="firstName"
+          label="Prénom"
+          icon={<User className="w-5 h-5" />}
+          error={errors.firstName?.message}
+          {...registerForm("firstName", { required: "Le prénom est requis" })}
+        />
 
-      <Input
-        id="age"
-        label="Âge"
-        type="number"
-        icon={<User className="w-5 h-5" />}
-        error={errors.age?.message}
-        {...registerForm("age", {
-          required: "L'âge est requis",
-          setValueAs: (v) => Number(v),
-        })}
-      />
+        <Input
+          id="lastName"
+          label="Nom"
+          icon={<User className="w-5 h-5" />}
+          error={errors.lastName?.message}
+          {...registerForm("lastName", { required: "Le nom est requis" })}
+        />
 
-      <Input
-        id="plainPassword"
-        label="Mot de passe"
-        type="password"
-        icon={<Lock className="w-5 h-5" />}
-        error={errors.plainPassword?.message}
-        {...registerForm("plainPassword", {
-          required: "Le mot de passe est requis",
-        })}
-      />
+        <Input
+          id="age"
+          label="Âge"
+          type="number"
+          icon={<User className="w-5 h-5" />}
+          error={errors.age?.message}
+          {...registerForm("age", {
+            required: "L'âge est requis",
+            setValueAs: (v) => Number(v),
+          })}
+        />
 
-      <div className="flex flex-row justify-end gap-2 pt-2">
-        <Button
-          type="submit"
-          className="btn btn-primary"
-          disabled={!isValid || isLoading}
-          icon={isLoading ? Loader2 : UserPlus}
-        >
-          {t("update")}
-        </Button>
-      </div>
-    </form>
+        <Input
+          id="plainPassword"
+          label="Mot de passe"
+          type="password"
+          icon={<Lock className="w-5 h-5" />}
+          error={errors.plainPassword?.message}
+          {...registerForm("plainPassword", {
+            required: "Le mot de passe est requis",
+          })}
+        />
+
+        <div className="flex flex-row justify-end gap-2 pt-2">
+          <Button
+            type="submit"
+            className="btn btn-primary"
+            disabled={!isValid || isLoading}
+            icon={isLoading ? Loader2 : UserPlus}
+          >
+            {t("update")}
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 }
 
