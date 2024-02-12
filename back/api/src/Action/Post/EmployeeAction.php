@@ -69,7 +69,8 @@ class EmployeeAction extends AbstractController
         $this->em->persist($user);
         $this->em->flush();
 
-        $mailer->sendEmail();
+        $company = $franchise->getCompanyId();
+        $mailer->sendEmail($user, $company, $pwd);
 
         return $this->json($data, 201);
     }

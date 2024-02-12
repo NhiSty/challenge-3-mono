@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Entity\CompanyDemand;
+use App\Entity\Employee;
+use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -44,18 +47,20 @@ class Mailer extends AbstractController
     /**
      * @throws TransportExceptionInterface
      */
-    public function sendEmail(): void
+    public function sendEmail(User $user, Company $company, string $pwd): void
     {
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
-            ->to('auralion4@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>Felicitation pour votre inscription</p>');
+            ->to($user->getEmail())
+            ->subject('Bienvenue chez nous !')
+            ->htmlTemplate('emails/newEmployee.html.twig')
+            ->context([
+                'firstname' => $user->getFirstName(),
+                'lastname' => $user->getLastName(),
+                'companyName' => $company->getCompanyName(),
+                'pwd' => $pwd,
+                'identifier' => $user->getEmail()
+            ]);
 
         $this->mailer->send($email);
     }
@@ -68,7 +73,7 @@ class Mailer extends AbstractController
 
         $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
-            ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
+            ->to($companyDemand->getAuthor()->getEmail())
             ->subject('Demande de création de compte entreprise')
             ->htmlTemplate('emails/demandRefused.html.twig')
             ->context([
@@ -90,7 +95,7 @@ class Mailer extends AbstractController
         ;
         $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
-            ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
+            ->to($companyDemand->getAuthor()->getEmail())
             ->subject('Demande de création de compte entreprise')
             ->htmlTemplate('emails/demandAccepted.html.twig')
             ->context([
@@ -110,7 +115,7 @@ class Mailer extends AbstractController
 
         $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
-            ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
+            ->to($companyDemand->getAuthor()->getEmail())
             ->subject('Demande de création de compte entreprise')
             ->htmlTemplate('emails/demandRejected.html.twig')
             ->context([

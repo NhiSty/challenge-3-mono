@@ -118,7 +118,6 @@ export default class PlanningModel {
     const timeSlots = diff / precision;
 
     for (const key in availabilitiesByWeekday) {
-      console.log(key);
       /** @type {Availability[]} */
       const availability = availabilitiesByWeekday[key];
 

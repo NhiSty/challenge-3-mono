@@ -16,8 +16,6 @@ export default function CompanyDemandsTable() {
         getPendingDemands();
     }, []);
 
-    console.log(demands)
-
     return (
         <Table thead={[t("companyName"), t("firstname"), t("lastname"), t("address"), '']}>
             {loading

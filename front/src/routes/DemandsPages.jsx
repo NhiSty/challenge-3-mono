@@ -6,13 +6,11 @@ export default function DemandsPages() {
     const { t } = useTranslation();
 
     return (
-        <>
-            <Card>
-                <CardHeader title={<Typography>{t("companyDemands")}</Typography>} />
-                <CardContent>
-                   <CompanyDemandsTable />
-                </CardContent>
-            </Card>
-        </>
+        <Card>
+            <CardHeader title={<Typography>{t("companyDemands")}</Typography>} />
+            <CardContent>
+                <CompanyDemandsTable />
+            </CardContent>
+        </Card>
     )
 }

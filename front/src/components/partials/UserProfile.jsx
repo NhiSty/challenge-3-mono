@@ -3,8 +3,6 @@ import Card from "@components/base/Card";
 
 export default function UserProfile({ user }) {
 
-  console.log("user", user)
-
   return (
       <>
         <h1 className="text-4xl font-bold text-gray-800 mt-3">Profil de l'utilisateur</h1>

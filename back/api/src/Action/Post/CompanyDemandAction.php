@@ -26,7 +26,7 @@ class CompanyDemandAction extends AbstractController
     {
     }
 
-    public function __invoke(Request $req, Mailer $mailer, UserPasswordHasherInterface $hasher, RandomStringGenerator $randomStringGenerato, UserRepository $userRepository, CompanyRepository $companyRepository): JsonResponse
+    public function __invoke(Request $req, Mailer $mailer, UserPasswordHasherInterface $hasher, RandomStringGenerator $randomStringGenerator, UserRepository $userRepository, CompanyRepository $companyRepository): JsonResponse
     {
         $data = json_decode($req->getContent(), true);
         $firstname = $data['firstname'];
@@ -37,7 +37,7 @@ class CompanyDemandAction extends AbstractController
         $latitude = $data['latitude'];
         $longitude = $data['longitude'];
         $address = $data['address'];
-        $pwd = 'test123!'; //$randomStringGenerator->generateRandomString(16);
+        $pwd =  $randomStringGenerator->generateRandomString(16);
 
         $useExist = $userRepository->findOneBy(['email' => $email]);
         if($useExist){
