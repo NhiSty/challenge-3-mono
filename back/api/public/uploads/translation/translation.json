@@ -56,7 +56,9 @@
     "rejected": "Rejetée",
     "noPendingDemands": "Aucune demande en attente",
     "refuse": "Refuser",
-    "accept": "Accepter"
+    "accept": "Accepter",
+    "yourRequestHasBeenSent": "Votre demande a été envoyée",
+    "anErrorOccurred": "Une erreur s'est produite"
 
   },
   "en": {
@@ -116,7 +118,9 @@
     "rejected": "Rejected",
     "noPendingDemands": "No pending demands",
     "refuse": "Refuse",
-    "accept": "Accept"
+    "accept": "Accept",
+    "yourRequestHasBeenSent": "Your request has been sent",
+    "anErrorOccurred": "An error occurred"
   }
 }
 

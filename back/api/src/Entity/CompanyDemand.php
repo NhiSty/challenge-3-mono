@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Post\CompanyDemandDecisionAction;
 use App\Action\Post\CompanyDemandAction;
 use App\Repository\CompanyDemandRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
 use ApiPlatform\OpenApi\Model;
@@ -82,7 +83,7 @@ class CompanyDemand
     #[Groups(['company_demand:read'])]
     private ?string $companyName = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(['company_demand:read'])]
     private $kbis = null;
 

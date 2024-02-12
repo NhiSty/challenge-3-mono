@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CompanyDemand;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -64,31 +65,19 @@ class Mailer extends AbstractController
         $firstName = $companyDemand->getAuthor()->getFirstName();
         $lastName = $companyDemand->getAuthor()->getLastName();
         $companyName = $companyDemand->getCompanyName();
-        $html = `<div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
 
-        <h2 style="color: #2196F3;">Demande de création de compagnie</h2>
-
-        <p>Bonjour {$firstName} {$lastName},</p>
-
-        <p>Votre demande de création pour la compagnie {$companyName} a bien été reçue. Nous vous remercions pour votre confiance.</p>
-
-        <p>Votre compte a aussi été créé avec succès. Voici vos identifiants :</p>
-
-        <p>Email : {$email}</p>
-        <p>Mot de passe : {$pwd}</p>
-
-        <p>Nous vous tiendrons informé de l'avancement de votre demande dans les plus brefs délais.</p>
-
-        <p>Cordialement,<br>
-        L\'équipe Rent-A-Dream</p>
-        </div>`;
-
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
             ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
             ->subject('Demande de création de compte entreprise')
-            ->text('Votre demande a été acceptée')
-            ->html($html);
+            ->htmlTemplate('emails/demandRefused.html.twig')
+            ->context([
+                'firstname' => $firstName,
+                'lastname' => $lastName,
+                'companyName' => $companyName,
+                'pwd' => $pwd,
+                'identifier' => $email
+            ]);
 
         $this->mailer->send($email);
     }
@@ -98,28 +87,17 @@ class Mailer extends AbstractController
         $firstName = $companyDemand->getAuthor()->getFirstName();
         $lastName = $companyDemand->getAuthor()->getLastName();
         $companyName = $companyDemand->getCompanyName();
-        $html = `<div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
-
-        <h2 style="color: #4CAF50;">Demande de création de compagnie acceptée</h2>
-
-        <p>Bonjour {$firstName} {$lastName},</p>
-
-        <p>Votre demande de création pour la compagnie {$companyName} a été acceptée avec succès. Félicitations !</p>
-
-        <p>Vous pouvez maintenant accéder à votre compte et commencer à utiliser nos services.</p>
-
-        <p>Merci de faire partie de notre communauté.</p>
-
-        <p>Cordialement,<br>
-        L\'équipe Rent-A-Dream</p>
-
-    </div>`;
-        $email = (new Email())
+        ;
+        $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
             ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
             ->subject('Demande de création de compte entreprise')
-            ->text('Votre demande a été acceptée')
-            ->html($html);
+            ->htmlTemplate('emails/newDemandAccepted.html.twig')
+            ->context([
+                'firstname' => $firstName,
+                'lastname' => $lastName,
+                'companyName' => $companyName
+            ]);
 
         $this->mailer->send($email);
     }
@@ -129,25 +107,17 @@ class Mailer extends AbstractController
         $firstName = $companyDemand->getAuthor()->getFirstName();
         $lastName = $companyDemand->getAuthor()->getLastName();
         $companyName = $companyDemand->getCompanyName();
-        $html = `<div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
 
-        <h2 style="color: #f44336;">Demande de création de compagnie refusée</h2>
-
-        <p>Bonjour {$firstName} {$lastName},</p>
-
-        <p>Votre demande de création pour la compagnie {$companyName} a été refusée. Veuillez nous excuser pour la gêne occasionnée.</p>
-
-        <p>N'hésitez pas à nous contacter pour plus d'informations.</p>
-
-        <p>Cordialement,<br>
-        L\'équipe Rent-A-Dream</p>
-        </div>`;
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
             ->to('thomas.jallu@gmail.com'/*$companyDemand->getAuthor()->getEmail()*/)
             ->subject('Demande de création de compte entreprise')
-            ->text('Votre demande a été acceptée')
-            ->html($html);
+            ->htmlTemplate('emails/newDemandRejected.html.twig')
+            ->context([
+                'firstname' => $firstName,
+                'lastname' => $lastName,
+                'companyName' => $companyName
+            ]);
 
         $this->mailer->send($email);
     }

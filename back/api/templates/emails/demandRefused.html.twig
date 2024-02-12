@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Refus de la demande de création d'entreprise
+{% endblock %}
+
+{% block body %}
+    <h1>Bonjour {{ firstname }} {{ lastname }},</h1>
+
+    <p>
+        Nous sommes désolés de vous informer que votre demande de création d'entreprise, {{ companyName }}, a été refusée.
+    </p>
+
+    <p>
+        Après un examen attentif, nous avons conclu que nous ne pouvons pas procéder avec votre demande à ce moment-là.
+    </p>
+
+    <p>
+        Cordialement,
+    </p>
+
+    <p>
+        L'équipe Rent-A-Dream
+    </p>
+{% endblock %}
