@@ -19,22 +19,28 @@ export default function CompanyDemandsTable() {
 
     return (
         <Table thead={[t("companyName"), t("firstname"), t("lastname"), t("address"), '']}>
-            {loading ? (
-                <TableLineSkeleton nbLines={3} nbColumns={4} />
-            ) : (
-                demands?.map((demand) => (
-                    <tr key={demand.id}>
-                        <td>{demand.companyName}</td>
-                        <td>{demand.author.firstName}</td>
-                        <td>{demand.author.lastName}</td>
-                        <td>{demand.address}</td>
-                        <td>
-                            <IconButton onClick={() => navigate(`/manager/demands/${demand.id}`)} >
-                                <ArrowUpRightSquareIcon />
-                            </IconButton>
-                        </td>
-                    </tr>
-                ))
+            {loading
+
+                ? (<TableLineSkeleton nbLines={3} nbColumns={4} />)
+                : ( demands?.length > 0
+                    ? demands.map((demand, index) => (
+                        <tr key={index}>
+                            <td>{demand.companyName}</td>
+                            <td>{demand.firstname}</td>
+                            <td>{demand.lastname}</td>
+                            <td>{demand.address}</td>
+                            <td>
+                                <IconButton onClick={() => navigate(`/companyDemands/${demand.id}`)}>
+                                    <ArrowUpRightSquareIcon />
+                                </IconButton>
+                            </td>
+                        </tr>
+                    ))
+                    : (
+                        <tr>
+                            <td colSpan={5} className="text-center">{t("noPendingDemands")}</td>
+                        </tr>
+                    )
             )}
         </Table>
     )
