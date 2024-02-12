@@ -5,7 +5,7 @@ export default function UserProfile({ user }) {
   return (
     <>
       <h1 className="text-4xl font-bold text-gray-800 mt-3">
-        Profil de l'utilisateur
+        Profil de l&apos;utilisateur
       </h1>
       <Card classNames={"w-1/3 mr-4 mt-3"}>
         {user ? (

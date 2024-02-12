@@ -2,17 +2,13 @@ import { useState } from "react";
 import { Button, Dialog, InputLabel } from "@mui/material";
 import useTokens from "@/hooks/useTokens";
 import { useForm } from "react-hook-form";
+import { PropTypes } from "prop-types";
 
 export default function CreateAvailabilityForm({ userId }) {
   const [isOpened, setOpened] = useState(false);
   const tokens = useTokens();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
+  const { handleSubmit, register } = useForm({
     mode: "all",
     defaultValues: {
       weekDay: "monday",
@@ -105,3 +101,7 @@ export default function CreateAvailabilityForm({ userId }) {
     </>
   );
 }
+
+CreateAvailabilityForm.propTypes = {
+  userId: PropTypes.number,
+};

@@ -14,9 +14,9 @@ export default function UserPage() {
         </div>
       ) : (
         <>
-        <div className="flex flex-col items-center justify-center">
-          <UserProfile user={user} />
-        </div>
+          <div className="flex flex-col items-center justify-center">
+            <UserProfile user={user} />
+          </div>
         </>
       )}
     </div>
