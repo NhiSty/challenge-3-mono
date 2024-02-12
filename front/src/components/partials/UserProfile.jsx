@@ -25,11 +25,6 @@ export default function UserProfile({ user }) {
                 </div>
 
                 <div className="flex gap-4 mb-2">
-                  <dt className="font-bold">Email :</dt>
-                  <dd>{user?.email ?? "Non renseigné/Non disponible"}</dd>
-                </div>
-
-                <div className="flex gap-4 mb-2">
                   <dt className="font-bold">Age :</dt>
                   <dd>{user?.age ?? "Non renseigné"}</dd>
                 </div>
@@ -50,7 +45,6 @@ UserProfile.propTypes = {
     username: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    email: PropTypes.string,
     age: PropTypes.number,
   }),
 };
