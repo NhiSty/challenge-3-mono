@@ -2,13 +2,41 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\AvailabilityGet;
+use App\Action\Post\AvailabilityAction;
 use App\Repository\AvailabilityRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AvailabilityRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/users/{id}/availabilities',
+            controller: AvailabilityGet::class,
+            denormalizationContext: ['groups' => ['read-availability']],
+            read: false,
+        ),
+        new HttpOperation(
+            method: Request::METHOD_POST,
+            uriTemplate: '/users/{id}/availabilities',
+            controller: AvailabilityAction::class,
+            denormalizationContext: ['groups' => []],
+            read: false,
+        ),
+        new Delete(),
+    ],
+    normalizationContext: ['groups' => ['read-availability']],
+)]
+#[ApiFilter(SearchFilter::class, properties: ["user_id" => "exact"])]
 class Availability
 {
     #[ORM\Id]
@@ -17,16 +45,20 @@ class Availability
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read-availability', 'create-availability'])]
     private ?string $week_day = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['read-availability', 'create-availability'])]
     private ?\DateTimeInterface $start_time = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['read-availability', 'create-availability'])]
     private ?\DateTimeInterface $end_time = null;
 
     #[ORM\ManyToOne(inversedBy: 'availabilities')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read-availability', 'create-availability'])]
     private ?User $user_id = null;
 
     public function getId(): ?int
@@ -75,9 +107,9 @@ class Availability
         return $this->user_id;
     }
 
-    public function setUserId(?User $user_id): static
+    public function setUser(?User $user): static
     {
-        $this->user_id = $user_id;
+        $this->user_id = $user;
 
         return $this;
     }
