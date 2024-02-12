@@ -6,7 +6,7 @@ export default function EditAccountPage() {
     const { user, isLoading: isUserInformationLoading } = useCurrentUser();
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">Modifier mon profil</h1>
             {isUserInformationLoading ? (
                 <div className="flex items-center justify-center space-x-2">
