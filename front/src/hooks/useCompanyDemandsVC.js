@@ -68,7 +68,7 @@ export default function useCompanyDemandsVC() {
                 refuseLoading: true,
             });
             await rejectCompanyRequest(id);
-            navigate("manager/demands");
+            navigate("/manager/demands");
         }
         catch (e) {
             console.error(e);
