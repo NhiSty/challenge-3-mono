@@ -9,6 +9,7 @@ export function getCompanyPendingRequest() {
 }
 
 export function getCompanyRequest(id) {
+    console.log({id}, 'ici')
     return apiClient.get(`/company_demands/${id}`);
 }
 

@@ -1,9 +1,11 @@
 import {useState} from "react";
 import {requestCompanyCreation} from "@/api/company";
 import { toast } from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export default function useCompanyFormVC() {
     const [ submitting, setSubmitting ] = useState(false);
+    const navigate = useNavigate();
 
     const submitRequestForm = async (values) => {
         try {
@@ -20,6 +22,7 @@ export default function useCompanyFormVC() {
             });
             if (response.status === 201) {
                 toast.success('yourRequestHasBeenSent');
+                navigate('/');
             }
         }
         catch (e) {

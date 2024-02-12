@@ -7,11 +7,11 @@ import Map from "@components/base/Map";
 
 export default function DemandDetails() {
     const { id } = useParams();
-    const { getDemandById, demand, loading } = useCompanyDemandsVC();
+    const { getDemandById, demand, loading, kbisUrl } = useCompanyDemandsVC();
 
     useEffect(() => {
-        getDemandById(id);
-    }, [id]);
+        getDemandById(id)
+    }, []);
 
     if (loading) {
         return <p>Loading...</p>
@@ -21,7 +21,7 @@ export default function DemandDetails() {
         return <p>Demand not found</p>
     }
 
-    const companyLocation = [48.950001,1.91667];
+    const companyLocation = [demand.latitude, demand.longitude];
 
     return (
         <>
@@ -40,12 +40,17 @@ export default function DemandDetails() {
                     </Stack>
                 </Grid>
                 <Grid item xs={6}>
-                    <h2 style={{ textAlign: 'center' }}>Kbis</h2>
-                    <iframe
-                        width={'100%'}
-                        height={'600'}
-                        src={'https://www.ecam.fr/wp-content/uploads/2016/06/Exemple-fichier-PDF-1.pdf'}
-                    />
+                    <h2 style={{textAlign: 'center'}}>Kbis</h2>
+                    {
+                        !!kbisUrl &&
+                        <>
+                            <iframe
+                                width={'100%'}
+                                height={'600'}
+                                src={`${kbisUrl}`}
+                            />
+                        </>
+                    }
                 </Grid>
             </Grid>
         </>

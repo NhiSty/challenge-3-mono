@@ -1,12 +1,14 @@
 import {useState} from "react";
 import {acceptCompanyRequest, getCompanyPendingRequest, getCompanyRequest, rejectCompanyRequest} from "@/api/company";
 import {useNavigate} from "react-router-dom";
+import base64ToUrl from "@/utils/base64ToUrl";
 
 export default function useCompanyDemandsVC() {
     const [loading, setLoading] = useState(false);
-    const [ loadingDecision, setLoadingDecision ] = useState(false);
+    const [ loadingDecision, setLoadingDecision ] = useState({ acceptLoading: false, refuseLoading: false });
     const [ demands, setDemands ] = useState();
     const [ demand, setDemand ] = useState();
+    const [kbisUrl, setKbisUrl] = useState();
     const navigate = useNavigate();
 
     const getPendingDemands = async () => {
@@ -27,7 +29,8 @@ export default function useCompanyDemandsVC() {
         try {
             setLoading(true);
             const response = await getCompanyRequest(id);
-            console.log(response)
+            const kbis = await base64ToUrl(response.data.kbis);
+            setKbisUrl(kbis);
             setDemand(response.data);
         }
         catch (e) {
@@ -40,7 +43,10 @@ export default function useCompanyDemandsVC() {
 
     const acceptDemand = async (id) => {
         try {
-            setLoadingDecision(true);
+            setLoadingDecision({
+                ...loadingDecision,
+                acceptLoading: true,
+            });
             await acceptCompanyRequest(id);
             navigate("/manager/demands");
         }
@@ -48,13 +54,19 @@ export default function useCompanyDemandsVC() {
             console.error(e);
         }
         finally {
-            setLoadingDecision(false);
+            setLoadingDecision({
+                ...loadingDecision,
+                acceptLoading: false,
+            });
         }
     }
 
     const rejectDemand = async (id) => {
         try {
-            setLoadingDecision(true);
+            setLoadingDecision({
+                ...loadingDecision,
+                refuseLoading: true,
+            });
             await rejectCompanyRequest(id);
             navigate("manager/demands");
         }
@@ -62,7 +74,10 @@ export default function useCompanyDemandsVC() {
             console.error(e);
         }
         finally {
-            setLoadingDecision(false);
+            setLoadingDecision({
+                ...loadingDecision,
+                refuseLoading: false,
+            });
         }
     }
 
@@ -71,6 +86,7 @@ export default function useCompanyDemandsVC() {
         loadingDecision,
         demands,
         demand,
+        kbisUrl,
         getPendingDemands,
         getDemandById,
         acceptDemand,

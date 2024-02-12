@@ -1,4 +1,4 @@
-import {Avatar, Card, CardActions, CardContent, CardHeader, Chip, Stack} from "@mui/material";
+import {Avatar, Card, CardActions, CardContent, CardHeader, Stack} from "@mui/material";
 import { PropTypes } from "prop-types";
 import {useTranslation} from "@/translation/useTranslation";
 import CompanyDemandStatusChip from "@components/companyDemands/StatusChip";
@@ -46,7 +46,8 @@ export default function DemandCard({ demand }) {
                 demand.status === 'pending' && (
                     <CardActions>
                         <LoadingButton
-                            loading={loadingDecision}
+                            loading={loadingDecision.acceptLoading}
+                            disabled={loadingDecision.refuseLoading}
                             onClick={() => acceptDemand(demand.id)}
                             variant="contained"
                             color="success"
@@ -54,7 +55,8 @@ export default function DemandCard({ demand }) {
                             {t('accept')}
                         </LoadingButton>
                         <LoadingButton
-                            loading={loadingDecision}
+                            loading={loadingDecision.refuseLoading}
+                            disabled={loadingDecision.acceptLoading}
                             onClick={() => rejectDemand(demand.id)}
                             variant="contained"
                             color="error"

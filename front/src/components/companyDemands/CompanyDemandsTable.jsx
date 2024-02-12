@@ -16,6 +16,7 @@ export default function CompanyDemandsTable() {
         getPendingDemands();
     }, []);
 
+    console.log(demands)
 
     return (
         <Table thead={[t("companyName"), t("firstname"), t("lastname"), t("address"), '']}>
@@ -26,11 +27,11 @@ export default function CompanyDemandsTable() {
                     ? demands.map((demand, index) => (
                         <tr key={index}>
                             <td>{demand.companyName}</td>
-                            <td>{demand.firstname}</td>
-                            <td>{demand.lastname}</td>
+                            <td>{demand.author.firstName}</td>
+                            <td>{demand.author.lastName}</td>
                             <td>{demand.address}</td>
                             <td>
-                                <IconButton onClick={() => navigate(`/companyDemands/${demand.id}`)}>
+                                <IconButton onClick={() => navigate(`${demand.id}`)}>
                                     <ArrowUpRightSquareIcon />
                                 </IconButton>
                             </td>
