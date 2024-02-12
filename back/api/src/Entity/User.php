@@ -286,7 +286,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->availabilities->contains($availability)) {
             $this->availabilities->add($availability);
-            $availability->setUserId($this);
+            $availability->setUser($this);
         }
 
         return $this;
@@ -297,7 +297,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->availabilities->removeElement($availability)) {
             // set the owning side to null (unless already changed)
             if ($availability->getUserId() === $this) {
-                $availability->setUserId(null);
+                $availability->setUser(null);
             }
         }
 
