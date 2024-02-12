@@ -29,7 +29,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(normalizationContext: ['groups' => ['read-user']]),
         new Get(normalizationContext: ['groups' => ['read-user']]),
-        new Post(denormalizationContext: ['groups' => ['create-user']]),
+        new Post(denormalizationContext: ['groups' => ['create-user']],
+            validationContext: ['groups' => ['create-user']]),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/employee',
@@ -63,7 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var ?string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['create-user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

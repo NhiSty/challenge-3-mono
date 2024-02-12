@@ -22,7 +22,7 @@ export async function login(email, password) {
 export async function register(data) {
   return await apiPublicClient.post("/users", {
     email: data.email,
-    password: data.password,
+    plainPassword: data.password,
     username: data.username,
     firstName: data.firstName,
     lastName: data.lastName,
