@@ -86,7 +86,7 @@ export default function LoginPage() {
 
       <div>
         <p className="mt-3 font-bold text-center">
-          {t("dontHaveAnAccount")}
+          {t("dontHaveAnAccount")}{" "}
           <a className="text-primary" href="/register">
             {t("signUp")}
           </a>

@@ -46,7 +46,7 @@ export default function EditAccountForm({ user }) {
       >
         <Input
           id="username"
-          label="Nom d'utilisateur"
+          label={t("username")}
           icon={<User className="w-5 h-5" />}
           error={errors.username?.message}
           {...registerForm("username", {
@@ -56,7 +56,7 @@ export default function EditAccountForm({ user }) {
 
         <Input
           id="firstName"
-          label="Prénom"
+          label={t("firstname")}
           icon={<User className="w-5 h-5" />}
           error={errors.firstName?.message}
           {...registerForm("firstName", { required: "Le prénom est requis" })}
@@ -64,7 +64,7 @@ export default function EditAccountForm({ user }) {
 
         <Input
           id="lastName"
-          label="Nom"
+          label={t("lastname")}
           icon={<User className="w-5 h-5" />}
           error={errors.lastName?.message}
           {...registerForm("lastName", { required: "Le nom est requis" })}
@@ -72,7 +72,7 @@ export default function EditAccountForm({ user }) {
 
         <Input
           id="age"
-          label="Âge"
+          label={t("age")}
           type="number"
           icon={<User className="w-5 h-5" />}
           error={errors.age?.message}
@@ -84,7 +84,7 @@ export default function EditAccountForm({ user }) {
 
         <Input
           id="plainPassword"
-          label="Mot de passe"
+          label={t("password")}
           type="password"
           icon={<Lock className="w-5 h-5" />}
           error={errors.plainPassword?.message}
@@ -101,6 +101,12 @@ export default function EditAccountForm({ user }) {
             icon={isLoading ? Loader2 : UserPlus}
           >
             {t("update")}
+          </Button>
+          <Button
+            onClick={() => navigate("/account")}
+            className="btn btn-warning"
+          >
+            {t("cancel")}
           </Button>
         </div>
       </form>
