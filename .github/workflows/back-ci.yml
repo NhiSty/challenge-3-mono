@@ -43,10 +43,6 @@ jobs:
         run: docker compose up --wait --no-build
       - name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
-      - name: Create test database
-        run: docker compose exec -T php bin/console -e test doctrine:database:create
-      - name: Run migrations
-        run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
       - name: Run PHPUnit
         run: docker compose exec -T php bin/phpunit
       - name: Doctrine Schema Validator
