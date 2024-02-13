@@ -76,7 +76,7 @@ export const useStorage = (key, initialValue, storageType) => {
         setStoredValue(event.detail.value);
       }
     },
-    [setStoredValue],
+    [key, setStoredValue],
   );
 
   useEffect(() => {

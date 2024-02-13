@@ -1,9 +1,16 @@
 import { useState } from "react";
 import useTokens from "@/hooks/useTokens";
 import { useForm } from "react-hook-form";
-import {Card, CardContent, Grid, TextField, Button, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import { useTranslation } from "@/translation/useTranslation";
+import {
+  Card,
+  CardContent,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+} from "@mui/material";
 
 export default function SearchPage() {
 
@@ -29,17 +36,17 @@ export default function SearchPage() {
       maximumAge: 99,
       firstName: "",
     });
-  }
+  };
 
   const onSubmit = async (data) => {
     const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/users?age[between]=${data.minimumAge}..${data.maximumAge}&username[]=${data.username}&firstName[]=${data.firstName}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokens.token}`,
-          },
+      `${import.meta.env.VITE_API_BASE_URL}/users?age[between]=${data.minimumAge}..${data.maximumAge}&username[]=${data.username}&firstName[]=${data.firstName}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokens.token}`,
         },
+      },
     );
     const result = await response.json();
 
