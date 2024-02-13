@@ -5,5 +5,5 @@
 #    type: attribute
 
 api_login_route:
-    path: /login
+    path: /api/login
     methods: ['POST']
