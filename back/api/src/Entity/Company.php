@@ -22,11 +22,11 @@ class Company
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['company:read'])]
+    #[Groups(['company:read', 'performance:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['company:read'])]
+    #[Groups(['performance:read', 'company:read'])]
     private ?string $company_name = null;
 
     #[ORM\Column]

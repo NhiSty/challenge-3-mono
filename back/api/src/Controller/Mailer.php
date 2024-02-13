@@ -73,9 +73,9 @@ class Mailer extends AbstractController
 
         $email = (new TemplatedEmail())
             ->from('dev.mailing4@gmail.com')
-            ->to($companyDemand->getAuthor()->getEmail())
+            ->to(/*'thomas.jallu@gmail.com'*/$companyDemand->getAuthor()->getEmail())
             ->subject('Demande de création de compte entreprise')
-            ->htmlTemplate('emails/demandRefused.html.twig')
+            ->htmlTemplate('emails/newDemand.html.twig')
             ->context([
                 'firstname' => $firstName,
                 'lastname' => $lastName,

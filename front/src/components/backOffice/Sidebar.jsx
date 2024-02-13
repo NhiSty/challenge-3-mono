@@ -60,7 +60,7 @@ export default function Sidebar({ children }) {
             <li className={"mb-2"}>
               <Link className="font-normal" to={"/manager/services"}>
                 <BookOpenText />
-                {t("service")}
+                {t("services")}
               </Link>
             </li>
 

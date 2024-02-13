@@ -23,20 +23,20 @@ export default function EmployeeForm(props) {
           <TextFieldControl
             name={"firstname"}
             label={t("firstname")}
-            placeholder={"Jacqueline"}
+            placeholder={t("firstname")}
             required={true}
           />
           <TextFieldControl
             name={"lastname"}
             label={t("lastname")}
-            placeholder={"Dupont"}
+            placeholder={t("lastname")}
             required={true}
           />
           <EmailControl />
           <TextFieldControl
             name={"username"}
             label={t("username")}
-            placeholder={"Penelope Cruz"}
+            placeholder={t("username")}
             required={true}
           />
           <AgeControl />
