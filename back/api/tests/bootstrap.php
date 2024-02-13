@@ -22,7 +22,7 @@ passthru(sprintf(
 ));
 
 passthru(sprintf(
-    'APP_ENV=%s php "%s/../bin/console" --env=test doctrine:schema:update --force',
+    'APP_ENV=%s php "%s/../bin/console" --env=test doctrine:schema:update --complete --force',
     $_ENV['APP_ENV'],
     __DIR__
 ));
