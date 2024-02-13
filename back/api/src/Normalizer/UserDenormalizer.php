@@ -6,12 +6,12 @@ namespace App\Normalizer;
 
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserDenormalizer implements DenormalizerInterface
 {
@@ -19,8 +19,7 @@ class UserDenormalizer implements DenormalizerInterface
         protected Security $security,
         protected PasswordHasherFactoryInterface $hasher,
         protected ObjectNormalizer $normalizer,
-        protected ValidatorInterface $validator
-
+        protected ValidatorInterface $validator,
     ) {}
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed

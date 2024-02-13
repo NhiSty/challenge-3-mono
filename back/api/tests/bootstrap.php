@@ -13,3 +13,22 @@ if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 }
+
+// executes the "php bin/console cache:clear" command
+passthru(sprintf(
+     'APP_ENV=%s php "%s/../bin/console" --env=test doctrine:database:create --if-not-exists',
+     $_ENV['APP_ENV'],
+       __DIR__
+));
+
+passthru(sprintf(
+    'APP_ENV=%s php "%s/../bin/console" --env=test doctrine:schema:update --complete --force',
+    $_ENV['APP_ENV'],
+    __DIR__
+));
+
+passthru(sprintf(
+    'APP_ENV=%s php "%s/../bin/console" --env=test doctrine:fixtures:load --no-interaction',
+    $_ENV['APP_ENV'],
+    __DIR__
+));
