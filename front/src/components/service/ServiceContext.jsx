@@ -29,7 +29,6 @@ export const ServiceContextProvider = ({ children }) => {
     console.log({ serviceData });
     addService(serviceData)
       .then((service) => {
-        console.log("service", service);
         setData([...data, service.data]);
         toast.success("serviceAddedSuccessfully");
         onSuccess && onSuccess();
