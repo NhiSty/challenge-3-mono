@@ -173,6 +173,7 @@ Planning.propTypes = {
     }),
   ).isRequired,
   userId: PropTypes.number,
+  refreshBookings: PropTypes.func,
 };
 
 export default Planning;

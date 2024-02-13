@@ -108,4 +108,5 @@ export default function CreateAvailabilityForm({
 
 CreateAvailabilityForm.propTypes = {
   userId: PropTypes.number,
+  refreshAvailabilities: PropTypes.func,
 };
