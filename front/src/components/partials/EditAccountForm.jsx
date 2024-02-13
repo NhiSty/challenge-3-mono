@@ -103,8 +103,8 @@ export default function EditAccountForm({ user }) {
             {t("update")}
           </Button>
           <Button
-              onClick={() => navigate("/account")}
-              className="btn btn-warning"
+            onClick={() => navigate("/account")}
+            className="btn btn-warning"
           >
             {t("cancel")}
           </Button>

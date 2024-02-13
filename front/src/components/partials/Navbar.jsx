@@ -12,7 +12,6 @@ export function Navbar() {
   const { t } = useTranslation();
 
   const links = [
-
     {
       text: t("home"),
       to: "/",

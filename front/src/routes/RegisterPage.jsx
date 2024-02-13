@@ -132,7 +132,7 @@ export default function RegisterPage() {
 
       <div>
         <p className="mt-3 font-bold text-center">
-          {t("alreadyHaveAnAccount")} {" "}
+          {t("alreadyHaveAnAccount")}{" "}
           <a className="text-primary" href="/login">
             {t("login")}
           </a>
