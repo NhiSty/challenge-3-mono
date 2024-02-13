@@ -28,7 +28,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new GetCollection(normalizationContext: ['groups' => ['read-user']]),
-        new Get(normalizationContext: ['groups' => ['read-user']]),
+        new Get(normalizationContext: ['groups' => ['read-user']],
+            security: "is_granted('ROLE_USER') and object == user"),
         new Post(denormalizationContext: ['groups' => ['create-user']],
             validationContext: ['groups' => ['create-user']]),
         new HttpOperation(
