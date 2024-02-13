@@ -4,18 +4,22 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Repository\FranchiseRepository;
 use App\State\FranchiseStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FranchiseRepository::class)]
 #[ApiResource(
     operations: [
         new GetCollection(
             provider: FranchiseStateProvider::class,
-        )
+        ),
+        new Post(
+            denormalizationContext: ['groups' => ['company:write']])
     ]
 )]
 class Franchise
@@ -23,15 +27,19 @@ class Franchise
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read', 'company:write'])]
     private ?string $franchise_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'franchises')]
+    #[Groups(['company:write'])]
     private ?Company $company_id = null;
 
     #[ORM\OneToMany(mappedBy: 'franchise_id', targetEntity: Employee::class, orphanRemoval: true)]
+    #[Groups(['company:read'])]
     private Collection $employees;
 
     public function __construct()

@@ -2,47 +2,63 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['company:read']],
+)]
+#[ApiFilter(SearchFilter::class, properties: ['owner.id' => 'exact'])]
 class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read'])]
     private ?string $company_name = null;
 
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?bool $status = null;
 
     #[ORM\Column(type: Types::TEXT, length: 255)]
+    #[Groups(['company:read'])]
     private ?string $kbis = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'companies')]
+    #[Groups(['company:read'])]
     private ?User $owner = null;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class, cascade: ['persist', 'remove'])]
+    #[Groups(['company:read'])]
     private Collection $performances;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class, orphanRemoval: true)]
+    #[Groups(['company:read'])]
     private Collection $franchises;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read'])]
     private ?string $address = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['company:read'])]
     private ?float $latitude = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['company:read'])]
     private ?float $longitude = null;
 
     public function __construct()

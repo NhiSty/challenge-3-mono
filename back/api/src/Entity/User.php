@@ -48,12 +48,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read-user'])]
+    #[Groups(['read-user', 'company:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email]
-    #[Groups(['create-user', 'employee:read', 'company_demand:read'])]
+    #[Groups(['create-user', 'employee:read', 'company_demand:read', 'company:read'])]
     private ?string $email = null;
 
     #[ORM\Column]

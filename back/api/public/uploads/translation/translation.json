@@ -62,7 +62,8 @@
     "RentADreamCanHelpYou": "Rent-A-Dream peut vous aider",
     "joinUsHere": "Rejoignez-nous ici",
     "lestGo": "C'est parti",
-    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?"
+    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?",
+    "mustBe10Digits": "doit être composé de 10 chiffres"
 
   },
   "en": {
@@ -128,7 +129,8 @@
     "RentADreamCanHelpYou": "Rent-A-Dream can help you",
     "joinUsHere": "Join us here",
     "lestGo": "Let's go",
-    "wantToOpenYourOwnCompany": "Want to open your own company ?"
+    "wantToOpenYourOwnCompany": "Want to open your own company ?",
+    "mustBe10Digits": "must be 10 digits"
   }
 }
 
