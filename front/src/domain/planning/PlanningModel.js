@@ -13,6 +13,11 @@ const DAYS = [
   "sunday",
 ];
 
+/**
+ * @typedef PlanningColumn
+ * @type {{startDate: Date, duration: Duration, start: Duration, end: Duration, isAvailable: boolean, isBooked: boolean, booking: Booking}}
+ */
+
 export default class PlanningModel {
   /**
    * @param {ApiAvailability[]} availabilities
@@ -100,7 +105,7 @@ export default class PlanningModel {
   /**
    * @param {Date} startDate Start of the week
    * @param {number} precision
-   * @returns {{columns: {columnName: string, column: {start: Duration, end: Duration, isAvailable: boolean, isBooked: boolean, booking: Booking}[]}[], timeSlots: number}}
+   * @returns {{columns: {columnName: string, column: PlanningColumn[]}[], timeSlots: number}}
    */
   buildPlanning(startDate, precision = 60) {
     const availabilitiesByWeekday = this._availabilitiesByWeekday();
@@ -149,7 +154,11 @@ export default class PlanningModel {
             availability.end.isSameOrAfter(end)
           );
         });
+
+        const timeSlotStartDate = start.toDate(new Date(startDate));
         column.push({
+          startDate: timeSlotStartDate,
+          duration: end.clone().minus(start),
           start,
           end,
           isAvailable: !foundBooking && !!foundAvailability,

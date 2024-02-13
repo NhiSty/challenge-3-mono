@@ -32,3 +32,6 @@ services:
     App\State\FranchiseStateProvider:
         bind:
             $provider: '@api_platform.doctrine.orm.state.collection_provider'
+    App\State\PerformanceStateProvider:
+        bind:
+            $provider: '@api_platform.doctrine.orm.state.collection_provider'
