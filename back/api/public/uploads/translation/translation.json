@@ -62,7 +62,13 @@
     "RentADreamCanHelpYou": "Rent-A-Dream peut vous aider",
     "joinUsHere": "Rejoignez-nous ici",
     "lestGo": "C'est parti",
-    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?"
+    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?",
+    "services": "Prestations",
+    "serviceAddedSuccessfully": "Prestation ajoutée avec succès",
+    "serviceAdditionFailed": "Echec de l'ajout de la prestation",
+    "add": "Ajouter",
+    "addService": "Ajouter une prestation",
+    "noServices": "Aucune prestation"
 
   },
   "en": {
@@ -128,7 +134,13 @@
     "RentADreamCanHelpYou": "Rent-A-Dream can help you",
     "joinUsHere": "Join us here",
     "lestGo": "Let's go",
-    "wantToOpenYourOwnCompany": "Want to open your own company ?"
+    "wantToOpenYourOwnCompany": "Want to open your own company ?",
+    "services": "Services",
+    "serviceAddedSuccessfully": "Service added successfully",
+    "serviceAdditionFailed": "Service addition failed",
+    "add": "Add",
+    "addService": "Add service",
+    "noServices": "No services"
   }
 }
 

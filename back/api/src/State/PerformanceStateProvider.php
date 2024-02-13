@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class FranchiseStateProvider implements ProviderInterface
+class PerformanceStateProvider implements ProviderInterface
 {
     private Security $security;
     public function __construct(private ProviderInterface $provider, Security $security)
@@ -17,14 +17,14 @@ class FranchiseStateProvider implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         $roles = $this->security->getUser()->getRoles();
-        $franchises = $this->provider->provide($operation, $uriVariables, $context)->getQuery()->getResult();
+        $performances = $this->provider->provide($operation, $uriVariables, $context)->getQuery()->getResult();
         if (in_array('ROLE_ADMIN', $roles)) {
-            return $franchises;
+            return $performances;
         } else if (in_array('ROLE_CEO', $roles)) {
             $companies = $this->security->getUser()->getCompanies();
 
             foreach ($companies as $company) {
-                return $company->getFranchises();
+                return $company->getPerformances();
             }
         }
 
