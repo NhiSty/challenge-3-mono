@@ -44,12 +44,12 @@ class Booking
 
     #[ORM\ManyToOne(inversedBy: 'bookingsMade')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read-booking', 'read-user'])]
+    #[Groups(['read-booking'])]
     private ?User $booker_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookingsReceived')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read-booking', 'read-user'])]
+    #[Groups(['read-booking'])]
     private ?User $booked_id = null;
 
     public function getId(): ?int

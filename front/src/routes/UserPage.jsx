@@ -17,18 +17,20 @@ export default function UserPage() {
           <h1>{t("loading")}</h1>
         </div>
       ) : (
-        <>
-          <div className="flex flex-col items-center justify-center">
-            <UserProfile user={user} />
+        user && (
+          <>
+            <div className="flex flex-col items-center justify-center">
+              <UserProfile user={user} />
 
-            <Planning
-              availabilities={user.availabilities}
-              bookings={[]}
-              userId={user.id}
-              refreshBookings={() => void 0}
-            />
-          </div>
-        </>
+              <Planning
+                availabilities={user.availabilities}
+                bookings={[...user.bookingsMade, ...user.bookingsReceived]}
+                userId={user.id}
+                refreshBookings={() => void 0}
+              />
+            </div>
+          </>
+        )
       )}
     </div>
   );
