@@ -1,4 +1,4 @@
-// EditAccountPage.js
+
 import useCurrentUser from "@/hooks/useCurrentUser";
 import EditAccountForm from "@components/partials/EditAccountForm";
 import { useTranslation } from "@/translation/useTranslation";

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Input } from "@components/form/Input";
-import { Loader2, Lock, User, UserPlus } from "lucide-react";
+import { Loader2, Lock, User, UserPlus,File } from "lucide-react";
 import Button from "@components/base/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +25,22 @@ export default function EditAccountForm({ user }) {
       lastName: user.lastName,
       age: user.age,
       plainPassword: "",
+      email: user.email,
     },
   });
 
+  const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+
   const onSubmit = async (data) => {
     try {
+
+      data.profile = await toBase64(data.profile[0]);
       await updateUser({ ...data, id: user.id });
       navigate("/account");
     } catch (error) {
@@ -80,6 +91,17 @@ export default function EditAccountForm({ user }) {
             required: "L'âge est requis",
             setValueAs: (v) => Number(v),
           })}
+          accept="image/*"
+        />
+
+        <Input
+            id="profile"
+            label={t("profile")}
+            type="file"
+            icon={<File className="w-5 h-5" />}
+            error={errors.prfile?.message}
+            {...registerForm("profile", {})}
+            accept="image/png, image/jpeg"
         />
 
         <Input
@@ -92,6 +114,7 @@ export default function EditAccountForm({ user }) {
             required: "Le mot de passe est requis",
           })}
         />
+
 
         <div className="flex flex-row justify-end gap-2 pt-2">
           <Button
