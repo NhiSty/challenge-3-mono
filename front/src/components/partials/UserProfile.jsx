@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 import Card from "@components/base/Card";
 import { useTranslation } from "@/translation/useTranslation";
+import ProfilePicture from "@components/partials/ProfilePicture";
 
 export default function UserProfile({ user }) {
   const { t } = useTranslation();
+  console.log();
 
   return (
     <>
@@ -14,6 +16,7 @@ export default function UserProfile({ user }) {
       <Card classNames={"w-1/3 mr-4 mt-3"}>
         {user ? (
           <div>
+              <ProfilePicture base64={user?.pictures[0]?.path}/>
             <h1 className="text-xl font-bold mb-4">{user?.username}</h1>
             <dl>
               <div className="flex gap-4 mb-2">

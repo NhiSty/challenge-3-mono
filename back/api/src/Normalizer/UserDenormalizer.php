@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Normalizer;
 
+use App\Entity\Picture;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,28 +27,14 @@ class UserDenormalizer implements DenormalizerInterface
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
     {
         $user = $this->normalizer->denormalize($data, $type, $format, $context);
-        $constraints = new Assert\Collection([
-            'plainPassword' => [new Assert\NotBlank()],
-            'firstName' => [new Assert\NotBlank()],
-            'lastName' => [new Assert\NotBlank()],
-            'username' => [new Assert\NotBlank()],
-            'age' => [new Assert\NotBlank()],
-            'profile' => []
-        ]);
-
-
-
-        $violations = $this->validator->validate($data, $constraints);
-
-        if (count($violations) > 0) {
-            $arrayOfErrors = [];
-            foreach ($violations as $violation) {
-                $arrayOfErrors[$violation->getPropertyPath()] = $violation->getMessage();
-            }
-            return new JsonResponse($arrayOfErrors, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         assert($user instanceof User);
+
+        if($data['profile']) {
+            $picture = new Picture();
+            $picture->setPath($data['profile']);
+            $user->addPicture($picture);
+        }
 
         $plainPassword = $user->getPlainPassword();
 

@@ -106,6 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $companies;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
+    #[Groups(['read-user'])]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Review::class, orphanRemoval: true)]
