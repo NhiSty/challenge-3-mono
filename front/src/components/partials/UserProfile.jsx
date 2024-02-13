@@ -10,6 +10,7 @@ export default function UserProfile({ user }) {
       <h1 className="text-4xl font-bold text-gray-800 mt-3">
         {t("userProfile")}
       </h1>
+
       <Card classNames={"w-1/3 mr-4 mt-3"}>
         {user ? (
           <div>

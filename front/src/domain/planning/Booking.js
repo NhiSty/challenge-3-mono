@@ -56,6 +56,6 @@ export default class Booking {
   }
 
   toString() {
-    return `at ${this.start.toISOString()} for ${this.duration.toString()}`;
+    return `at ${this.start.toLocaleTimeString()} for ${this.duration.toLocaleTimeString()}`;
   }
 }

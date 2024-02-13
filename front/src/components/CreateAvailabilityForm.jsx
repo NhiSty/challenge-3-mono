@@ -4,7 +4,10 @@ import useTokens from "@/hooks/useTokens";
 import { useForm } from "react-hook-form";
 import { PropTypes } from "prop-types";
 
-export default function CreateAvailabilityForm({ userId }) {
+export default function CreateAvailabilityForm({
+  userId,
+  refreshAvailabilities,
+}) {
   const [isOpened, setOpened] = useState(false);
   const tokens = useTokens();
 
@@ -30,7 +33,9 @@ export default function CreateAvailabilityForm({ userId }) {
           authorization: `Bearer ${tokens.token}`,
         },
       },
-    ).then((res) => res.json());
+    )
+      .then((res) => res.json())
+      .then(() => refreshAvailabilities());
   };
 
   return (
@@ -44,7 +49,6 @@ export default function CreateAvailabilityForm({ userId }) {
       </Button>
 
       <Dialog
-        title="Ajouter une disponibilité"
         open={isOpened}
         onClose={() => {
           setOpened(false);
