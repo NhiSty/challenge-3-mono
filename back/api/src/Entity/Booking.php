@@ -98,8 +98,10 @@ class Booking
         return $this->booked_id;
     }
 
-    public function setBookedId(?User $booked_id): void
+    public function setBookedId(?User $booked_id): static
     {
         $this->booked_id = $booked_id;
+
+        return $this;
     }
 }
