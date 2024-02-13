@@ -79,7 +79,14 @@
     "home": "Accueil",
     "searchUser": "Rechercher un utilisateur",
     "resetUserFilter": "Réinitialiser",
-    "noResultFound": "Aucun résultat trouvé"
+    "noResultFound": "Aucun résultat trouvé",
+    "services": "Prestations",
+    "serviceAddedSuccessfully": "Prestation ajoutée avec succès",
+    "serviceAdditionFailed": "Echec de l'ajout de la prestation",
+    "add": "Ajouter",
+    "addService": "Ajouter une prestation",
+    "noServices": "Aucune prestation"
+
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -161,6 +168,12 @@
     "home": "Home",
     "searchUser": "Search an user",
     "resetUserFilter": "Reset",
-    "noResultFound": "No result found"
+    "noResultFound": "No result found",
+    "services": "Services",
+    "serviceAddedSuccessfully": "Service added successfully",
+    "serviceAdditionFailed": "Service addition failed",
+    "add": "Add",
+    "addService": "Add service",
+    "noServices": "No services"
   }
 }
