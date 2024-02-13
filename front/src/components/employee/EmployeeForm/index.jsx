@@ -22,20 +22,20 @@ export default function EmployeeForm(props) {
         <form onSubmit={methods.handleSubmit(submitForm)}>
           <TextFieldControl
             name={"firstname"}
-            label={toTranslate("Firstname")}
+            label={t("firstname")}
             placeholder={"Jacqueline"}
             required={true}
           />
           <TextFieldControl
             name={"lastname"}
-            label={toTranslate("Lastname")}
+            label={t("lastname")}
             placeholder={"Dupont"}
             required={true}
           />
           <EmailControl />
           <TextFieldControl
             name={"username"}
-            label={toTranslate("Username")}
+            label={t("username")}
             placeholder={"Penelope Cruz"}
             required={true}
           />
