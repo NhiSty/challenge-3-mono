@@ -35,6 +35,15 @@ export default function useToken() {
     return jwtDecoded.exp > now;
   };
 
+  const userId = () => {
+    const token = getToken();
+    if (!token) {
+      return null;
+    }
+    const jwtDecoded = jwtDecode(token);
+    return jwtDecoded?.id;
+  };
+
   const removeToken = () => {
     localStorage.removeItem("token");
   };
@@ -45,5 +54,6 @@ export default function useToken() {
     roles: getRoles(),
     isValid: tokenIsValid(),
     removeToken,
+    userId,
   };
 }

@@ -17,28 +17,27 @@ export default function EmployeesPage() {
 
   return (
     <Stack direction={"column"} spacing={2}>
-      <Stack direction={"row"} justifyContent={"flex-end"}>
-        <Button
-          variant={"contained"}
-          color={"primary"}
-          onClick={() => navigate("/manager/employees/new")}
-        >
-          <Plus size={20} />
-          {t("newEmployee")}
-        </Button>
-      </Stack>
       <Card>
-        <CardHeader title={<Typography>{t("employees")}</Typography>} />
+        <CardHeader
+          title={
+            <Stack
+              direction={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Typography>{t("employees")}</Typography>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                onClick={() => navigate("/manager/employees/new")}
+              >
+                <Plus size={20} />
+                {t("newEmployee")}
+              </Button>
+            </Stack>
+          }
+        />
         <CardContent>
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            width={"100%"}
-            mb={4}
-          >
-            <Typography variant={"h5"}>{t("employees")}</Typography>
-          </Stack>
           <EmployeesTable />
         </CardContent>
       </Card>
