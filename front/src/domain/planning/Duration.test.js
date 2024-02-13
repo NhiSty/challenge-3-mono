@@ -24,16 +24,28 @@ describe("Duration", () => {
     expect(duration.milliseconds).toBe(4);
   });
 
-  it("should create Time from duration", () => {
-    // Given
-    const duration = Duration.fromDuration("PT1H2M3.004S");
+  it.each([
+    ["PT1H2M3.004S", 1, 2, 3, 4],
+    ["P0Y0M0DT1H0M0S", 1, 0, 0, 0],
+  ])(
+    "should create Time from duration",
+    (
+      isoDuration,
+      expectedHours,
+      expectedMinutes,
+      expectedSeconds,
+      expectedMilliseconds,
+    ) => {
+      // Given
+      const duration = Duration.fromDuration(isoDuration);
 
-    // Then
-    expect(duration.hours).toBe(1);
-    expect(duration.minutes).toBe(2);
-    expect(duration.seconds).toBe(3);
-    expect(duration.milliseconds).toBe(4);
-  });
+      // Then
+      expect(duration.hours).toBe(expectedHours);
+      expect(duration.minutes).toBe(expectedMinutes);
+      expect(duration.seconds).toBe(expectedSeconds);
+      expect(duration.milliseconds).toBe(expectedMilliseconds);
+    },
+  );
 
   it.each([
     ["10:30:28.287Z", 10, 30, 28, 287],

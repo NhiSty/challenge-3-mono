@@ -86,10 +86,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $biography = null;
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Availability::class, orphanRemoval: true)]
+    #[Groups(['read-user'])]
     private Collection $availabilities;
 
     #[ORM\OneToMany(mappedBy: 'booker_id', targetEntity: Booking::class, orphanRemoval: true)]
-    private Collection $bookings;
+    #[Groups(['read-user'])]
+    private Collection $bookingsMade;
+
+    #[ORM\OneToMany(mappedBy: 'booked_id', targetEntity: Booking::class, orphanRemoval: true)]
+    #[Groups(['read-user'])]
+    private Collection $bookingsReceived;
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Override::class, orphanRemoval: true)]
     private Collection $overrides;
@@ -140,7 +146,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->availabilities = new ArrayCollection();
-        $this->bookings = new ArrayCollection();
+        $this->bookingsMade = new ArrayCollection();
+        $this->bookingsReceived = new ArrayCollection();
         $this->overrides = new ArrayCollection();
         $this->companies = new ArrayCollection();
         $this->pictures = new ArrayCollection();
@@ -304,36 +311,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($availability->getUserId() === $this) {
                 $availability->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Booking>
-     */
-    public function getBookings(): Collection
-    {
-        return $this->bookings;
-    }
-
-    public function addBooking(Booking $booking): static
-    {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings->add($booking);
-            $booking->setBookerId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBooking(Booking $booking): static
-    {
-        if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getBookerId() === $this) {
-                $booking->setBookerId(null);
             }
         }
 
@@ -593,5 +570,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->is_first_connection = $is_first_connection;
 
         return $this;
+    }
+
+    public function getBookingsMade(): Collection
+    {
+        return $this->bookingsMade;
+    }
+
+    public function getBookingsReceived(): Collection
+    {
+        return $this->bookingsReceived;
     }
 }
