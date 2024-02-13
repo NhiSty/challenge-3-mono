@@ -1,5 +1,5 @@
-import Table from "@components/base/Table";
-import Card from "@components/base/Card";
+import Table from "@components/shared/Table";
+import Card from "@components/shared/Card";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import FranchiseFormDialog from "@components/franchise/FranchiseFormDialog";

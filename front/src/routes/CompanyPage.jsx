@@ -1,4 +1,4 @@
-import Card from "@components/base/Card";
+import Card from "@components/shared/Card";
 import { useEffect } from "react";
 import { useTranslation } from "@/translation/useTranslation";
 import useCompanyVC from "@/hooks/useCompanyVC";

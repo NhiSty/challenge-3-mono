@@ -11,11 +11,12 @@ import TextFieldControl from "@components/form/Controls/TextFieldControl";
 import AddressControls from "@components/form/Controls/AddressControls";
 import PropTypes from "prop-types";
 import PhoneControl from "@components/form/Controls/PhoneControl";
+import useFranchiseFormVC from "@/hooks/useFranchiseFormVC";
 
 export default function FranchiseFormDialog({ opened, onClose }) {
   const { t } = useTranslation();
   const methods = useForm();
-  const onSubmit = (data) => console.log(data);
+  const {} = useFranchiseFormVC();
 
   return (
     <FormProvider {...methods}>

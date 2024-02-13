@@ -5,7 +5,7 @@ import EmailControl from "@components/form/Controls/EmailControl";
 import InputFileControl from "@components/form/Controls/InputFileControl";
 import { Card, CardActions, CardContent, Stack } from "@mui/material";
 import { useTranslation } from "@/translation/useTranslation";
-import LoadingButton from "@components/base/LoadingButton";
+import LoadingButton from "@components/shared/LoadingButton";
 import AddressControls from "@components/form/Controls/AddressControls";
 
 export default function NewCompanyForm() {

@@ -9,7 +9,7 @@ import {
 import { PropTypes } from "prop-types";
 import { useTranslation } from "@/translation/useTranslation";
 import CompanyDemandStatusChip from "@components/companyDemands/StatusChip";
-import LoadingButton from "@components/base/LoadingButton";
+import LoadingButton from "@components/shared/LoadingButton";
 import useCompanyDemandsVC from "@/hooks/useCompanyDemandsVC";
 
 export default function DemandCard({ demand }) {

@@ -1,4 +1,4 @@
-import UserProfile from "@components/partials/UserProfile";
+import UserProfile from "@components/shared/UserProfile";
 import { Link } from "react-router-dom";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { Button } from "@mui/material";

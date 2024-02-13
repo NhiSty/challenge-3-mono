@@ -1,4 +1,4 @@
-import Card from "@components/base/Card";
+import Card from "@components/shared/Card";
 import toTranslate from "@/utils/translate";
 import { Line } from "react-chartjs-2";
 

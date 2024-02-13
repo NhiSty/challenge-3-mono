@@ -1,6 +1,6 @@
 // EditAccountPage.js
 import useCurrentUser from "@/hooks/useCurrentUser";
-import EditAccountForm from "@components/partials/EditAccountForm";
+import EditAccountForm from "@components/shared/EditAccountForm";
 
 export default function EditAccountPage() {
   const { user, isLoading: isUserInformationLoading } = useCurrentUser();

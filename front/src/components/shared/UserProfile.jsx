@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Card from "@components/base/Card";
+import Card from "@components/shared/Card";
 
 export default function UserProfile({ user }) {
   return (

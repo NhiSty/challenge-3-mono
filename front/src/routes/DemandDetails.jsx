@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DemandCard from "@components/companyDemands/DemandCard";
 import { Grid, Stack } from "@mui/material";
-import Map from "@components/base/Map";
+import Map from "@components/shared/Map";
 
 export default function DemandDetails() {
   const { id } = useParams();

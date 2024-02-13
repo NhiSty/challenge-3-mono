@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "@/translation/useTranslation";
-import SwitchLanguage from "@components/partials/SwitchLanguage";
+import SwitchLanguage from "@components/shared/SwitchLanguage";
 
 export default function Sidebar({ children }) {
   const { t } = useTranslation();

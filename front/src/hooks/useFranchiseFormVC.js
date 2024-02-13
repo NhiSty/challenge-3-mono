@@ -5,4 +5,8 @@ export default function useFranchiseFormVC() {
     const response = await apiClient.post("/franchises", franchise);
     return response.data;
   };
+
+  return {
+    submitFranchise,
+  };
 }
