@@ -265,6 +265,38 @@ export default class Duration {
    * @returns {string}
    */
   toLocaleTimeString() {
-    return `${this.#hours.toString().padStart(2, "0")}:${this.#minutes.toString().padStart(2, "0")}`;
+    const formatter = new Intl.DateTimeFormat("fr", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return formatter.format(this.toDate());
+  }
+
+  /**
+   * @param {Duration} other
+   * @returns {Duration}
+   */
+  minus(other) {
+    return new Duration(
+      this.#hours - other.hours,
+      this.#minutes - other.minutes,
+      this.#seconds - other.seconds,
+      this.#milliseconds - other.milliseconds,
+    ).normalize();
+  }
+
+  /**
+   * @params {Date} date
+   * @returns {Date}
+   */
+  toDate(date = new Date()) {
+    date.setHours(
+      this.#hours,
+      this.#minutes,
+      this.#seconds,
+      this.#milliseconds,
+    );
+    return date;
   }
 }

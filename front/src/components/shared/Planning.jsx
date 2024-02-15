@@ -12,12 +12,25 @@
  */
 
 /**
+ * @typedef ApiPerformance
+ * @property {string} name
+ * @property {number} id
+ * @property {number} price
+ */
+
+/**
+ * @typedef ApiCompany
+ * @property {ApiPerformance[]} performances
+ */
+
+/**
  * @typedef {"monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"} Day
  */
 
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
+import CreateBookingForm from "@components/partials/CreateBookingForm";
 
 function getMondayOfCurrentWeek(today = new Date()) {
   const day = today.getDay();
@@ -28,10 +41,19 @@ function getMondayOfCurrentWeek(today = new Date()) {
 /**
  * @param {ApiAvailability[]} availabilities
  * @param {ApiBooking[]} bookings
+ * @param userId
+ * @param refreshBookings
  * @returns {JSX.Element}
  * @constructor
  */
-const Planning = ({ availabilities, bookings }) => {
+const Planning = ({
+  availabilities,
+  bookings,
+  userId,
+  refreshBookings,
+  performances,
+}) => {
+  const [timeSlot, setTimeSlot] = useState(null);
   const { columns: planning, timeSlots } = useMemo(() => {
     const startDate = getMondayOfCurrentWeek();
     return new PlanningModel(availabilities, bookings).buildPlanning(
@@ -41,42 +63,56 @@ const Planning = ({ availabilities, bookings }) => {
   }, [availabilities, bookings]);
 
   return (
-    <div
-      className="grid grid-cols-7 grid-flow-col gap-1"
-      style={{ gridTemplateRows: `repeat(${timeSlots + 1}, minmax(0, 1fr))` }}
-    >
-      {planning.map((dayPlanning, index) => {
-        return (
-          <Fragment key={index}>
-            <div className="h-full flex justify-center items-center text-center">
-              {dayPlanning.columnName}
-            </div>
+    <>
+      <div
+        className="grid grid-cols-7 grid-flow-col gap-1"
+        style={{
+          gridTemplateRows: `repeat(${Math.ceil(timeSlots + 1)}, minmax(0, 1fr))`,
+        }}
+      >
+        {planning.map((dayPlanning, index) => {
+          return (
+            <Fragment key={index}>
+              <div className="h-full flex justify-center items-center text-center">
+                {dayPlanning.columnName}
+              </div>
 
-            {dayPlanning.column.map((column) => {
-              return (
-                <div key={column.start.toString()}>
-                  {column.isBooked ? (
-                    <div className="bg-blue-500 h-full flex justify-center items-center text-center">
-                      {column.booking.toString()}
-                    </div>
-                  ) : column.isAvailable ? (
-                    <div className="bg-green-500 flex h-full justify-center items-center text-center">
-                      {column.start.toLocaleTimeString()}-
-                      {column.end.toLocaleTimeString()}
-                    </div>
-                  ) : (
-                    <div className="bg-red-500 h-full flex justify-center items-center text-center">
-                      {column.start.toLocaleTimeString()}-
-                      {column.end.toLocaleTimeString()}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </Fragment>
-        );
-      })}
-    </div>
+              {dayPlanning.column.map((column) => {
+                return (
+                  <div key={column.start.toString()}>
+                    {column.isBooked ? (
+                      <div className="bg-blue-500 rounded h-full flex justify-center items-center text-center cursor-not-allowed">
+                        {column.booking.toString()}
+                      </div>
+                    ) : column.isAvailable ? (
+                      <div
+                        className="bg-green-500 rounded h-full flex justify-center items-center text-center cursor-pointer"
+                        onClick={() => {
+                          setTimeSlot(column);
+                        }}
+                      >
+                        {column.start.toLocaleTimeString()}-
+                        {column.end.toLocaleTimeString()}
+                      </div>
+                    ) : (
+                      <div className="bg-red-400 rounded h-full flex justify-center items-center text-center cursor-not-allowed" />
+                    )}
+                  </div>
+                );
+              })}
+            </Fragment>
+          );
+        })}
+      </div>
+
+      <CreateBookingForm
+        userId={userId}
+        refreshBookings={refreshBookings}
+        timeSlot={timeSlot}
+        setTimeSlot={setTimeSlot}
+        performances={performances}
+      />
+    </>
   );
 };
 
@@ -102,6 +138,9 @@ Planning.propTypes = {
       start_datetime: PropTypes.string,
     }),
   ).isRequired,
+  userId: PropTypes.number,
+  refreshBookings: PropTypes.func,
+  performances: PropTypes.array,
 };
 
 export default Planning;

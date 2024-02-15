@@ -6,9 +6,15 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+    public function __construct(private UserPasswordHasherInterface $passwordHasher)
+    {
+
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -23,7 +29,7 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_USER'])
             ->setFirstName($faker->firstName())
             ->setLastName($faker->lastName())
-            ->setAge($faker->numberBetween(18, 99))
+            ->setAge($faker->numberBetween(18, 64))
             ->setBiography($faker->text(100))
             ->setUsername($faker->userName());
 
@@ -36,11 +42,25 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN'])
             ->setFirstName($faker->firstName())
             ->setLastName($faker->lastName())
-            ->setAge($faker->numberBetween(18, 99))
+            ->setAge($faker->numberBetween(18, 64))
+            ->setBiography($faker->text(100))
+            ->setUsername($faker->userName());
+
+        $password = $this->passwordHasher->hashPassword($user, 'test123!');
+
+        $user = new User();
+        $user
+            ->setEmail('user@gmail.com')
+            ->setPassword($password)
+            ->setRoles(['ROLE_USER'])
+            ->setFirstName($faker->firstName())
+            ->setLastName($faker->lastName())
+            ->setAge($faker->numberBetween(18, 64))
             ->setBiography($faker->text(100))
             ->setUsername($faker->userName());
 
         $manager->persist($admin);
+        $manager->persist($user);
 
         $ceo = new User();
         $ceo
@@ -55,15 +75,17 @@ class UserFixtures extends Fixture
 
         $manager->persist($ceo);
 
-        for($i=0; $i<10; $i++){
+        for ($i = 0; $i < 10; $i++) {
             $user = new User();
+
             $user
                 ->setEmail($faker->email())
                 ->setPassword($pwd)
                 ->setRoles($faker->randomElement([['ROLE_USER'], ['ROLE_MANAGER']]))
+                ->setRoles($faker->randomElement([['ROLE_USER'], ['ROLE_ADMIN']]))
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setAge($faker->numberBetween(18, 99))
+                ->setAge($faker->numberBetween(18, 64))
                 ->setUsername($faker->userName())
                 ->setBiography($faker->text(100));
 
