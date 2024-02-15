@@ -13,10 +13,10 @@ export default function UserProfile({ user }) {
         {t("userProfile")}
       </h1>
 
-      <Card classNames={"w-1/3 mr-4 mt-3"}>
+      <Card classNames={"mr-4 mt-3"}>
         {user ? (
           <div>
-              <ProfilePicture base64={user?.pictures[0]?.path}/>
+            <ProfilePicture base64={user?.pictures[0]?.path} />
             <h1 className="text-xl font-bold mb-4">{user?.username}</h1>
             <dl>
               <div className="flex gap-4 mb-2">

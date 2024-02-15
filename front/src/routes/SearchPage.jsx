@@ -104,9 +104,16 @@ export default function SearchPage() {
         {results.length > 0 ? (
           results.map((result) => (
             <Grid item xs={2} key={result.id}>
-              <Card sx={{ padding: "10px", display: "flex", justifyContent:"center", alignContent:"center"}} >
+              <Card
+                sx={{
+                  padding: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
+              >
                 <Link to={`/user/${result.id}`}>
-                  <ProfilePicture base64={result?.pictures[0]?.path}/>
+                  <ProfilePicture base64={result?.pictures[0]?.path} />
                   <Typography variant="h6" component="div">
                     {result.username}
                   </Typography>
