@@ -64,8 +64,7 @@
     "joinUsHere": "Rejoignez-nous ici",
     "lestGo": "C'est parti",
     "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?",
-    "mustBe10Digits": "doit être composé de 10 chiffres"
-    "wantToOpenYourOwnCompany": "Vous voulez ouvrir votre propre entreprise ?",
+    "mustBe10Digits": "doit être composé de 10 chiffres",
     "userProfile": "Profil de l'utilisateur",
     "editUserProfile": "Modifier mon profil",
     "userNotFound": "Utilisateur introuvable",
@@ -87,7 +86,8 @@
     "serviceAdditionFailed": "Echec de l'ajout de la prestation",
     "add": "Ajouter",
     "addService": "Ajouter une prestation",
-    "noServices": "Aucune prestation"
+    "noServices": "Aucune prestation",
+    "isNotValid": "n'est pas valide"
 
   },
   "en": {
@@ -154,8 +154,7 @@
     "RentADreamCanHelpYou": "Rent-A-Dream can help you",
     "joinUsHere": "Join us here",
     "lestGo": "Let's go",
-    "wantToOpenYourOwnCompany": "Want to open your own company ?",
-    "mustBe10Digits": "must be 10 digits"
+    "mustBe10Digits": "must be 10 digits",
     "wantToOpenYourOwnCompany": "Want to open your own company ?",
     "userProfile": "User profile",
     "editUserProfile": "Edit Profile",
@@ -178,6 +177,7 @@
     "serviceAdditionFailed": "Service addition failed",
     "add": "Add",
     "addService": "Add service",
-    "noServices": "No services"
+    "noServices": "No services",
+    "isNotValid": "is not valid"
   }
 }
