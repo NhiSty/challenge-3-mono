@@ -35,7 +35,7 @@ export default function LoginPage() {
 
     try {
       await login(data.email, data.password);
-      if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.CEO)) {
+      if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.MANAGER)) {
         navigate("/manager/dashboard");
       } else {
         navigate("/");

@@ -85,8 +85,25 @@
     "serviceAdditionFailed": "Echec de l'ajout de la prestation",
     "add": "Ajouter",
     "addService": "Ajouter une prestation",
-    "noServices": "Aucune prestation"
-
+    "noServices": "Aucune prestation",
+    "franchiseNumber": "Nombre de franchise",
+    "companyNumber": "Nombre d'entreprise",
+    "bookingsTakenThisMonth" : "Réservation du mois",
+    "bookingsTakenThisYear" : "Réservation de l'année",
+    "january": "Janvier",
+    "february": "Février",
+    "march": "Mars",
+    "april": "Avril",
+    "may": "Mai",
+    "june": "Juin",
+    "july": "Juillet",
+    "august": "Août",
+    "september": "Septembre",
+    "october": "Octobre",
+    "november": "Novembre",
+    "december": "Décembre",
+    "bookingByMonth": "Nombre de réservations par mois",
+    "stateOfDemandCompanyCreation": "Demande de création d'entreprise"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -174,6 +191,24 @@
     "serviceAdditionFailed": "Service addition failed",
     "add": "Add",
     "addService": "Add service",
-    "noServices": "No services"
+    "noServices": "No services",
+    "franchiseNumber": "Franchise number",
+    "companyNumber": "Company number",
+    "bookingsTakenThisMonth" : "Booking this month",
+    "bookingsTakenThisYear" : "Booking this year",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December",
+    "bookingByMonth": "Booking by month",
+    "stateOfDemandCompanyCreation": "Company creation demand"
   }
 }

@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\KpiCompanyDemandNumberGet;
 use App\Action\Post\CompanyDemandDecisionAction;
 use App\Action\Post\CompanyDemandAction;
 use App\Repository\CompanyDemandRepository;
@@ -67,7 +68,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 )
             ),
             read: false,
-        )
+        ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/companyDemand/kpi',
+            controller: KpiCompanyDemandNumberGet::class,
+            normalizationContext: ['groups' => ['read-kpi-company-demand']],
+            read: false,
+        ),
     ]
 )]
 #[ApiFilter(SearchFilter::class, properties: ['status' => 'exact'])]

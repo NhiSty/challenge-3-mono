@@ -3,12 +3,43 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\KpiAllBookingGet;
+use App\Action\Get\KpiBookingByMonthGet;
+use App\Action\Get\KpiBookingByYearGet;
 use App\Repository\BookingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/booking/kpi',
+            controller: KpiAllBookingGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings']],
+            read: false,
+        ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/booking/monthly/kpi',
+            controller: KpiBookingByMonthGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-monthly']],
+            read: false,
+        ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/booking/year/kpi',
+            controller: KpiBookingByYearGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-yearly']],
+            read: false,
+        ),
+    ]
+)]
+
 class Booking
 {
     #[ORM\Id]

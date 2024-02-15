@@ -2,7 +2,7 @@ import { jwtDecode } from "jwt-decode";
 
 export const ROLES = {
   ADMIN: "ROLE_ADMIN",
-  CEO: "ROLE_CEO",
+  MANAGER: "ROLE_MANAGER",
   USER: "ROLE_USER",
 };
 
