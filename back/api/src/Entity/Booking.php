@@ -12,6 +12,7 @@ use App\Action\Get\KpiManagerBookingsByMonthGet;
 use App\Action\Get\KpiAdminBookingByYearGet;
 use App\Action\Post\BookingAction;
 use App\Repository\BookingRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,6 +57,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             read: false,
         ),
         new GetCollection(normalizationContext: ['groups' => ['read-user', 'read-booking']]),
+        new GetCollection(normalizationContext: ['groups' => ['read-booking']]),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/bookings',
@@ -92,6 +94,15 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read-booking'])]
     private ?User $booked_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'booking', targetEntity: Review::class, orphanRemoval: true)]
+    #[Groups(['read-booking', 'read-user'])]
+    private Collection $reviews;
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read-booking', 'read-user'])]
+    private ?Performance $performance = null;
 
     public function getId(): ?int
     {
@@ -142,6 +153,30 @@ class Booking
     public function setBookedId(?User $booked_id): static
     {
         $this->booked_id = $booked_id;
+
+        return $this;
+    }
+
+    public function getPerformance(): ?Performance
+    {
+        return $this->performance;
+    }
+
+    public function setPerformance(?Performance $performance): static
+    {
+        $this->performance = $performance;
+
+        return $this;
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function setReviews(Collection $reviews): static
+    {
+        $this->reviews = $reviews;
 
         return $this;
     }

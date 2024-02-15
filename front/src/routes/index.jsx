@@ -24,6 +24,7 @@ import PublicRoute from "@components/PublicRoute";
 import DemandsPages from "@routes/DemandsPages";
 import DemandDetails from "@routes/DemandDetails";
 import Dashboard from "../components/Dashboard";
+import BookingPage from "@routes/BookingPage";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute roleAllowed={[ROLES.USER]}>
             <EditAccountPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "bookings",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <BookingPage />
           </ProtectedRoute>
         ),
       },

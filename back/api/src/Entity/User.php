@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(normalizationContext: ['groups' => ['read-user']]),
         new Get(normalizationContext: ['groups' => ['read-user']],
-            security: "is_granted('ROLE_USER') and object == user"),
+            security: "is_granted('ROLE_USER')"),
         new Post(denormalizationContext: ['groups' => ['create-user']],
             validationContext: ['groups' => ['create-user']]),
         new HttpOperation(
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             controller: EmployeeAction::class,
             denormalizationContext: ['groups' => []],
             read: false,),
-        new Patch(denormalizationContext: ['groups' => ['update-user']]),
+        new Patch(denormalizationContext: ['groups' => ['update-user']], security: 'object == user'),
     ],
     normalizationContext: ['groups' => ['read-user', 'read-user-mutation']],
 )]
@@ -102,18 +102,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $overrides;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class, orphanRemoval: true)]
-    #[Groups(['employee:read'])]
+    #[Groups(['employee:read', 'read-user'])]
     private Collection $companies;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
     #[Groups(['read-user'])]
     private Collection $pictures;
-
-    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Review::class, orphanRemoval: true)]
-    private Collection $createdReviews;
-
-    #[ORM\OneToMany(mappedBy: 'reviewee', targetEntity: Review::class, orphanRemoval: true)]
-    private Collection $reviews;
 
     #[ORM\OneToMany(mappedBy: 'reporter', targetEntity: Report::class, orphanRemoval: true)]
     private Collection $createdReports;
@@ -153,8 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->overrides = new ArrayCollection();
         $this->companies = new ArrayCollection();
         $this->pictures = new ArrayCollection();
-        $this->createdReviews = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
         $this->createdReports = new ArrayCollection();
         $this->reports = new ArrayCollection();
     }
@@ -403,66 +395,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($picture->getOwner() === $this) {
                 $picture->setOwner(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getCreatedReviews(): Collection
-    {
-        return $this->createdReviews;
-    }
-
-    public function addCreatedReview(Review $createdReview): static
-    {
-        if (!$this->createdReviews->contains($createdReview)) {
-            $this->createdReviews->add($createdReview);
-            $createdReview->setReviewer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCreatedReview(Review $createdReview): static
-    {
-        if ($this->createdReviews->removeElement($createdReview)) {
-            // set the owning side to null (unless already changed)
-            if ($createdReview->getReviewer() === $this) {
-                $createdReview->setReviewer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setReviewee($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getReviewee() === $this) {
-                $review->setReviewee(null);
             }
         }
 
