@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/monthly/admin/kpi',
             controller: KpiAdminBookingsByMonthGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-monthly-admin']],
-            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(
@@ -50,7 +50,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/year/admin/kpi',
             controller: KpiAdminBookingByYearGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-yearly-admin']],
-            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(

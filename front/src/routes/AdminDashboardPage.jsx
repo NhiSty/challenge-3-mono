@@ -7,16 +7,8 @@ import useChart from "@/hooks//useChart";
 
 export default function AdminDashboardPage() {
   const { t } = useTranslation();
-  const {
-    monthlyBooking,
-    isLoadingMonthlyBooking,
-    yearlyBooking,
-    isLoadingYearlyBooking,
-    companies,
-    isLoadingCompanies,
-    bookingStates,
-    isLoadingBookingStates,
-  } = useKpisAdmin();
+  const { monthlyBooking, yearlyBooking, companies, bookingStates, isLoading } =
+    useKpisAdmin();
 
   const labels = [
     t("january"),
@@ -106,35 +98,32 @@ export default function AdminDashboardPage() {
 
   useChart(lineRef, "line", lineData, lineOptions);
   useChart(doughnutRef, "doughnut", doughnutData, doughnutOptions);
-
   return (
-    <>
-      <Grid container spacing={2} width={"100%"}>
-        <Grid item xs={6}>
-          <Card classNames={"w-full mr-3 mb-3"}>
-            <h3 className={"font-bold"}>{t("companyNumber")}</h3>
-            {isLoadingCompanies && <p>{t("loading")}</p>}
-            <p>{companies}</p>
-          </Card>
+    !isLoading && (
+      <>
+        <Grid container spacing={2} width={"100%"}>
+          <Grid item xs={6}>
+            <Card classNames={"w-full mr-3 mb-3"}>
+              <h3 className={"font-bold"}>{t("companyNumber")}</h3>
+              <p>{companies}</p>
+            </Card>
 
-          <Card classNames={"w-full h-[75%]"}>
-            {isLoadingBookingStates && <p>{t("loading")}</p>}
-            <canvas ref={doughnutRef} />
-          </Card>
-        </Grid>
+            <Card classNames={"w-full h-[75%]"}>
+              <canvas ref={doughnutRef} />
+            </Card>
+          </Grid>
 
-        <Grid item xs={6}>
-          <Card classNames={"w-full mr-3 mb-3"}>
-            <h3 className={"font-bold"}>{t("bookingsTakenThisYear")}</h3>
-            {isLoadingYearlyBooking && <p>{t("loading")}</p>}
-            <p>{yearlyBooking}</p>
-          </Card>
-          <Card classNames={"w-full"}>
-            {isLoadingMonthlyBooking && <p>{t("loading")}</p>}
-            <canvas ref={lineRef} />
-          </Card>
+          <Grid item xs={6}>
+            <Card classNames={"w-full mr-3 mb-3"}>
+              <h3 className={"font-bold"}>{t("bookingsTakenThisYear")}</h3>
+              <p>{yearlyBooking}</p>
+            </Card>
+            <Card classNames={"w-full"}>
+              <canvas ref={lineRef} />
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </>
+      </>
+    )
   );
 }

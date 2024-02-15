@@ -8,62 +8,47 @@ import { useEffect, useState } from "react";
 
 export default function useKpisManager() {
   const [franchisesByUser, setFranchisesByUser] = useState(0);
-  const [isLoadingFranchisesByUser, setIsLoadingFranchisesByUser] =
-    useState(false);
-
   const [monthlyBooking, setMonthlyBooking] = useState(0);
-  const [isLoadingBooking, setIsLoadingBooking] = useState(false);
-
   const [yearlyBooking, setYearlyBooking] = useState(0);
-  const [isLoadingYearlyBooking, setIsLoadingYearlyBooking] = useState(false);
-
   const [bookings, setBookings] = useState(0);
-  const [isLoadingBookings, setIsLoadingBookings] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoadingBookings(true);
-    getCurrentMonthAllBooking()
-      .then((response) => {
-        setBookings(response.data["numberOfBookingThisMonth"] || 0);
-      })
-      .finally(() => setIsLoadingBookings(false));
-  }, []);
+    setIsLoading(true);
 
-  useEffect(() => {
-    setIsLoadingFranchisesByUser(true);
-    getFranchisesByUser()
-      .then((response) => {
+    const promises = [
+      getFranchisesByUser().then((response) => {
         setFranchisesByUser(response.data["numberOfFranchises"] || 0);
-      })
-      .finally(() => setIsLoadingFranchisesByUser(false));
-  }, []);
+      }),
 
-  useEffect(() => {
-    setIsLoadingBooking(true);
-    getManagerBookingByMonth()
-      .then((response) => {
+      getCurrentMonthAllBooking().then((response) => {
+        setBookings(response.data["numberOfBookingThisMonth"] || 0);
+      }),
+
+      getManagerBookingByMonth().then((response) => {
         setMonthlyBooking(response.data["numberOfBookings"] || 0);
-      })
-      .finally(() => setIsLoadingBooking(false));
-  }, []);
+      }),
 
-  useEffect(() => {
-    setIsLoadingYearlyBooking(true);
-    getManagerBookingByYear()
-      .then((response) => {
+      getManagerBookingByYear().then((response) => {
         setYearlyBooking(response.data["bookingsThisYear"] || 0);
+      }),
+    ];
+
+    Promise.all(promises)
+      .then(() => {
+        setIsLoading(false);
       })
-      .finally(() => setIsLoadingYearlyBooking(false));
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, []);
 
   return {
     franchisesByUser,
-    isLoadingFranchisesByUser,
     monthlyBooking,
-    isLoadingBooking,
     yearlyBooking,
-    isLoadingYearlyBooking,
     bookings,
-    isLoadingBookings,
+    isLoading,
   };
 }

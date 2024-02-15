@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/company/kpi',
             controller: KpiAdminCompanyNumberGet::class,
             normalizationContext: ['groups' => ['read-kpi-company']],
-            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
     ]

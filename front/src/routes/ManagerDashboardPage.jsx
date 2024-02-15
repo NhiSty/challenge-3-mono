@@ -29,13 +29,10 @@ export default function ManagerDashboardPage() {
 
   const {
     franchisesByUser,
-    isLoadingFranchisesByUser,
     monthlyBooking,
-    isLoadingBooking,
     yearlyBooking,
-    isLoadingYearlyBooking,
     bookings,
-    isLoadingBookings,
+    isLoading,
   } = useKpisManager();
 
   const labels = [
@@ -88,27 +85,27 @@ export default function ManagerDashboardPage() {
 
   return (
     <>
-      <div className={"flex flex-row justify-between mb-3"}>
-        <Card classNames={"w-full mr-3"}>
-          <h3 className={"font-bold"}>{t("franchiseNumber")}</h3>
-          {isLoadingFranchisesByUser && <p>{t("loading")}</p>}
-          <p>{franchisesByUser}</p>
-        </Card>
-        <Card classNames={"w-full mr-3"}>
-          <h3 className={"font-bold"}>{t("bookingsTakenThisMonth")}</h3>
-          {isLoadingBookings && <p>{t("loading")}</p>}
-          <p>{bookings}</p>
-        </Card>
-        <Card classNames={"w-full"}>
-          <h3 className={"font-bold"}>{t("bookingsTakenThisYear")}</h3>
-          {isLoadingYearlyBooking && <p>{t("loading")}</p>}
-          <p>{yearlyBooking}</p>
-        </Card>
-      </div>
-      <Card>
-        {isLoadingBooking && <p>{t("loading")}</p>}
-        <Line data={data} options={options} />
-      </Card>
+      {!isLoading && (
+        <>
+          <div className={"flex flex-row justify-between mb-3"}>
+            <Card classNames={"w-full mr-3"}>
+              <h3 className={"font-bold"}>{t("franchiseNumber")}</h3>
+              <p>{franchisesByUser}</p>
+            </Card>
+            <Card classNames={"w-full mr-3"}>
+              <h3 className={"font-bold"}>{t("bookingsTakenThisMonth")}</h3>
+              <p>{bookings}</p>
+            </Card>
+            <Card classNames={"w-full"}>
+              <h3 className={"font-bold"}>{t("bookingsTakenThisYear")}</h3>
+              <p>{yearlyBooking}</p>
+            </Card>
+          </div>
+          <Card>
+            <Line data={data} options={options} />
+          </Card>
+        </>
+      )}
     </>
   );
 }
