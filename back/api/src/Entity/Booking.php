@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
 #[ApiResource(
     operations: [
-        new GetCollection(normalizationContext: ['groups' => ['read-user', 'read-booking']]),
+        new GetCollection(normalizationContext: ['groups' => ['read-booking']]),
         new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/bookings',
@@ -51,6 +51,11 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read-booking'])]
     private ?User $booked_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read-booking', 'read-user'])]
+    private ?Performance $performance = null;
 
     public function getId(): ?int
     {
@@ -101,6 +106,18 @@ class Booking
     public function setBookedId(?User $booked_id): static
     {
         $this->booked_id = $booked_id;
+
+        return $this;
+    }
+
+    public function getPerformance(): ?Performance
+    {
+        return $this->performance;
+    }
+
+    public function setPerformance(?Performance $performance): static
+    {
+        $this->performance = $performance;
 
         return $this;
     }

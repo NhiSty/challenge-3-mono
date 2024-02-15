@@ -3,10 +3,15 @@ import UserProfile from "@components/partials/UserProfile";
 import useUser from "@/hooks/useUser";
 import { useTranslation } from "@/translation/useTranslation";
 import Planning from "@components/partials/Planning";
+import { useMemo } from "react";
 
 export default function UserPage() {
   const { userId } = useParams();
   const { user, isLoading } = useUser(Number(userId));
+  const performances = useMemo(
+    () => user?.companies?.flatMap((company) => company.performances) ?? [],
+    [user],
+  );
 
   const { t } = useTranslation();
 
@@ -27,6 +32,7 @@ export default function UserPage() {
                 bookings={[...user.bookingsMade, ...user.bookingsReceived]}
                 userId={user.id}
                 refreshBookings={() => void 0}
+                performances={performances}
               />
             </div>
           </>

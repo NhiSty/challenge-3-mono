@@ -102,7 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $overrides;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Company::class, orphanRemoval: true)]
-    #[Groups(['employee:read'])]
+    #[Groups(['employee:read', 'read-user'])]
     private Collection $companies;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Picture::class, cascade: ['persist', 'remove'])]

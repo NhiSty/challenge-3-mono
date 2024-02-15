@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
@@ -11,6 +9,7 @@ use ApiPlatform\Metadata\Post;
 use App\Processor\PerformanceProcessor;
 use App\Repository\PerformanceRepository;
 use App\State\PerformanceStateProvider;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -36,11 +35,11 @@ class Performance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['performance:read'])]
+    #[Groups(['performance:read', 'read-booking', 'read-user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['performance:read'])]
+    #[Groups(['performance:read', 'read-booking', 'read-user'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'performances')]
@@ -48,8 +47,11 @@ class Performance
     private ?Company $company_id = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['performance:read'])]
+    #[Groups(['performance:read', 'read-booking', 'read-user'])]
     private ?string $price = null;
+
+    #[ORM\OneToMany(mappedBy: 'performance', targetEntity: Booking::class, orphanRemoval: true)]
+    private Collection $bookings;
 
     public function getId(): ?int
     {
@@ -90,5 +92,10 @@ class Performance
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
     }
 }
