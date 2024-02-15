@@ -29,7 +29,7 @@ function MapCustomizer() {
   useEffect(() => {
     map.zoomControl.setPosition("bottomright");
     //map.addControl(new (window as any).L.Control.Zoom({position: 'bottomright'}));
-  }, []);
+  });
 
   return null;
 }

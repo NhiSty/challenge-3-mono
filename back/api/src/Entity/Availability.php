@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Delete(),
     ],
-    normalizationContext: ['groups' => ['read-availability']],
+    normalizationContext: ['groups' => ['read-availability', 'read-user']],
 )]
 #[ApiFilter(SearchFilter::class, properties: ["user_id" => "exact"])]
 class Availability
@@ -45,15 +45,15 @@ class Availability
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read-availability', 'create-availability'])]
+    #[Groups(['read-availability', 'create-availability', 'read-user'])]
     private ?string $week_day = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Groups(['read-availability', 'create-availability'])]
+    #[Groups(['read-availability', 'create-availability', 'read-user'])]
     private ?\DateTimeInterface $start_time = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Groups(['read-availability', 'create-availability'])]
+    #[Groups(['read-availability', 'create-availability', 'read-user'])]
     private ?\DateTimeInterface $end_time = null;
 
     #[ORM\ManyToOne(inversedBy: 'availabilities')]

@@ -87,6 +87,8 @@ FROM php_base AS php_prod
 
 ENV APP_ENV=prod
 
+COPY composer.json .
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --link docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 

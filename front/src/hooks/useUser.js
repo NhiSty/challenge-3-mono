@@ -9,6 +9,9 @@ import useTokens from "@/hooks/useTokens";
  * @property {string} lastName
  * @property {number} age
  * @property {number} id
+ * @property {ApiAvailability[]} availabilities[]
+ * @property {ApiBooking[]} bookingsMade[]
+ * @property {ApiBooking[]} bookingsReceived[]
  */
 
 /**

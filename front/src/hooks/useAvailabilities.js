@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 
 /**
  * @param {number} userId
- * @returns {ApiAvailability[]}
+ * @returns {{availabilities: ApiAvailability[], refresh: () => void}}
  */
 export function useAvailabilities(userId) {
   const tokens = useTokens();
   const [availabilities, setAvailabilities] = useState([]);
 
-  useEffect(() => {
+  const refresh = () => {
     if (!tokens || !userId) return;
 
     fetch(
@@ -22,7 +22,9 @@ export function useAvailabilities(userId) {
     )
       .then((res) => res.json())
       .then(setAvailabilities);
-  }, [userId, tokens]);
+  };
 
-  return availabilities;
+  useEffect(refresh, [userId, tokens]);
+
+  return { availabilities, refresh };
 }
