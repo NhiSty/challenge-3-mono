@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import ProfilePicture from "../components/partials/ProfilePicture";
+import ProfilePicture from "@components/partials/ProfilePicture";
 
 export default function SearchPage() {
   const { t } = useTranslation();

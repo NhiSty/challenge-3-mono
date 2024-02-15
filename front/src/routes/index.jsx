@@ -5,7 +5,6 @@ import Layout from "@components/partials/Layout.jsx";
 import RegisterPage from "@routes/RegisterPage.jsx";
 import LoginPage from "@routes/LoginPage.jsx";
 import ProtectedRoute from "@components/ProtectedRoute";
-import DashboardPage from "@routes/DashboardPage";
 import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
@@ -22,6 +21,7 @@ import NewCompanyFormPage from "@routes/NewCompanyFormPage";
 import PublicRoute from "@components/PublicRoute";
 import DemandsPages from "@routes/DemandsPages";
 import DemandDetails from "@routes/DemandDetails";
+import Dashboard from "@components/Dashboard";
 import BookingPage from "@routes/BookingPage";
 
 const router = createBrowserRouter([
@@ -102,15 +102,15 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
-            <DashboardPage />
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+            <Dashboard />
           </ProtectedRoute>
         ),
       },
       {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.ADMIN, ROLES.CEO]}>
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN, ROLES.MANAGER]}>
             <CompanyPage />
           </ProtectedRoute>
         ),
@@ -121,7 +121,7 @@ const router = createBrowserRouter([
           {
             path: "",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EmployeesPage />
               </ProtectedRoute>
             ),
@@ -129,7 +129,7 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <NewEmployeeFormPage />
               </ProtectedRoute>
             ),
@@ -137,7 +137,7 @@ const router = createBrowserRouter([
           {
             path: "edit/:id",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EditEmployeeFormPage />
               </ProtectedRoute>
             ),
@@ -163,7 +163,7 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <ServicesPage />
           </ProtectedRoute>
         ),

@@ -3,15 +3,32 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\KpiManagerBookingMonthTotalGet;
+use App\Action\Get\KpiManagerBookingsByMonthGet;
+use App\Action\Get\KpiAdminBookingByYearGet;
+use App\Action\Get\KpiAdminCompanyNumberGet;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/company/kpi',
+            controller: KpiAdminCompanyNumberGet::class,
+            normalizationContext: ['groups' => ['read-kpi-company']],
+            security: "is_granted('ROLE_ADMIN')",
+            read: false,
+        ),
+    ]
+)]
 class Company
 {
     #[ORM\Id]
