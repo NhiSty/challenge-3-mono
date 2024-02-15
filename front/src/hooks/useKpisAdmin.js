@@ -31,23 +31,24 @@ export default function useKpisAdmin() {
       }),
     ];
 
-    Promise.all(promises)
-        .finally(() => {
-          setIsLoading(false);
-        })
+    Promise.all(promises).finally(() => {
+      setIsLoading(false);
+    });
   }, []);
 
-  return isLoading ? {
-    monthlyBooking: 0,
-    yearlyBooking: 0,
-    companies: 0,
-    bookingStates: 0,
-    isLoading,
-  } : {
-    monthlyBooking,
-    yearlyBooking,
-    companies,
-    bookingStates,
-    isLoading,
-  };
+  return isLoading
+    ? {
+        monthlyBooking: 0,
+        yearlyBooking: 0,
+        companies: 0,
+        bookingStates: 0,
+        isLoading,
+      }
+    : {
+        monthlyBooking,
+        yearlyBooking,
+        companies,
+        bookingStates,
+        isLoading,
+      };
 }

@@ -44,17 +44,19 @@ export default function useKpisManager() {
       });
   }, []);
 
-  return isLoading ? {
-    franchisesByUser: 0,
-    monthlyBooking: 0,
-    yearlyBooking: 0,
-    bookings: 0,
-    isLoading,
-  } : {
-    franchisesByUser,
-    monthlyBooking,
-    yearlyBooking,
-    bookings,
-    isLoading,
-  };
+  return isLoading
+    ? {
+        franchisesByUser: 0,
+        monthlyBooking: 0,
+        yearlyBooking: 0,
+        bookings: 0,
+        isLoading,
+      }
+    : {
+        franchisesByUser,
+        monthlyBooking,
+        yearlyBooking,
+        bookings,
+        isLoading,
+      };
 }
