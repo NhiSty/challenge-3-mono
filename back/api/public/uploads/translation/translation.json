@@ -85,8 +85,15 @@
     "serviceAdditionFailed": "Echec de l'ajout de la prestation",
     "add": "Ajouter",
     "addService": "Ajouter une prestation",
-    "noServices": "Aucune prestation"
-
+    "noServices": "Aucune prestation",
+    "viewOwnBookings": "Voir mes réservations",
+    "noBookingsMade": "Aucune réservation effectuée",
+    "bookingsMade": "Mes réservations",
+    "performanceName": "Nom de la performance",
+    "writeReview": "Écrire un avis",
+    "planning": "Planning",
+    "clickOnGreenToBook": "Cliquez sur un créneau vert pour le réserver.",
+    "review": "Avis"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -174,6 +181,14 @@
     "serviceAdditionFailed": "Service addition failed",
     "add": "Add",
     "addService": "Add service",
-    "noServices": "No services"
+    "noServices": "No services",
+    "viewOwnBookings": "View my bookings",
+    "noBookingsMade": "No booking made",
+    "bookingsMade": "My bookings",
+    "performanceName": "Performance name",
+    "writeReview": "Write a review",
+    "planning": "Planning",
+    "clickOnGreenToBook": "Click on a green time slot to book it.",
+    "review": "Review"
   }
 }

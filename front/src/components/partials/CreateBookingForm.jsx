@@ -6,7 +6,7 @@ import { useState } from "react";
 
 /**
  * @param {number} userId
- * @param {function} refreshBookings
+ * @param {function} refresh
  * @param {PlanningColumn} timeSlot
  * @param {function} setTimeSlot
  * @param {ApiPerformance[]} performances
@@ -14,7 +14,7 @@ import { useState } from "react";
  */
 export default function CreateBookingForm({
   userId,
-  refreshBookings,
+  refresh,
   timeSlot,
   setTimeSlot,
   performances,
@@ -43,7 +43,7 @@ export default function CreateBookingForm({
       data,
     });
 
-    refreshBookings();
+    refresh();
   };
 
   return (
@@ -63,6 +63,8 @@ export default function CreateBookingForm({
                   weekday: "long",
                   day: "numeric",
                   month: "long",
+                  hour: "numeric",
+                  minute: "numeric",
                 })}
             </dd>
           </div>
@@ -107,8 +109,8 @@ export default function CreateBookingForm({
 
 CreateBookingForm.propTypes = {
   userId: PropTypes.number.isRequired,
-  refreshBookings: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
   timeSlot: PropTypes.object,
   setTimeSlot: PropTypes.func.isRequired,
-  performances: PropTypes.array,
+  performances: PropTypes.array.isRequired,
 };

@@ -37,11 +37,14 @@ export default class Booking {
   /**
    * @param {Duration} start
    * @param {Duration} end
+   * @param {number} offset
    * @returns {boolean}
    */
-  isOverlapping(start, end) {
+  isOverlapping(start, end, offset = 1) {
     const bookingStart = Duration.fromTimeString(this.start.toISOString());
+    bookingStart.addHours(offset);
     const bookingEnd = Duration.fromTimeString(this.end.toISOString());
+    bookingEnd.addHours(offset);
 
     return (
       (start.isSameOrAfter(bookingStart) && end.isSameOrBefore(bookingEnd)) ||

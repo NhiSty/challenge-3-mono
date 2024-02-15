@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Post\BookingAction;
 use App\Repository\BookingRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,6 +52,10 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read-booking'])]
     private ?User $booked_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'booking', targetEntity: Review::class, orphanRemoval: true)]
+    #[Groups(['read-booking', 'read-user'])]
+    private Collection $reviews;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -118,6 +123,18 @@ class Booking
     public function setPerformance(?Performance $performance): static
     {
         $this->performance = $performance;
+
+        return $this;
+    }
+
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function setReviews(Collection $reviews): static
+    {
+        $this->reviews = $reviews;
 
         return $this;
     }
