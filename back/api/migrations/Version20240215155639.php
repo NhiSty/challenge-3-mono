@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240215124606 extends AbstractMigration
+final class Version20240215155639 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,7 +26,6 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE company_demand_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE employee_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE franchise_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE greeting_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE override_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE performance_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE picture_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -49,7 +48,6 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_5D9F75A19D86650F ON employee (user_id_id)');
         $this->addSql('CREATE TABLE franchise (id INT NOT NULL, company_id_id INT DEFAULT NULL, franchise_name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_66F6CE2A38B53C32 ON franchise (company_id_id)');
-        $this->addSql('CREATE TABLE greeting (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE override (id INT NOT NULL, user_id_id INT NOT NULL, date DATE NOT NULL, start_time TIME(0) WITHOUT TIME ZONE NOT NULL, end_time TIME(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_820306E59D86650F ON override (user_id_id)');
         $this->addSql('CREATE TABLE performance (id INT NOT NULL, company_id_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, price VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
@@ -59,9 +57,8 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('CREATE TABLE report (id INT NOT NULL, reporter_id INT NOT NULL, reportee_id INT NOT NULL, report_content TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_C42F7784E1CFE6F5 ON report (reporter_id)');
         $this->addSql('CREATE INDEX IDX_C42F77842C0189D3 ON report (reportee_id)');
-        $this->addSql('CREATE TABLE review (id INT NOT NULL, reviewer_id INT NOT NULL, reviewee_id INT NOT NULL, review_content TEXT NOT NULL, category VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_794381C670574616 ON review (reviewer_id)');
-        $this->addSql('CREATE INDEX IDX_794381C6BD992930 ON review (reviewee_id)');
+        $this->addSql('CREATE TABLE review (id INT NOT NULL, booking_id INT NOT NULL, review_content TEXT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_794381C63301C60 ON review (booking_id)');
         $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, age INT DEFAULT NULL, biography TEXT DEFAULT NULL, is_first_connection BOOLEAN DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON "user" (email)');
         $this->addSql('ALTER TABLE availability ADD CONSTRAINT FK_3FB7A2BF9D86650F FOREIGN KEY (user_id_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -78,8 +75,7 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('ALTER TABLE picture ADD CONSTRAINT FK_16DB4F897E3C61F9 FOREIGN KEY (owner_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE report ADD CONSTRAINT FK_C42F7784E1CFE6F5 FOREIGN KEY (reporter_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE report ADD CONSTRAINT FK_C42F77842C0189D3 FOREIGN KEY (reportee_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C670574616 FOREIGN KEY (reviewer_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C6BD992930 FOREIGN KEY (reviewee_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C63301C60 FOREIGN KEY (booking_id) REFERENCES booking (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
     public function down(Schema $schema): void
@@ -92,7 +88,6 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('DROP SEQUENCE company_demand_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE employee_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE franchise_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE greeting_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE override_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE performance_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE picture_id_seq CASCADE');
@@ -113,15 +108,13 @@ final class Version20240215124606 extends AbstractMigration
         $this->addSql('ALTER TABLE picture DROP CONSTRAINT FK_16DB4F897E3C61F9');
         $this->addSql('ALTER TABLE report DROP CONSTRAINT FK_C42F7784E1CFE6F5');
         $this->addSql('ALTER TABLE report DROP CONSTRAINT FK_C42F77842C0189D3');
-        $this->addSql('ALTER TABLE review DROP CONSTRAINT FK_794381C670574616');
-        $this->addSql('ALTER TABLE review DROP CONSTRAINT FK_794381C6BD992930');
+        $this->addSql('ALTER TABLE review DROP CONSTRAINT FK_794381C63301C60');
         $this->addSql('DROP TABLE availability');
         $this->addSql('DROP TABLE booking');
         $this->addSql('DROP TABLE company');
         $this->addSql('DROP TABLE company_demand');
         $this->addSql('DROP TABLE employee');
         $this->addSql('DROP TABLE franchise');
-        $this->addSql('DROP TABLE greeting');
         $this->addSql('DROP TABLE override');
         $this->addSql('DROP TABLE performance');
         $this->addSql('DROP TABLE picture');

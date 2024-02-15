@@ -24,7 +24,7 @@ export default function useUser(id) {
   const [isLoading, setIsLoading] = useState(false);
   const tokens = useTokens();
 
-  useEffect(() => {
+  const refresh = () => {
     if (tokens === null) {
       setUser(null);
       return;
@@ -41,7 +41,9 @@ export default function useUser(id) {
       .then((res) => (res.status === 200 ? res.json() : null))
       .then(setUser)
       .finally(() => setIsLoading(false));
-  }, [id, tokens]);
+  };
 
-  return { isLoading, user };
+  useEffect(refresh, [id, tokens]);
+
+  return { isLoading, user, refresh };
 }
