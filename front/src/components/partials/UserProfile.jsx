@@ -5,8 +5,6 @@ import ProfilePicture from "@components/partials/ProfilePicture";
 
 export default function UserProfile({ user }) {
   const { t } = useTranslation();
-
-
   return (
     <>
       <h1 className="text-4xl font-bold text-gray-800 mt-3">
@@ -51,5 +49,10 @@ UserProfile.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     age: PropTypes.number,
+    pictures: PropTypes.arrayOf(
+      PropTypes.shape({
+        path: PropTypes.string,
+      })
+    ),
   }),
 };
