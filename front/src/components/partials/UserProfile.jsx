@@ -52,7 +52,7 @@ UserProfile.propTypes = {
     pictures: PropTypes.arrayOf(
       PropTypes.shape({
         path: PropTypes.string,
-      })
+      }),
     ),
   }),
 };

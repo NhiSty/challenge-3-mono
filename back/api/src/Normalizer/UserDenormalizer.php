@@ -30,7 +30,7 @@ class UserDenormalizer implements DenormalizerInterface
 
         assert($user instanceof User);
 
-        if($data['profile']) {
+        if(isset($data['profile'])) {
             $picture = new Picture();
             $picture->setPath($data['profile']);
             $user->addPicture($picture);
