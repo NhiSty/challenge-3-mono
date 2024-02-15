@@ -44,7 +44,13 @@ export default function useKpisManager() {
       });
   }, []);
 
-  return {
+  return isLoading ? {
+    franchisesByUser: 0,
+    monthlyBooking: 0,
+    yearlyBooking: 0,
+    bookings: 0,
+    isLoading,
+  } : {
     franchisesByUser,
     monthlyBooking,
     yearlyBooking,

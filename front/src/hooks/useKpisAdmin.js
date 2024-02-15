@@ -32,16 +32,18 @@ export default function useKpisAdmin() {
     ];
 
     Promise.all(promises)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setIsLoading(false);
-      });
+        .finally(() => {
+          setIsLoading(false);
+        })
   }, []);
 
-  return {
+  return isLoading ? {
+    monthlyBooking: 0,
+    yearlyBooking: 0,
+    companies: 0,
+    bookingStates: 0,
+    isLoading,
+  } : {
     monthlyBooking,
     yearlyBooking,
     companies,
