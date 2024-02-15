@@ -27,7 +27,7 @@ describe("booking", () => {
         const end = Duration.fromTimeString(endTime);
 
         // When
-        const result = booking.isOverlapping(start, end);
+        const result = booking.isOverlapping(start, end, 0);
 
         // Then
         expect(result).toBe(expected);
@@ -47,14 +47,14 @@ describe("booking", () => {
       (expected, startTime, endTime) => {
         // Given
         const booking = new Booking(
-          new Date("2024-01-01T13:59:59.999Z"),
+          new Date("1970-01-01T13:59:59.999Z"),
           Duration.fromDuration("PT30M"),
         );
         const start = Duration.fromTimeString(startTime);
         const end = Duration.fromTimeString(endTime);
 
         // When
-        const result = booking.isOverlapping(start, end);
+        const result = booking.isOverlapping(start, end, 0);
 
         // Then
         expect(result).toBe(expected);

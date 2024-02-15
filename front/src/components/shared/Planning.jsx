@@ -6,9 +6,16 @@
  */
 
 /**
+ * @typedef ApiReview
+ * @property {string} review_content
+ */
+
+/**
  * @typedef ApiBooking
  * @property {string} duration (eg. P3D)
  * @property {string} start_datetime (eg. 2024-01-27T09:43:43.283Z)
+ * @property {ApiReview} reviews
+ * @property {ApiPerformance} performance
  */
 
 /**
@@ -31,6 +38,7 @@ import { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
 import CreateBookingForm from "@components/partials/CreateBookingForm";
+import classNames from "classnames";
 
 function getMondayOfCurrentWeek(today = new Date()) {
   const day = today.getDay();
@@ -41,8 +49,10 @@ function getMondayOfCurrentWeek(today = new Date()) {
 /**
  * @param {ApiAvailability[]} availabilities
  * @param {ApiBooking[]} bookings
+ * @param {ApiPerformance} performances
  * @param userId
- * @param refreshBookings
+ * @param refresh
+ * @param {boolean} readOnly
  * @returns {JSX.Element}
  * @constructor
  */
@@ -50,8 +60,9 @@ const Planning = ({
   availabilities,
   bookings,
   userId,
-  refreshBookings,
+  refresh,
   performances,
+  readOnly = false,
 }) => {
   const [timeSlot, setTimeSlot] = useState(null);
   const { columns: planning, timeSlots } = useMemo(() => {
@@ -65,7 +76,7 @@ const Planning = ({
   return (
     <>
       <div
-        className="grid grid-cols-7 grid-flow-col gap-1"
+        className="grid grid-cols-7 grid-flow-col gap-1 select-none"
         style={{
           gridTemplateRows: `repeat(${Math.ceil(timeSlots + 1)}, minmax(0, 1fr))`,
         }}
@@ -86,9 +97,15 @@ const Planning = ({
                       </div>
                     ) : column.isAvailable ? (
                       <div
-                        className="bg-green-500 rounded h-full flex justify-center items-center text-center cursor-pointer"
+                        className={classNames({
+                          "bg-green-500 rounded h-full flex justify-center items-center text-center": true,
+                          "cursor-pointer": !readOnly,
+                          "cursor-not-allowed": readOnly,
+                        })}
                         onClick={() => {
-                          setTimeSlot(column);
+                          if (!readOnly) {
+                            setTimeSlot(column);
+                          }
                         }}
                       >
                         {column.start.toLocaleTimeString()}-
@@ -107,7 +124,7 @@ const Planning = ({
 
       <CreateBookingForm
         userId={userId}
-        refreshBookings={refreshBookings}
+        refresh={refresh}
         timeSlot={timeSlot}
         setTimeSlot={setTimeSlot}
         performances={performances}
@@ -138,9 +155,10 @@ Planning.propTypes = {
       start_datetime: PropTypes.string,
     }),
   ).isRequired,
-  userId: PropTypes.number,
-  refreshBookings: PropTypes.func,
-  performances: PropTypes.array,
+  userId: PropTypes.number.isRequired,
+  refresh: PropTypes.func.isRequired,
+  performances: PropTypes.array.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default Planning;

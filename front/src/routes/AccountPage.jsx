@@ -22,6 +22,12 @@ export default function AccountPage() {
               {t("editUserProfile")}
             </Link>
           </Button>
+
+          <Button variant="contained" sx={{ marginTop: "15px" }}>
+            <Link to="/account/bookings" className="text-white no-underline">
+              {t("viewOwnBookings")}
+            </Link>
+          </Button>
         </div>
       )}
     </div>

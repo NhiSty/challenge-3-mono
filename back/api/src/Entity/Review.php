@@ -3,60 +3,49 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Post\ReviewAction;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(normalizationContext: ['groups' => ['review:read']]),
+        new HttpOperation(
+            method: Request::METHOD_POST,
+            uriTemplate: '/reviews',
+            controller: ReviewAction::class,
+            denormalizationContext: ['groups' => []],
+            read: false,
+        ),
+    ],
+    normalizationContext: ['groups' => ['review:read']],
+)]
 class Review
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['review:read'])]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'createdReviews')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $reviewer = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $reviewee = null;
+    #[Groups(['review:read'])]
+    private ?Booking $booking = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['read-booking', 'read-user', 'review:read'])]
     private ?string $review_content = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getReviewer(): ?User
-    {
-        return $this->reviewer;
-    }
-
-    public function setReviewer(?User $reviewer): static
-    {
-        $this->reviewer = $reviewer;
-
-        return $this;
-    }
-
-    public function getReviewee(): ?User
-    {
-        return $this->reviewee;
-    }
-
-    public function setReviewee(?User $reviewee): static
-    {
-        $this->reviewee = $reviewee;
-
-        return $this;
     }
 
     public function getReviewContent(): ?string
@@ -71,14 +60,14 @@ class Review
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getBooking(): ?Booking
     {
-        return $this->category;
+        return $this->booking;
     }
 
-    public function setCategory(string $category): static
+    public function setBooking(?Booking $booking): static
     {
-        $this->category = $category;
+        $this->booking = $booking;
 
         return $this;
     }

@@ -7,7 +7,7 @@ import { useMemo } from "react";
 
 export default function UserPage() {
   const { userId } = useParams();
-  const { user, isLoading } = useUser(Number(userId));
+  const { user, isLoading, refresh } = useUser(Number(userId));
   const performances = useMemo(
     () => user?.companies?.flatMap((company) => company.performances) ?? [],
     [user],
@@ -23,19 +23,21 @@ export default function UserPage() {
         </div>
       ) : (
         user && (
-          <>
-            <div className="flex flex-col items-center justify-center">
-              <UserProfile user={user} />
+          <div className="flex items-center justify-center gap-3 p-3">
+            <UserProfile user={user} />
 
+            <div className="flex flex-col grow">
+              <h2 className="font-bold text-xl">{t("planning")}</h2>
+              <p>{t("clickOnGreenToBook")}</p>
               <Planning
                 availabilities={user.availabilities}
                 bookings={[...user.bookingsMade, ...user.bookingsReceived]}
                 userId={user.id}
-                refreshBookings={() => void 0}
                 performances={performances}
+                refresh={refresh}
               />
             </div>
-          </>
+          </div>
         )
       )}
     </div>

@@ -6,12 +6,10 @@ import ProfilePicture from "@components/partials/ProfilePicture";
 export default function UserProfile({ user }) {
   const { t } = useTranslation();
   return (
-    <>
-      <h1 className="text-4xl font-bold text-gray-800 mt-3">
-        {t("userProfile")}
-      </h1>
+    <div className="flex flex-col gap-3">
+      <h1 className="text-4xl font-bold text-gray-800">{t("userProfile")}</h1>
 
-      <Card classNames={"mr-4 mt-3"}>
+      <Card>
         {user ? (
           <div>
             <ProfilePicture base64={user?.pictures[0]?.path} />
@@ -39,7 +37,7 @@ export default function UserProfile({ user }) {
           </div>
         )}
       </Card>
-    </>
+    </div>
   );
 }
 

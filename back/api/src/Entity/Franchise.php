@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Patch;
 use App\Action\Post\FranchiseAction;
+use App\Action\Get\KpiManagerFranchiseNumberGet;
 use App\Repository\FranchiseRepository;
 use App\State\FranchiseStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
             provider: FranchiseStateProvider::class,
         ),
         new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/franchises/kpi/user',
+            controller: KpiManagerFranchiseNumberGet::class,
+            normalizationContext: ['groups' => ['read-kpi-franchise']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
+            read: false,
+        ),
+        new HttpOperation(
             method: Request::METHOD_POST,
             uriTemplate: '/franchises',
             controller: FranchiseAction::class,
@@ -33,6 +42,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         )
     ]
 )]
+
 class Franchise
 {
     #[ORM\Id]

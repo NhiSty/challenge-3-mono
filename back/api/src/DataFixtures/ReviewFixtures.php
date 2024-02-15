@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Booking;
 use App\Entity\Review;
-use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -15,14 +15,12 @@ class ReviewFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        $users = $manager->getRepository(User::class)->findAll();
+        $bookings = $manager->getRepository(Booking::class)->findAll();
 
         for($i=0; $i<10; $i++){
             $object = (new Review())
-                ->setCategory($faker->word)
                 ->setReviewContent($faker->text)
-                ->setReviewer($users[$i])
-                ->setReviewee($faker->randomElement($users));
+                ->setBooking($faker->randomElement($bookings));
 
             $manager->persist($object);
         }
@@ -32,7 +30,7 @@ class ReviewFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UserFixtures::class,
+            BookingFixtures::class,
         ];
     }
 }
