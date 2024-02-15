@@ -1,7 +1,7 @@
-import Chart from 'chart.js/auto';
+import Chart from "chart.js/auto";
 import { useEffect } from "react";
 
-export default function useChart (chartRef, chartType, data, options) {
+export default function useChart(chartRef, chartType, data, options) {
   useEffect(() => {
     if (chartRef.current) {
       const chartInstance = new Chart(chartRef.current, {
@@ -15,4 +15,4 @@ export default function useChart (chartRef, chartType, data, options) {
       };
     }
   }, [chartRef, chartType, data, options]);
-};
+}

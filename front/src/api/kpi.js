@@ -1,37 +1,29 @@
 import { apiClient } from "@/api/index";
 
-// for manager
+//  For manager
 export function getFranchisesByUser() {
   return apiClient.get(`/franchises/kpi/user`);
-
 }
-
-// for admin
-export function getFranchises() {
-  return apiClient.get(`/franchises/kpi`);
-
-}
-
 export function getCurrentMonthAllBooking() {
   return apiClient.get("/booking/kpi");
 }
-
-export function getBookingByMonth() {
-  return apiClient.get("/booking/monthly/kpi");
+export function getManagerBookingByMonth() {
+  return apiClient.get("/booking/monthly/manager/kpi");
+}
+export function getManagerBookingByYear() {
+  return apiClient.get("/booking/year/manager/kpi");
 }
 
-// for manager
-export function getBookingByYear() {
-  return apiClient.get("/booking/year/kpi");
+//  For Admin
+export function getAdminBookingByMonth() {
+  return apiClient.get("/booking/monthly/admin/kpi");
 }
-
-// for admin
-
 export function getAllCompanies() {
   return apiClient.get("/company/kpi");
 }
-
-// for admin
 export function getStatusCompanyDemand() {
   return apiClient.get("/companyDemand/kpi");
+}
+export function getAdminBookingByYear() {
+  return apiClient.get("/booking/year/admin/kpi");
 }

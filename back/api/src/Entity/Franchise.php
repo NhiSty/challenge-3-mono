@@ -5,7 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
-use App\Action\Get\KpiFranchiseNumberGet;
+use App\Action\Get\KpiManagerFranchiseNumberGet;
 use App\Repository\FranchiseRepository;
 use App\State\FranchiseStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new HttpOperation(
             method: Request::METHOD_GET,
             uriTemplate: '/franchises/kpi/user',
-            controller: KpiFranchiseNumberGet::class,
+            controller: KpiManagerFranchiseNumberGet::class,
             normalizationContext: ['groups' => ['read-kpi-franchise']],
             security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,

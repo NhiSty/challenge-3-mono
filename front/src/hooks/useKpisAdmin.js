@@ -1,85 +1,68 @@
 import {
-  getFranchises,
-  getCurrentMonthAllBooking,
-  getBookingByMonth,
-  getBookingByYear,
+  getAdminBookingByMonth,
+  getAdminBookingByYear,
   getAllCompanies,
   getStatusCompanyDemand,
 } from "@/api/kpi";
 import { useEffect, useState } from "react";
 
 export default function useKpisAdmin() {
-  const [franchises, setFranchises] = useState(0);
   const [monthlyBooking, setMonthlyBooking] = useState(0);
+  const [isLoadingMonthlyBooking, setIsLoadingMonthlyBooking] = useState(false);
+
   const [yearlyBooking, setYearlyBooking] = useState(0);
+  const [isLoadingYearlyBooking, setIsLoadingYearlyBooking] = useState(false);
+
   const [companies, setCompanies] = useState(0);
-  const [bookings, setBookings] = useState(0);
+  const [isLoadingCompanies, setIsLoadingCompanies] = useState(false);
+
   const [bookingStates, setBookingStates] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoadingBookingStates, setIsLoadingBookingStates] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoadingBookingStates(true);
     getStatusCompanyDemand()
-        .then((response) => {
-          setBookingStates(response.data["statusDemand"]);
-        })
-        .finally(() => setIsLoading(false));
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getCurrentMonthAllBooking()
       .then((response) => {
-        setBookings(response.data["numberOfBookingThisMonth"] || 0);
+        setBookingStates(response.data["statusDemand"]);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingBookingStates(false));
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    getFranchises()
-      .then((response) => {
-        setFranchises(response.data["numberOfFranchises"] || 0);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getBookingByMonth()
+    setIsLoadingMonthlyBooking(true);
+    getAdminBookingByMonth()
       .then((response) => {
         setMonthlyBooking(response.data["numberOfBookings"] || 0);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingMonthlyBooking(false));
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    getBookingByYear()
+    setIsLoadingYearlyBooking(true);
+    getAdminBookingByYear()
       .then((response) => {
         setYearlyBooking(response.data["bookingsThisYear"] || 0);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingYearlyBooking(false));
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoadingCompanies(true);
     getAllCompanies()
       .then((response) => {
         setCompanies(response.data["numberOfCompany"] || 0);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsLoadingCompanies(false));
   }, []);
 
-
   return {
-    franchises,
-    bookings,
     monthlyBooking,
+    isLoadingMonthlyBooking,
     yearlyBooking,
+    isLoadingYearlyBooking,
     companies,
+    isLoadingCompanies,
     bookingStates,
-    isLoading,
+    isLoadingBookingStates,
   };
 }

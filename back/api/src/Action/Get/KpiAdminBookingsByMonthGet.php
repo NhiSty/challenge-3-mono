@@ -3,6 +3,8 @@
 namespace App\Action\Get;
 
 use App\Repository\BookingRepository;
+use App\Repository\CompanyRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -12,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-class KpiBookingByMonthGet extends AbstractController
+class KpiAdminBookingsByMonthGet extends AbstractController
 {
 
     public function __construct(
@@ -40,7 +42,6 @@ class KpiBookingByMonthGet extends AbstractController
             $query = $bookingRepository->createQueryBuilder('b')
                 ->select('count(b.id)')
                 ->where('b.start_datetime BETWEEN :from AND :to')
-                ->innerJoin('b.')
                 ->setParameter('from', $from )
                 ->setParameter('to', $to)
                 ->getQuery();

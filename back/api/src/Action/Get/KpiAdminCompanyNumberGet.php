@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-class KpiCompanyNumberGet extends AbstractController
+class KpiAdminCompanyNumberGet extends AbstractController
 {
 
     public function __construct(
@@ -26,7 +26,6 @@ class KpiCompanyNumberGet extends AbstractController
      * @throws NoResultException
      */
 
-    // for manager
     public function __invoke(CompanyRepository $companyRepository, Request $req): JsonResponse
     {
         $numberOfCompany = $companyRepository->createQueryBuilder('f')

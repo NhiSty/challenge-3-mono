@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-class KpiCompanyDemandNumberGet extends AbstractController
+class KpiAdminCompanyDemandNumberGet extends AbstractController
 {
 
     public function __construct(
@@ -22,7 +22,6 @@ class KpiCompanyDemandNumberGet extends AbstractController
     }
 
 
-    // for creating donut chart for ADMIN
     public function __invoke(CompanyDemandRepository $companyDemandRepository, Request $req): JsonResponse
     {
         $counts = $companyDemandRepository->createQueryBuilder('cd')

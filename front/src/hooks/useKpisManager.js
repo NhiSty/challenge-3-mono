@@ -1,14 +1,15 @@
 import {
   getFranchisesByUser,
   getCurrentMonthAllBooking,
-  getBookingByMonth,
-  getBookingByYear,
+  getManagerBookingByMonth,
+  getManagerBookingByYear,
 } from "@/api/kpi";
 import { useEffect, useState } from "react";
 
 export default function useKpisManager() {
   const [franchisesByUser, setFranchisesByUser] = useState(0);
-  const [isLoadingFranchisesByUser, setIsLoadingFranchisesByUser] = useState(false);
+  const [isLoadingFranchisesByUser, setIsLoadingFranchisesByUser] =
+    useState(false);
 
   const [monthlyBooking, setMonthlyBooking] = useState(0);
   const [isLoadingBooking, setIsLoadingBooking] = useState(false);
@@ -18,7 +19,6 @@ export default function useKpisManager() {
 
   const [bookings, setBookings] = useState(0);
   const [isLoadingBookings, setIsLoadingBookings] = useState(false);
-
 
   useEffect(() => {
     setIsLoadingBookings(true);
@@ -40,7 +40,7 @@ export default function useKpisManager() {
 
   useEffect(() => {
     setIsLoadingBooking(true);
-    getBookingByMonth()
+    getManagerBookingByMonth()
       .then((response) => {
         setMonthlyBooking(response.data["numberOfBookings"] || 0);
       })
@@ -49,14 +49,12 @@ export default function useKpisManager() {
 
   useEffect(() => {
     setIsLoadingYearlyBooking(true);
-    getBookingByYear()
+    getManagerBookingByYear()
       .then((response) => {
         setYearlyBooking(response.data["bookingsThisYear"] || 0);
       })
       .finally(() => setIsLoadingYearlyBooking(false));
   }, []);
-
-
 
   return {
     franchisesByUser,

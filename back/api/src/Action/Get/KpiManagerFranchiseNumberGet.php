@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-class KpiFranchiseNumberGet extends AbstractController
+class KpiManagerFranchiseNumberGet extends AbstractController
 {
 
     public function __construct(
@@ -28,20 +28,20 @@ class KpiFranchiseNumberGet extends AbstractController
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    // for manager
 
-    public function __invoke(FranchiseRepository $franchiseRepository, Request $req): JsonResponse
+    public function __invoke(FranchiseRepository $franchiseRepository, CompanyRepository $companyRepository, Request $req): JsonResponse
     {
+        $user = $this->getUser();
+        $userCompany = $companyRepository->findOneBy(['owner' => $user->getId()]);
 
-        $franchises = $franchiseRepository->createQueryBuilder('f')
-            ->innerJoin('f.company_id', 'c')
-            ->where('c.owner = :userId')
-            ->setParameter('userId', $this->getUser()->getId())
-            ->getQuery()
-            ->getResult();
+        if ($userCompany) {
+            $franchises = $franchiseRepository->findBy(['company_id' => $userCompany]);
+            $franchiseCount = count($franchises);
+        } else {
+            $franchiseCount = 0;
+        }
 
-        $result = count($franchises);
+        return $this->json(['numberOfFranchises' => $franchiseCount], 200);
 
-        return $this->json(['franchises' => $result], 200);
     }
 }

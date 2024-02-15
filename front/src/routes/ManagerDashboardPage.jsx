@@ -13,8 +13,8 @@ import {
   Tooltip,
 } from "chart.js";
 
+//import useKpisManager from "../hooks/useKpisManager";
 import useKpisManager from "../hooks/useKpisManager";
-import useToken from "../hooks/useToken";
 
 ChartJS.register(
   CategoryScale,
@@ -37,8 +37,8 @@ export default function ManagerDashboardPage() {
     yearlyBooking,
     isLoadingYearlyBooking,
     bookings,
-    isLoadingBookings } =
-      useKpisManager();
+    isLoadingBookings,
+  } = useKpisManager();
 
   const labels = [
     t("january"),

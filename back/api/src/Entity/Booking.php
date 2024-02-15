@@ -5,9 +5,11 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
-use App\Action\Get\KpiAllBookingGet;
-use App\Action\Get\KpiBookingByMonthGet;
-use App\Action\Get\KpiBookingByYearGet;
+use App\Action\Get\KpiAdminBookingsByMonthGet;
+use App\Action\Get\KpiManagerBookingMonthTotalGet;
+use App\Action\Get\KpiManagerBookingByYearGet;
+use App\Action\Get\KpiManagerBookingsByMonthGet;
+use App\Action\Get\KpiAdminBookingByYearGet;
 use App\Action\Post\BookingAction;
 use App\Repository\BookingRepository;
 use Doctrine\DBAL\Types\Types;
@@ -21,22 +23,36 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new HttpOperation(
             method: Request::METHOD_GET,
             uriTemplate: '/booking/kpi',
-            controller: KpiAllBookingGet::class,
+            controller: KpiManagerBookingMonthTotalGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings']],
             read: false,
         ),
         new HttpOperation(
             method: Request::METHOD_GET,
-            uriTemplate: '/booking/monthly/kpi',
-            controller: KpiBookingByMonthGet::class,
-            normalizationContext: ['groups' => ['read-kpi-bookings-monthly']],
+            uriTemplate: '/booking/monthly/admin/kpi',
+            controller: KpiAdminBookingsByMonthGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-monthly-admin']],
             read: false,
         ),
         new HttpOperation(
             method: Request::METHOD_GET,
-            uriTemplate: '/booking/year/kpi',
-            controller: KpiBookingByYearGet::class,
-            normalizationContext: ['groups' => ['read-kpi-bookings-yearly']],
+            uriTemplate: '/booking/monthly/manager/kpi',
+            controller: KpiManagerBookingsByMonthGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-monthly-manager']],
+            read: false,
+        ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/booking/year/admin/kpi',
+            controller: KpiAdminBookingByYearGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-yearly-admin']],
+            read: false,
+        ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/booking/year/manager/kpi',
+            controller: KpiManagerBookingByYearGet::class,
+            normalizationContext: ['groups' => ['read-kpi-bookings-yearly-manager']],
             read: false,
         ),
         new GetCollection(normalizationContext: ['groups' => ['read-user', 'read-booking']]),
