@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
 import Card from "@components/base/Card";
 import { useTranslation } from "@/translation/useTranslation";
+import ProfilePicture from "@components/partials/ProfilePicture";
 
 export default function UserProfile({ user }) {
   const { t } = useTranslation();
-
   return (
     <>
       <h1 className="text-4xl font-bold text-gray-800 mt-3">
         {t("userProfile")}
       </h1>
 
-      <Card classNames={"w-1/3 mr-4 mt-3"}>
+      <Card classNames={"mr-4 mt-3"}>
         {user ? (
           <div>
+            <ProfilePicture base64={user?.pictures[0]?.path} />
             <h1 className="text-xl font-bold mb-4">{user?.username}</h1>
             <dl>
               <div className="flex gap-4 mb-2">
@@ -48,5 +49,10 @@ UserProfile.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     age: PropTypes.number,
+    pictures: PropTypes.arrayOf(
+      PropTypes.shape({
+        path: PropTypes.string,
+      }),
+    ),
   }),
 };
