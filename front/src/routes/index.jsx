@@ -5,8 +5,6 @@ import Layout from "@components/partials/Layout.jsx";
 import RegisterPage from "@routes/RegisterPage.jsx";
 import LoginPage from "@routes/LoginPage.jsx";
 import ProtectedRoute from "@components/ProtectedRoute";
-import ManagerDashboardPage from "@routes/ManagerDashboardPage";
-import AdminDashboardPage from "@routes/AdminDashboardPage";
 import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
@@ -23,7 +21,7 @@ import NewCompanyFormPage from "@routes/NewCompanyFormPage";
 import PublicRoute from "@components/PublicRoute";
 import DemandsPages from "@routes/DemandsPages";
 import DemandDetails from "@routes/DemandDetails";
-import Dashboard from "../components/Dashboard";
+import Dashboard from "@components/Dashboard";
 import BookingPage from "@routes/BookingPage";
 
 const router = createBrowserRouter([

@@ -1,6 +1,7 @@
 import Card from "@components/base/Card";
 import { useTranslation } from "@/translation/useTranslation";
 import { Line } from "react-chartjs-2";
+import useKpisManager from "@/hooks/useKpisManager";
 
 import {
   CategoryScale,
@@ -12,9 +13,6 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-
-//import useKpisManager from "../hooks/useKpisManager";
-import useKpisManager from "../hooks/useKpisManager";
 
 ChartJS.register(
   CategoryScale,

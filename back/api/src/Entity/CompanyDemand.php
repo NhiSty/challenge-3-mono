@@ -74,6 +74,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/companyDemand/kpi',
             controller: KpiAdminCompanyDemandNumberGet::class,
             normalizationContext: ['groups' => ['read-kpi-company-demand']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
     ]

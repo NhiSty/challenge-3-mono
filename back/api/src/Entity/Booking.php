@@ -26,6 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/kpi',
             controller: KpiManagerBookingMonthTotalGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(
@@ -33,6 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/monthly/admin/kpi',
             controller: KpiAdminBookingsByMonthGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-monthly-admin']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(
@@ -40,6 +42,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/monthly/manager/kpi',
             controller: KpiManagerBookingsByMonthGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-monthly-manager']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(
@@ -47,6 +50,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/year/admin/kpi',
             controller: KpiAdminBookingByYearGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-yearly-admin']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(
@@ -54,6 +58,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/booking/year/manager/kpi',
             controller: KpiManagerBookingByYearGet::class,
             normalizationContext: ['groups' => ['read-kpi-bookings-yearly-manager']],
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new GetCollection(normalizationContext: ['groups' => ['read-user', 'read-booking']]),

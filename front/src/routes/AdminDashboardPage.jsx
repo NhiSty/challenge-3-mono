@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Card from "@components/base/Card";
 import { useTranslation } from "@/translation/useTranslation";
-import useKpisAdmin from "../hooks/useKpisAdmin";
+import useKpisAdmin from "@/hooks//useKpisAdmin";
 import { Grid } from "@mui/material";
-import useChart from "../hooks/useChart";
+import useChart from "@/hooks//useChart";
 
 export default function AdminDashboardPage() {
   const { t } = useTranslation();

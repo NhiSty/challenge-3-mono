@@ -1,6 +1,6 @@
-import useToken from "../hooks/useToken";
-import ManagerDashboardPage from "../routes/ManagerDashboardPage";
-import AdminDashboardPage from "../routes/AdminDashboardPage";
+import useToken from "@/hooks/useToken";
+import ManagerDashboardPage from "@routes/ManagerDashboardPage";
+import AdminDashboardPage from "@routes/AdminDashboardPage";
 import { Navigate } from "react-router-dom";
 
 export default function Dashboard() {
