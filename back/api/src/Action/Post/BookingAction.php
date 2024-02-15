@@ -3,6 +3,7 @@
 namespace App\Action\Post;
 
 use App\Entity\Booking;
+use App\Repository\PerformanceRepository;
 use App\Repository\UserRepository;
 use DateInterval;
 use DateTime;
@@ -22,15 +23,20 @@ class BookingAction extends AbstractController
     {
     }
 
-    public function __invoke(UserRepository $userRepository, Request $req): JsonResponse
+    public function __invoke(UserRepository $userRepository, PerformanceRepository $performanceRepository, Request $req): JsonResponse
     {
         $data = json_decode($req->getContent(), true);
 
         $bookedBy = $userRepository->findOneBy(['id' => $data['bookedByUserId']]);
         $bookedTo = $userRepository->findOneBy(['id' => $data['bookedToUserId']]);
+        $performance = $performanceRepository->findOneBy(['id' => $data['performanceId']]);
 
         if (!$bookedTo || !$bookedBy) {
             return $this->json(['message' => 'User not found'], 400);
+        }
+
+        if (!$performance) {
+            return $this->json(['message' => 'Performance not found'], 400);
         }
 
         try {
@@ -50,6 +56,7 @@ class BookingAction extends AbstractController
         $booking->setBookedId($bookedTo);
         $booking->setStartDatetime($startTime);
         $booking->setDuration($duration);
+        $booking->setPerformance($performance);
         $this->em->persist($booking);
         $this->em->flush();
 
