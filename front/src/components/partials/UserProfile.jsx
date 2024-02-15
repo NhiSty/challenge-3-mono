@@ -5,7 +5,7 @@ import ProfilePicture from "@components/partials/ProfilePicture";
 
 export default function UserProfile({ user }) {
   const { t } = useTranslation();
-  console.log();
+
 
   return (
     <>
