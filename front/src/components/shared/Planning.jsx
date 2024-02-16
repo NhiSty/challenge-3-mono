@@ -49,7 +49,7 @@ function getMondayOfCurrentWeek(today = new Date()) {
 /**
  * @param {ApiAvailability[]} availabilities
  * @param {ApiBooking[]} bookings
- * @param {ApiPerformance} performances
+ * @param {ApiPerformance[]} performances
  * @param userId
  * @param refresh
  * @param {boolean} readOnly

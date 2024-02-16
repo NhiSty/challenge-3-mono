@@ -2,7 +2,7 @@ import { Button, Dialog } from "@mui/material";
 import { apiClient } from "@/api";
 import useTokens from "@/hooks/useTokens";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * @param {number} userId
@@ -21,8 +21,15 @@ export default function CreateBookingForm({
 }) {
   const bookedByUserId = useTokens()?.payload.id;
   const [selectedPerformanceId, setSelectedPerformanceId] = useState(
-    performances[0]?.id,
+    performances[0]?.id ?? null,
   );
+
+  useEffect(() => {
+    if (selectedPerformanceId === null && performances.length > 0) {
+      setSelectedPerformanceId(performances[0].id);
+    }
+    // eslint-disable-next-line
+  }, [performances]);
 
   /**
    * @param {PlanningColumn} timeSlot
