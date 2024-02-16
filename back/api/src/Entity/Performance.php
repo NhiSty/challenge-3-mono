@@ -17,15 +17,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new GetCollection(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             provider: PerformanceStateProvider::class,
         ),
         new Post(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             processor: PerformanceProcessor::class,
         ),
         new Delete(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
         ),
     ],
     normalizationContext: ['groups' => ['performance:read']],

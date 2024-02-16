@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Card from "@components/base/Card";
+import Card from "@components/shared/Card";
 import { useTranslation } from "@/translation/useTranslation";
 import useKpisAdmin from "@/hooks//useKpisAdmin";
 import { Grid } from "@mui/material";

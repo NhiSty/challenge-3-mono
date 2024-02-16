@@ -1,49 +1,84 @@
 import Table from "@components/shared/Table";
-import Card from "@components/shared/Card";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import FranchiseFormDialog from "@components/franchise/FranchiseFormDialog";
 import { useTranslation } from "@/translation/useTranslation";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Stack,
+} from "@mui/material";
+import { useCompanyContext } from "@components/company/useCompanyContext";
+import { Pencil, Trash2 } from "lucide-react";
 
-export default function FranchiseTableCard({ franchises }) {
+export default function FranchiseTableCard() {
   const { t } = useTranslation();
   const [modalOpened, setModalOpened] = useState(false);
+  const [franchiseToEdit, setFranchiseToEdit] = useState(null);
+  const [formMode, setFormMode] = useState("create");
+  const { franchises, removeFranchise } = useCompanyContext();
+
+  const openEditModal = (franchise) => {
+    setFormMode("edit");
+    setFranchiseToEdit(franchise);
+    setModalOpened(true);
+  };
+
+  const onClose = () => {
+    setModalOpened(false);
+    setFranchiseToEdit(null);
+  };
 
   return (
     <>
-      <Card classNames={"w-2/3"}>
-        <div className={"flex flex-col items-center"}>
-          <div
-            className={"flex flex-row items-center justify-between w-full mb-5"}
-          >
-            <h1 className={"text-xl font-bold"}>{t("myFranchises")}</h1>
-            <button
-              onClick={() => setModalOpened(true)}
-              className={
-                "btn btn-sm bg-gray-800 hover:bg-gray-300 text-white hover:text-black"
-              }
-            >
-              {t("addFranchise")}
-            </button>
-          </div>
-          <Table classNames={"mt-5"} thead={[t("name"), t("address")]}>
+      <Card sx={{ mt: 3 }}>
+        <CardHeader
+          title={
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <h1 className={"text-xl font-bold"}>{t("myFranchises")}</h1>
+              <Button variant={"outlined"} onClick={() => setModalOpened(true)}>
+                {t("addFranchise")}
+              </Button>
+            </Stack>
+          }
+        />
+        <CardContent>
+          <Table classNames={"mt-5"} thead={[t("name"), t("address"), ""]}>
             {franchises?.map((franchise) => (
               <tr key={franchise.id}>
                 <td>{franchise.franchise_name}</td>
-                <td>{franchise.franchise_address}</td>
+                <td>{franchise.address}</td>
+                <td>
+                  <Stack direction={"row"} spacing={2} justifyContent={"end"}>
+                    <IconButton
+                      color={"primary"}
+                      onClick={() => openEditModal(franchise)}
+                    >
+                      <Pencil />
+                    </IconButton>
+                    <IconButton
+                      color={"error"}
+                      onClick={() => removeFranchise(franchise.id)}
+                    >
+                      <Trash2 />
+                    </IconButton>
+                  </Stack>
+                </td>
               </tr>
             ))}
           </Table>
-        </div>
+        </CardContent>
       </Card>
-      <FranchiseFormDialog
-        opened={modalOpened}
-        onClose={() => setModalOpened(false)}
-      />
+      {modalOpened && (
+        <FranchiseFormDialog
+          opened={modalOpened}
+          onClose={onClose}
+          franchise={franchiseToEdit}
+          mode={formMode}
+        />
+      )}
     </>
   );
 }
-
-FranchiseTableCard.propTypes = {
-  franchises: PropTypes.array,
-};

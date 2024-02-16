@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use ApiPlatform\Metadata\Patch;
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             method: Request::METHOD_GET,
             uriTemplate: '/franchises/kpi/user',
             controller: KpiManagerFranchiseNumberGet::class,
-            normalizationContext: ['groups' => ['read-kpi-franchise']],
+            //normalizationContext: ['groups' => ['read-kpi-franchise']],
             security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             read: false,
         ),
@@ -35,11 +36,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/franchises',
             controller: FranchiseAction::class,
             denormalizationContext: ['groups' => ['franchise:write']],
-            security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_CEO")',
+            security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER")',
         ),
         new Patch(
-            security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_CEO")',
-        )
+            security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER") and object.getCompanyId().getOwner() == user',
+        ),
+        new Delete(
+            security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_MANAGER") and object.getCompanyId().getOwner() == user',
+        ),
     ]
 )]
 
@@ -48,11 +52,11 @@ class Franchise
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['company:read'])]
+    #[Groups(['company:read', 'employee:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['company:read', 'franchise:write'])]
+    #[Groups(['company:read', 'franchise:write', 'employee:read'])]
     private ?string $franchise_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'franchises')]

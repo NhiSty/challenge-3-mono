@@ -11,14 +11,17 @@ import {
 export const CompanyContext = createContext({
   company: {},
   franchises: [],
+  owner: {},
   createFranchise: () => {},
+  editFranchise: () => {},
+  removeFranchise: () => {},
   loadingCompany: false,
 });
 
-export const ServiceContextProvider = ({ children }) => {
-  const { userId } = useToken();
+export const CompanyContextProvider = ({ children }) => {
   const [company, setCompany] = useState({});
   const [franchises, setFranchises] = useState([]);
+  const [owner, setOwner] = useState({});
   const [loadingCompany, setLoadingCompany] = useState(false);
   const [franchisesLoading, setFranchisesLoading] = useState(false);
 
@@ -46,12 +49,15 @@ export const ServiceContextProvider = ({ children }) => {
     try {
       setFranchisesLoading(true);
       const response = await updateFranchise({
+        id: franchise.id,
         franchiseName: franchise.name,
         address: franchise.address.value.name,
         longitude: franchise.address.value.geometry.coordinates[0],
         latitude: franchise.address.value.geometry.coordinates[1],
       });
-      setFranchises([...franchises, response.data]);
+      setFranchises(
+        franchises.map((f) => (f.id === response.data.id ? response.data : f)),
+      );
       onSuccess && onSuccess();
     } catch (error) {
       console.error("Error while updating franchise", error);
@@ -80,10 +86,11 @@ export const ServiceContextProvider = ({ children }) => {
   useEffect(() => {
     try {
       setLoadingCompany(true);
-      getCompany(userId)
+      getCompany()
         .then((response) => {
-          setCompany(response);
+          setCompany(response.company);
           setFranchises(response.franchises);
+          setOwner(response.owner);
         })
         .finally(() => {
           setLoadingCompany(false);
@@ -107,6 +114,7 @@ export const ServiceContextProvider = ({ children }) => {
         franchisesLoading,
         editFranchise,
         removeFranchise,
+        owner,
       }}
     >
       {children}
@@ -114,6 +122,6 @@ export const ServiceContextProvider = ({ children }) => {
   );
 };
 
-ServiceContextProvider.propTypes = {
+CompanyContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

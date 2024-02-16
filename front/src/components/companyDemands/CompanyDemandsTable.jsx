@@ -14,7 +14,7 @@ export default function CompanyDemandsTable() {
 
   useEffect(() => {
     getPendingDemands();
-  });
+  }, []);
 
   return (
     <Table

@@ -20,7 +20,7 @@ export function useEmployeesVC() {
     fetchAllEmployees()
       .then((response) => response.json())
       .then((data) => {
-        setEmployees(data["hydra:member"] || []);
+        setEmployees(data["hydra:member"].filter((item) => !!item) || []);
       })
       .finally(() => {
         setIsLoading(false);

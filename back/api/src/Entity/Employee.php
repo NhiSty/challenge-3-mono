@@ -14,7 +14,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ApiResource(
     operations: [
-        new GetCollection(normalizationContext: ['groups' => ['employee:read']]),
+        new GetCollection(
+            normalizationContext: ['groups' => ['employee:read']]
+        ),
         new HttpOperation(
             method: Request::METHOD_PATCH,
             uriTemplate: '/employees/{id}',
@@ -23,7 +25,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             read: false,
         )
     ],
-    normalizationContext: ['groups' => ['employee:read']],
     denormalizationContext: ['groups' => ['write:employee']],
 )]
 class Employee

@@ -64,9 +64,9 @@ class UserFixtures extends Fixture
 
         $ceo = new User();
         $ceo
-            ->setEmail('ceo@gmail.com')
+            ->setEmail('manager@gmail.com')
             ->setPassword($pwd)
-            ->setRoles(['ROLE_CEO'])
+            ->setRoles(['ROLE_MANAGER'])
             ->setFirstName($faker->firstName())
             ->setLastName($faker->lastName())
             ->setAge($faker->numberBetween(18, 99))

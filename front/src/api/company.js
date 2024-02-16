@@ -1,5 +1,10 @@
 import { apiClient, apiPublicClient } from "@/api/index";
 
+export async function getCompany() {
+  const response = await apiClient.get(`/company`);
+  return response.data;
+}
+
 export function getCompanyRequests() {
   return apiClient.get("/company_demands");
 }

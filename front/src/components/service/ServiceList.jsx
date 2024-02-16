@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "@/translation/useTranslation";
 import { Trash2 } from "lucide-react";
-import { Currency } from "@components/base/Currency";
+import { Currency } from "@components/shared/Currency";
 import { useServiceContext } from "@components/service/useServiceContext";
 
 export default function ServiceList() {

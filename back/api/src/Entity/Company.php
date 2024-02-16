@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\CompanyAction;
 use App\Action\Get\KpiManagerBookingMonthTotalGet;
 use App\Action\Get\KpiManagerBookingsByMonthGet;
 use App\Action\Get\KpiAdminBookingByYearGet;
@@ -31,10 +32,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/company',
+            controller: CompanyAction::class,
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')",
+            read: false,
+        ),
+        new GetCollection(
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN')"
+        )
     ],
-     normalizationContext: ['groups' => ['company:read']],
+
 )]
-#[ApiFilter(SearchFilter::class, properties: ['owner.id' => 'exact'])]
 class Company
 {
     #[ORM\Id]

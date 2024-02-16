@@ -5,7 +5,7 @@ import { useTranslation } from "@/translation/useTranslation";
 
 export default function CompanyInfo() {
   const { t } = useTranslation();
-  const { company, loadingCompany, franchises } = useCompanyContext();
+  const { company, owner } = useCompanyContext();
   const coordinates =
     company?.latitude && company?.longitude
       ? [company.latitude, company.longitude]
@@ -30,7 +30,7 @@ export default function CompanyInfo() {
                   <td className={"px-4 py-2"}>
                     <strong>{t("email")}</strong>
                   </td>
-                  <td className={"px-4 py-2"}>{company?.owner?.email}</td>
+                  <td className={"px-4 py-2"}>{owner?.email}</td>
                 </tr>
                 <tr>
                   <td className={"px-4 py-2"}>

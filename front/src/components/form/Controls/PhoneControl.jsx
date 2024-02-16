@@ -33,6 +33,15 @@ export default function PhoneControl({ name, label, placeholder, required }) {
   });
   const { t } = useTranslation();
 
+  const handleOnChange = (e) => {
+    const value = e.target.value;
+    if (value.length === 10) {
+      onChange(value.match(/.{1,2}/g).join(" "));
+    } else if (value.length < 10) {
+      onChange(value);
+    }
+  };
+
   return (
     <>
       <div className="mb-4">
@@ -44,7 +53,7 @@ export default function PhoneControl({ name, label, placeholder, required }) {
           label={label}
           placeholder={placeholder}
           value={value}
-          onChange={onChange}
+          onChange={handleOnChange}
           error={!!error}
         />
         {!!error && error.type === "required" && (
@@ -52,7 +61,7 @@ export default function PhoneControl({ name, label, placeholder, required }) {
         )}
 
         {!!error && error.type === "isPhoneNumber" && (
-          <div className="text-red-500 text-xs mt-1">{`${label} ${t("mustBe10Digits")}`}</div>
+          <div className="text-red-500 text-xs mt-1">{`${label} ${t("isNotValid")}`}</div>
         )}
       </div>
     </>
