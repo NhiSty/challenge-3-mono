@@ -47,7 +47,7 @@ class Performance
     private ?Company $company_id = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['performance:read', 'read-booking', 'read-user'])]
+    #[Groups(['performance:read', 'read-booking', 'read-user', 'company:read'])]
     private ?string $price = null;
 
     #[ORM\OneToMany(mappedBy: 'performance', targetEntity: Booking::class, orphanRemoval: true)]
