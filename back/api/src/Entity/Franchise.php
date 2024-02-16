@@ -60,6 +60,7 @@ class Franchise
     private ?string $franchise_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'franchises')]
+    #[Groups(['employee:read'])]
     private ?Company $company_id = null;
 
     #[ORM\OneToMany(mappedBy: 'franchise_id', targetEntity: Employee::class, orphanRemoval: true)]

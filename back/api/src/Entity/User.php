@@ -117,6 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reports;
 
     #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
+    #[Groups(['read-user'])]
     private ?Employee $employee = null;
 
     #[Groups(['create-user', 'update-user'])]
