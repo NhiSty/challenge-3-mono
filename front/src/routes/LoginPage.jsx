@@ -1,52 +1,15 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Input } from "@components/form/Input";
 import { Loader2, Lock, LogIn, User } from "lucide-react";
 import Button from "@components/shared/Button";
 import classNames from "classnames";
-import { login } from "@/api/auth";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useToken, { ROLES } from "@/hooks/useToken";
 import { useTranslation } from "@/translation/useTranslation";
+import useLoginForm from "@/hooks/useLoginForm";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
   const { t } = useTranslation();
-  const { roles } = useToken();
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
-    mode: "all",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (data) => {
-    setLoading(true);
-
-    try {
-      await login(data.email, data.password);
-      if (roles.includes(ROLES.ADMIN) || roles.includes(ROLES.MANAGER)) {
-        navigate("/manager/dashboard");
-      } else {
-        navigate("/");
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-      toast.error("Une erreur s'est produite. Veuillez réessayer !");
-      reset();
-    }
-  };
+  const { isValid, onSubmit, register, handleSubmit, loading, errors } =
+    useLoginForm();
 
   return (
     <div className="flex flex-col items-center justify-center">
