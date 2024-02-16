@@ -4,7 +4,7 @@ namespace App\Entity;
 
 enum Role: string
 {
-    case ADMIN = 'ADMIN';
-    case MANAGER = 'MANAGER';
-    case EMPLOYEE = 'EMPLOYEE';
+    case ADMIN = 'ROLE_ADMIN';
+    case MANAGER = 'ROLE_MANAGER';
+    case EMPLOYEE = 'ROLE_EMPLOYEE';
 }

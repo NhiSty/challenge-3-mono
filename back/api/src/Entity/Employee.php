@@ -23,6 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/employees/{id}',
             status: 201,
             controller: EmployeePatch::class,
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')",
             read: false,
         ),
         new HttpOperation(

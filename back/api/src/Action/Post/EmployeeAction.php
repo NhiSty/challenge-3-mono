@@ -50,7 +50,7 @@ class EmployeeAction extends AbstractController
         $user = new User();
         $user->setEmail($email);
         $user->setPassword($hasher->hashPassword($user, $pwd));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles([Role::EMPLOYEE]);
         $user->setFirstName($firstName);
         $user->setLastName($lastName);
         $user->setAge($age);

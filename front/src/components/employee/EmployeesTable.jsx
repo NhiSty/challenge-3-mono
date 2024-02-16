@@ -13,6 +13,12 @@ export default function EmployeesTable({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const rolesMapping = {
+    ROLE_EMPLOYEE: t("employee"),
+    ROLE_MANAGER: t("manager"),
+    ROLE_ADMIN: t("admin"),
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -46,7 +52,7 @@ export default function EmployeesTable({
                 <Chip
                   color={"info"}
                   variant={"outlined"}
-                  label={employee.role}
+                  label={rolesMapping[employee.role]}
                 />
               </td>
               <td>

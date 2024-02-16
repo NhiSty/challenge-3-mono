@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "@/translation/useTranslation";
 import Table from "@components/shared/Table";
-import { Pencil, Trash2, ArrowUpRightSquareIcon } from "lucide-react";
+import { ArrowUpRightSquareIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function CompaniesTable() {
@@ -45,12 +45,6 @@ export default function CompaniesTable() {
               <td>{company?.address}</td>
               <td>
                 <Stack direction={"row"} spacing={2} justifyContent={"end"}>
-                  <IconButton color={"primary"}>
-                    <Pencil />
-                  </IconButton>
-                  <IconButton color={"error"}>
-                    <Trash2 />
-                  </IconButton>
                   <IconButton
                     color={"info"}
                     onClick={() => navigate(`${company.id}`)}

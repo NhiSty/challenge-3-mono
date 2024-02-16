@@ -121,7 +121,9 @@
     "addNewEmployee": "Ajout d'un nouveau employé",
     "successfullyDeletedEmployee": "Employé supprimé avec succès",
     "filterByFranchise": "Filtrer par franchise",
-    "allFranchises": "Toutes les franchises"
+    "allFranchises": "Toutes les franchises",
+    "employee": "Employé",
+    "admin": "Administrateur"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -245,6 +247,8 @@
     "addNewEmployee": "Add a new employee",
     "successfullyDeletedEmployee": "Successfully deleted employee",
     "filterByFranchise": "Filter by franchise",
-    "allFranchises": "All franchises"
+    "allFranchises": "All franchises",
+    "employee": "Employee",
+    "admin": "Admin"
   }
 }
