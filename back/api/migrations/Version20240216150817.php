@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240215160415 extends AbstractMigration
+final class Version20240216150817 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -46,7 +46,7 @@ final class Version20240215160415 extends AbstractMigration
         $this->addSql('CREATE TABLE employee (id INT NOT NULL, franchise_id_id INT NOT NULL, user_id_id INT NOT NULL, role VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_5D9F75A1EA39FCC8 ON employee (franchise_id_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_5D9F75A19D86650F ON employee (user_id_id)');
-        $this->addSql('CREATE TABLE franchise (id INT NOT NULL, company_id_id INT DEFAULT NULL, franchise_name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE franchise (id INT NOT NULL, company_id_id INT DEFAULT NULL, franchise_name VARCHAR(255) NOT NULL, latitude DOUBLE PRECISION DEFAULT NULL, longitude DOUBLE PRECISION DEFAULT NULL, address VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_66F6CE2A38B53C32 ON franchise (company_id_id)');
         $this->addSql('CREATE TABLE override (id INT NOT NULL, user_id_id INT NOT NULL, date DATE NOT NULL, start_time TIME(0) WITHOUT TIME ZONE NOT NULL, end_time TIME(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_820306E59D86650F ON override (user_id_id)');
