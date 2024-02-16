@@ -8,7 +8,10 @@ import { useMemo } from "react";
 export default function UserPage() {
   const { userId } = useParams();
   const { user, isLoading, refresh } = useUser(Number(userId));
-  const performances = useMemo(() => [], []);
+  const performances = useMemo(
+    () => user?.employee?.franchise_id.company_id.performances ?? [],
+    [user],
+  );
 
   const { t } = useTranslation();
 

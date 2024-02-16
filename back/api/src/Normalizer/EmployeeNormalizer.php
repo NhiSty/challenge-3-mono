@@ -38,17 +38,17 @@ class EmployeeNormalizer implements NormalizerInterface
             if ($currentEmployeeUser->getId() === $user->getId()) {
                 return null;
             }
-            $employee = $this->normalizer->normalize($object, $format, $context);
+            return $this->normalizer->normalize($object, $format, $context);
         } else if (in_array('ROLE_MANAGER', $user->getRoles())) {
             if ($currentEmployeeUser->getId() === $user->getId()) {
                 return null;
             }
             if ($user->getCompanies()->contains($object->getFranchiseId()->getCompanyId())) {
-                $employee = $this->normalizer->normalize($object, $format, $context);
+                return $this->normalizer->normalize($object, $format, $context);
             }
         }
 
-        return $employee;
+        return $this->normalizer->normalize($object, $format, $context);
     }
 
     public function getSupportedTypes(?string $format): array

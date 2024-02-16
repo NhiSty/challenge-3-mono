@@ -13,10 +13,6 @@ export default function EmployeeDetails() {
   const tokens = useTokens();
   const { t } = useTranslation();
 
-  const performances = user?.companies.flatMap(
-    (company) => company.performances,
-  );
-
   return (
     <Stack direction={"column"} spacing={3}>
       <Card sx={{ maxWidth: 700 }}>
@@ -107,7 +103,7 @@ export default function EmployeeDetails() {
                 bookings={user.bookingsReceived}
                 userId={user.id}
                 refresh={refresh}
-                performances={performances}
+                performances={[]}
                 readOnly
               />
             )}
