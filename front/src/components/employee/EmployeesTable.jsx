@@ -23,7 +23,6 @@ export default function EmployeesTable({
     return <div>Loading...</div>;
   }
 
-
   return (
     <>
       <Table thead={[t("name"), t("email"), t("role"), ""]}>
