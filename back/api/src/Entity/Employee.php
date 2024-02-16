@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Delete\EmployeeAction;
 use App\Action\Patch\EmployeePatch;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,8 +23,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/employees/{id}',
             status: 201,
             controller: EmployeePatch::class,
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')",
             read: false,
-        )
+        ),
+        new HttpOperation(
+            method: Request::METHOD_DELETE,
+            uriTemplate: '/employees/{id}',
+            status: 201,
+            controller: EmployeeAction::class,
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')",
+            read: false,
+        ),
     ],
     denormalizationContext: ['groups' => ['write:employee']],
 )]

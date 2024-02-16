@@ -5,6 +5,16 @@ export async function getCompany() {
   return response.data;
 }
 
+export async function getCompanyById(id) {
+  const response = await apiClient.get(`/companies/${id}`);
+  return response.data;
+}
+
+export default async function fetchAllCompanies() {
+  const response = await apiClient.get("/companies");
+  return response.data["hydra:member"];
+}
+
 export function getCompanyRequests() {
   return apiClient.get("/company_demands");
 }

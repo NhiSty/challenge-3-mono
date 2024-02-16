@@ -113,7 +113,17 @@
     "writeReview": "Écrire un avis",
     "planning": "Planning",
     "clickOnGreenToBook": "Cliquez sur un créneau vert pour le réserver.",
-    "review": "Avis"
+    "review": "Avis",
+    "coordinates": "Coordonnées",
+    "franchises": "Franchises",
+    "companies": "Entreprises",
+    "noEmployees": "Aucun employé",
+    "addNewEmployee": "Ajout d'un nouveau employé",
+    "successfullyDeletedEmployee": "Employé supprimé avec succès",
+    "filterByFranchise": "Filtrer par franchise",
+    "allFranchises": "Toutes les franchises",
+    "employee": "Employé",
+    "admin": "Administrateur"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -229,6 +239,16 @@
     "writeReview": "Write a review",
     "planning": "Planning",
     "clickOnGreenToBook": "Click on a green time slot to book it.",
-    "review": "Review"
+    "review": "Review",
+    "coordinates": "Coordinates",
+    "franchises": "Franchises",
+    "companies": "Companies",
+    "noEmployees": "No employees",
+    "addNewEmployee": "Add a new employee",
+    "successfullyDeletedEmployee": "Successfully deleted employee",
+    "filterByFranchise": "Filter by franchise",
+    "allFranchises": "All franchises",
+    "employee": "Employee",
+    "admin": "Admin"
   }
 }

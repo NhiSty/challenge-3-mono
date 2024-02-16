@@ -108,7 +108,7 @@ export default function AdminDashboardPage() {
               <p>{companies}</p>
             </Card>
 
-            <Card classNames={"w-full h-[75%]"}>
+            <Card classNames={"w-full"}>
               <canvas ref={doughnutRef} />
             </Card>
           </Grid>

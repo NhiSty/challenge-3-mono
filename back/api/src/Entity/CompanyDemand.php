@@ -67,6 +67,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                     ])
                 )
             ),
+            security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
         new HttpOperation(

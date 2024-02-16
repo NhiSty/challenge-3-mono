@@ -52,7 +52,7 @@ export default function useCompanyDemandsVC() {
         acceptLoading: true,
       });
       await acceptCompanyRequest(id);
-      navigate("/manager/demands");
+      navigate("/manage/demands");
     } catch (e) {
       console.error(e);
     } finally {
@@ -70,7 +70,7 @@ export default function useCompanyDemandsVC() {
         refuseLoading: true,
       });
       await rejectCompanyRequest(id);
-      navigate("/manager/demands");
+      navigate("/manage/demands");
     } catch (e) {
       console.error(e);
     } finally {

@@ -2,6 +2,7 @@
 
 namespace App\Action\Get;
 
+use App\Repository\CompanyRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +16,22 @@ class CompanyAction extends AbstractController
     {
     }
 
-    public function __invoke(UserRepository $userRepository): JsonResponse
+    public function __invoke(UserRepository $userRepository, CompanyRepository $companyRepository): JsonResponse
     {
         $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json([
+                'error' => 'User not found'
+            ], 404);
+        }
+
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return $this->json([
+                'companies' => $companyRepository->findAll(),
+            ], 200);
+        }
+
         $companies = $user->getCompanies();
 
         return $this->json([

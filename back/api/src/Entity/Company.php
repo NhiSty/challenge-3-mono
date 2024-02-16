@@ -43,7 +43,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             normalizationContext: ['groups' => ['company:read']],
             security: "is_granted('ROLE_ADMIN')"
-        )
+        ),
+        new Get(
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
     ],
 
 )]

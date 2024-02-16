@@ -37,7 +37,7 @@ export default function FranchiseTableCard() {
         <CardHeader
           title={
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <h1 className={"text-xl font-bold"}>{t("myFranchises")}</h1>
+              <h1 className={"text-xl font-bold"}>{t("franchises")}</h1>
               <Button variant={"outlined"} onClick={() => setModalOpened(true)}>
                 {t("addFranchise")}
               </Button>
