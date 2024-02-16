@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import ProfilePicture from "@components/shared/ProfilePicture";
+
 export default function SearchPage() {
   const { t } = useTranslation();
 
@@ -102,8 +104,16 @@ export default function SearchPage() {
         {results.length > 0 ? (
           results.map((result) => (
             <Grid item xs={2} key={result.id}>
-              <Card sx={{ padding: "10px" }}>
+              <Card
+                sx={{
+                  padding: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
+              >
                 <Link to={`/user/${result.id}`}>
+                  <ProfilePicture base64={result?.pictures[0]?.path} />
                   <Typography variant="h6" component="div">
                     {result.username}
                   </Typography>

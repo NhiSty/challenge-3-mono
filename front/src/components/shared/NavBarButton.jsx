@@ -1,7 +1,8 @@
 import { LayoutDashboard, LogIn, LogOut, User, UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import useToken from "@/hooks/useToken";
+import useToken, { ROLES } from "@/hooks/useToken";
 import { useTranslation } from "@/translation/useTranslation";
+import AccessControl from "@components/shared/AccessControl";
 
 export function NavBarButtons() {
   const navigate = useNavigate();
@@ -32,15 +33,20 @@ export function NavBarButtons() {
             </Link>
           </li>
 
-          <li role="menuitem">
-            <Link
-              to="/dashboard"
-              className="hover:bg-primary hover:text-text-100"
-            >
-              {t("dashboard")}
-              <LayoutDashboard aria-hidden="true" className="w-5 h-5 ml-auto" />
-            </Link>
-          </li>
+          <AccessControl permissions={[ROLES.ADMIN, ROLES.MANAGER]}>
+            <li role="menuitem">
+              <Link
+                to="/manage"
+                className="hover:bg-primary hover:text-text-100"
+              >
+                {t("dashboard")}
+                <LayoutDashboard
+                  aria-hidden="true"
+                  className="w-5 h-5 ml-auto"
+                />
+              </Link>
+            </li>
+          </AccessControl>
 
           <li role="menuitem">
             <button

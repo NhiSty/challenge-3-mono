@@ -1,6 +1,5 @@
-// EditAccountPage.js
 import useCurrentUser from "@/hooks/useCurrentUser";
-import EditAccountForm from "@components/partials/EditAccountForm";
+import EditAccountForm from "@components/shared/EditAccountForm";
 import { useTranslation } from "@/translation/useTranslation";
 
 export default function EditAccountPage() {

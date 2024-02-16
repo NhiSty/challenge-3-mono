@@ -20,7 +20,7 @@ export function useEmployeesVC() {
     fetchAllEmployees()
       .then((response) => response.json())
       .then((data) => {
-        setEmployees(data["hydra:member"] || []);
+        setEmployees(data["hydra:member"].filter((item) => !!item) || []);
       })
       .finally(() => {
         setIsLoading(false);
@@ -34,7 +34,7 @@ export function useEmployeesVC() {
     return addEmployee(employee)
       .then((response) => {
         setEmployees([...employees, response.data]);
-        navigate("/manager/employees");
+        navigate("/manage/employees");
         toast.success(t("successfullyCreatedEmployee"));
         return response;
       })
@@ -50,6 +50,7 @@ export function useEmployeesVC() {
         if (data.status !== 204) {
           return;
         }
+        toast.success(t("successfullyDeletedEmployee"));
         setEmployees(employees.filter((employee) => employee.id !== id));
       })
       .catch((error) => {
@@ -69,7 +70,7 @@ export function useEmployeesVC() {
           }),
         );
         toast.success(t("successfullyUpdatedEmployee"));
-        navigate("/manager/employees");
+        navigate("/manage/employees");
       })
       .catch((error) => {
         toast.error(t("employeeModificationError"));

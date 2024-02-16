@@ -35,9 +35,9 @@ export default function useCompanyDemandsVC() {
     try {
       setLoading(true);
       const response = await getCompanyRequest(id);
+      setDemand(response.data);
       const kbis = await base64ToUrl(response.data.kbis);
       setKbisUrl(kbis);
-      setDemand(response.data);
     } catch (e) {
       console.error(e);
     } finally {
@@ -52,7 +52,7 @@ export default function useCompanyDemandsVC() {
         acceptLoading: true,
       });
       await acceptCompanyRequest(id);
-      navigate("/manager/demands");
+      navigate("/manage/demands");
     } catch (e) {
       console.error(e);
     } finally {
@@ -70,7 +70,7 @@ export default function useCompanyDemandsVC() {
         refuseLoading: true,
       });
       await rejectCompanyRequest(id);
-      navigate("/manager/demands");
+      navigate("/manage/demands");
     } catch (e) {
       console.error(e);
     } finally {

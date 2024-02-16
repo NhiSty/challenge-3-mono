@@ -14,6 +14,7 @@ export async function login(email, password) {
     const responseData = await response.data;
 
     localStorage.setItem("token", responseData.token);
+    return responseData;
   } catch (error) {
     throw new Error(`Erreur lors de la connexion : ${error.message}`);
   }

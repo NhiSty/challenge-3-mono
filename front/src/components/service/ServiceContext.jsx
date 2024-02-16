@@ -20,13 +20,11 @@ export const ServiceContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAllServices().then((services) => {
-      console.log({ services }, "here");
       setData(services);
     });
   }, []);
 
   const newService = (serviceData, onSuccess) => {
-    console.log({ serviceData });
     addService(serviceData)
       .then((service) => {
         setData([...data, service.data]);

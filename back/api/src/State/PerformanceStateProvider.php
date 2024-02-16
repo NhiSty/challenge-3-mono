@@ -20,7 +20,7 @@ class PerformanceStateProvider implements ProviderInterface
         $performances = $this->provider->provide($operation, $uriVariables, $context)->getQuery()->getResult();
         if (in_array('ROLE_ADMIN', $roles)) {
             return $performances;
-        } else if (in_array('ROLE_CEO', $roles)) {
+        } else if (in_array('ROLE_MANAGER', $roles)) {
             $companies = $this->security->getUser()->getCompanies();
 
             foreach ($companies as $company) {

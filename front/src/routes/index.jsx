@@ -1,11 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import HomePage from "@routes/HomePage.jsx";
 import ErrorPage from "@routes/ErrorPage.jsx";
-import Layout from "@components/partials/Layout.jsx";
+import Layout from "@components/shared/Layout.jsx";
 import RegisterPage from "@routes/RegisterPage.jsx";
 import LoginPage from "@routes/LoginPage.jsx";
 import ProtectedRoute from "@components/ProtectedRoute";
-import DashboardPage from "@routes/DashboardPage";
 import BackOfficeLayout from "@components/backOffice/BackOfficeLayout";
 import CompanyPage from "@routes/CompanyPage";
 import EmployeesPage from "@routes/EmployeesPage";
@@ -22,8 +21,13 @@ import NewCompanyFormPage from "@routes/NewCompanyFormPage";
 import PublicRoute from "@components/PublicRoute";
 import DemandsPages from "@routes/DemandsPages";
 import DemandDetails from "@routes/DemandDetails";
+import Dashboard from "@components/Dashboard";
+import BookingPage from "@routes/BookingPage";
+import AdminCompaniesPage from "@routes/AdminCompaniesPage";
+import AdminCompanyPage from "@routes/AdminCompanyPage";
+import EmployeeDetails from "@routes/EmployeeDetails";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Layout />,
@@ -51,7 +55,11 @@ const router = createBrowserRouter([
       },
       {
         path: "planning",
-        element: <PlanningPage />,
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.EMPLOYEE]}>
+            <PlanningPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "new-company",
@@ -83,25 +91,49 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "bookings",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.USER]}>
+            <BookingPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
-    path: "/manager",
+    path: "manage",
     element: <BackOfficeLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
+        path: "",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
-            <DashboardPage />
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "companies",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+            <AdminCompaniesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "companies/:companyId",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+            <AdminCompanyPage />
           </ProtectedRoute>
         ),
       },
       {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.ADMIN, ROLES.CEO]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER]}>
             <CompanyPage />
           </ProtectedRoute>
         ),
@@ -112,7 +144,7 @@ const router = createBrowserRouter([
           {
             path: "",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER]}>
                 <EmployeesPage />
               </ProtectedRoute>
             ),
@@ -120,7 +152,7 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <NewEmployeeFormPage />
               </ProtectedRoute>
             ),
@@ -128,8 +160,16 @@ const router = createBrowserRouter([
           {
             path: "edit/:id",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EditEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+                <EmployeeDetails />
               </ProtectedRoute>
             ),
           },
@@ -154,7 +194,7 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.CEO, ROLES.ADMIN]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <ServicesPage />
           </ProtectedRoute>
         ),

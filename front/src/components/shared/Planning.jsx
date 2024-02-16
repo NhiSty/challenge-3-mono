@@ -6,9 +6,28 @@
  */
 
 /**
+ * @typedef ApiReview
+ * @property {string} review_content
+ */
+
+/**
  * @typedef ApiBooking
  * @property {string} duration (eg. P3D)
  * @property {string} start_datetime (eg. 2024-01-27T09:43:43.283Z)
+ * @property {ApiReview} reviews
+ * @property {ApiPerformance} performance
+ */
+
+/**
+ * @typedef ApiPerformance
+ * @property {string} name
+ * @property {number} id
+ * @property {number} price
+ */
+
+/**
+ * @typedef ApiCompany
+ * @property {ApiPerformance[]} performances
  */
 
 /**
@@ -18,9 +37,8 @@
 import { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
-import { Button, Dialog } from "@mui/material";
-import { apiClient } from "@/api";
-import useTokens from "@/hooks/useTokens";
+import CreateBookingForm from "@components/shared/CreateBookingForm";
+import classNames from "classnames";
 
 function getMondayOfCurrentWeek(today = new Date()) {
   const day = today.getDay();
@@ -31,12 +49,21 @@ function getMondayOfCurrentWeek(today = new Date()) {
 /**
  * @param {ApiAvailability[]} availabilities
  * @param {ApiBooking[]} bookings
+ * @param {ApiPerformance} performances
  * @param userId
+ * @param refresh
+ * @param {boolean} readOnly
  * @returns {JSX.Element}
  * @constructor
  */
-const Planning = ({ availabilities, bookings, userId, refreshBookings }) => {
-  const bookedByUserId = useTokens()?.payload.id;
+const Planning = ({
+  availabilities,
+  bookings,
+  userId,
+  refresh,
+  performances,
+  readOnly = false,
+}) => {
   const [timeSlot, setTimeSlot] = useState(null);
   const { columns: planning, timeSlots } = useMemo(() => {
     const startDate = getMondayOfCurrentWeek();
@@ -46,32 +73,13 @@ const Planning = ({ availabilities, bookings, userId, refreshBookings }) => {
     );
   }, [availabilities, bookings]);
 
-  /**
-   * @param {PlanningColumn} timeSlot
-   */
-  const bookTimeSlot = async (timeSlot) => {
-    setTimeSlot(null);
-
-    const data = {
-      duration: timeSlot.duration.toString(),
-      startDatetime: timeSlot.startDate.toISOString(),
-      bookedByUserId: String(bookedByUserId),
-      bookedToUserId: String(userId),
-    };
-
-    await apiClient("/bookings", {
-      method: "post",
-      data,
-    });
-
-    refreshBookings();
-  };
-
   return (
     <>
       <div
-        className="grid grid-cols-7 grid-flow-col gap-1"
-        style={{ gridTemplateRows: `repeat(${timeSlots + 1}, minmax(0, 1fr))` }}
+        className="grid grid-cols-7 grid-flow-col gap-1 select-none"
+        style={{
+          gridTemplateRows: `repeat(${Math.ceil(timeSlots + 1)}, minmax(0, 1fr))`,
+        }}
       >
         {planning.map((dayPlanning, index) => {
           return (
@@ -84,24 +92,27 @@ const Planning = ({ availabilities, bookings, userId, refreshBookings }) => {
                 return (
                   <div key={column.start.toString()}>
                     {column.isBooked ? (
-                      <div className="bg-blue-500 h-full flex justify-center items-center text-center">
+                      <div className="bg-blue-500 rounded h-full flex justify-center items-center text-center cursor-not-allowed">
                         {column.booking.toString()}
                       </div>
                     ) : column.isAvailable ? (
                       <div
-                        className="bg-green-500 flex h-full justify-center items-center text-center cursor-pointer"
+                        className={classNames({
+                          "bg-green-500 rounded h-full flex justify-center items-center text-center": true,
+                          "cursor-pointer": !readOnly,
+                          "cursor-not-allowed": readOnly,
+                        })}
                         onClick={() => {
-                          setTimeSlot(column);
+                          if (!readOnly) {
+                            setTimeSlot(column);
+                          }
                         }}
                       >
                         {column.start.toLocaleTimeString()}-
                         {column.end.toLocaleTimeString()}
                       </div>
                     ) : (
-                      <div className="bg-red-500 h-full flex justify-center items-center text-center">
-                        {column.start.toLocaleTimeString()}-
-                        {column.end.toLocaleTimeString()}
-                      </div>
+                      <div className="bg-red-400 rounded h-full flex justify-center items-center text-center cursor-not-allowed" />
                     )}
                   </div>
                 );
@@ -111,41 +122,13 @@ const Planning = ({ availabilities, bookings, userId, refreshBookings }) => {
         })}
       </div>
 
-      <Dialog
-        open={timeSlot !== null}
-        onClose={() => {
-          setTimeSlot(null);
-        }}
-      >
-        <div className="p-3 flex flex-col gap-3">
-          <dl>
-            <div className="flex gap-4 mb-2">
-              <dt className="font-bold">Date de début :</dt>
-              <dd>
-                {timeSlot &&
-                  timeSlot.startDate.toLocaleDateString("fr-FR", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                  })}
-              </dd>
-            </div>
-
-            <div className="flex gap-4 mb-2">
-              <dt className="font-bold">Durée :</dt>
-              <dd>{timeSlot && timeSlot.duration.toLocaleTimeString()}</dd>
-            </div>
-          </dl>
-
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => bookTimeSlot(timeSlot)}
-          >
-            Réserver ce créneau
-          </Button>
-        </div>
-      </Dialog>
+      <CreateBookingForm
+        userId={userId}
+        refresh={refresh}
+        timeSlot={timeSlot}
+        setTimeSlot={setTimeSlot}
+        performances={performances}
+      />
     </>
   );
 };
@@ -172,8 +155,10 @@ Planning.propTypes = {
       start_datetime: PropTypes.string,
     }),
   ).isRequired,
-  userId: PropTypes.number,
-  refreshBookings: PropTypes.func,
+  userId: PropTypes.number.isRequired,
+  refresh: PropTypes.func.isRequired,
+  performances: PropTypes.array.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default Planning;

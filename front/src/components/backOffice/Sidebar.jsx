@@ -9,7 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "@/translation/useTranslation";
-import SwitchLanguage from "@components/partials/SwitchLanguage";
+import SwitchLanguage from "@components/shared/SwitchLanguage";
+import AccessControl from "@components/shared/AccessControl";
+import { ROLES } from "@/hooks/useToken";
 
 export default function Sidebar({ children }) {
   const { t } = useTranslation();
@@ -37,39 +39,56 @@ export default function Sidebar({ children }) {
             </li>
 
             <li className={"mb-2"}>
-              <Link className="font-normal" to={"/manager/dashboard"}>
+              <Link className="font-normal" to={"/manage"}>
                 <LayoutDashboard />
                 {t("dashboard")}
               </Link>
             </li>
 
-            <li className={"mb-2"}>
-              <Link className="font-normal" to={"/manager/company"}>
-                <Building2 />
-                {t("myCompany")}
-              </Link>
-            </li>
+            <AccessControl permissions={[ROLES.ADMIN]}>
+              <li className={"mb-2"}>
+                <Link className="font-normal" to={"/manage/companies"}>
+                  <Building2 />
+                  {t("companies")}
+                </Link>
+              </li>
+            </AccessControl>
 
-            <li className={"mb-2"}>
-              <Link className="font-normal" to={"/manager/employees"}>
-                <Users />
-                {t("employees")}
-              </Link>
-            </li>
+            <AccessControl permissions={[ROLES.MANAGER]}>
+              <li className={"mb-2"}>
+                <Link className="font-normal" to={"/manage/company"}>
+                  <Building2 />
+                  {t("myCompany")}
+                </Link>
+              </li>
+            </AccessControl>
 
-            <li className={"mb-2"}>
-              <Link className="font-normal" to={"/manager/services"}>
-                <BookOpenText />
-                {t("services")}
-              </Link>
-            </li>
+            <AccessControl permissions={[ROLES.MANAGER]}>
+              <li className={"mb-2"}>
+                <Link className="font-normal" to={"/manage/employees"}>
+                  <Users />
+                  {t("employees")}
+                </Link>
+              </li>
+            </AccessControl>
 
-            <li className={"mb-2"}>
-              <Link className="font-normal" to={"/manager/demands"}>
-                <FolderClock />
-                {t("demands")}
-              </Link>
-            </li>
+            <AccessControl permissions={[ROLES.MANAGER]}>
+              <li className={"mb-2"}>
+                <Link className="font-normal" to={"/manage/services"}>
+                  <BookOpenText />
+                  {t("services")}
+                </Link>
+              </li>
+            </AccessControl>
+
+            <AccessControl permissions={[ROLES.ADMIN]}>
+              <li className={"mb-2"}>
+                <Link className="font-normal" to={"/manage/demands"}>
+                  <FolderClock />
+                  {t("demands")}
+                </Link>
+              </li>
+            </AccessControl>
 
             <div className={"px-4 py-2"}>
               <SwitchLanguage />

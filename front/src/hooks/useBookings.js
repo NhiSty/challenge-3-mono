@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiClient } from "@/api";
+import useTokens from "@/hooks/useTokens";
 
 /**
  * @param {number} userId
@@ -7,16 +7,21 @@ import { apiClient } from "@/api";
  */
 export function useBookings(userId) {
   const [bookings, setBookings] = useState([]);
+  const tokens = useTokens();
 
   const refreshBookings = () => {
-    if (!userId) return;
+    if (!userId || !tokens) return;
 
-    apiClient(`/bookings`)
-      .then((res) => (console.log(res), res))
-      .then(({ data }) => setBookings(data["hydra:member"]));
+    fetch(`/bookings`, {
+      headers: {
+        Authorization: `Bearer ${tokens.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setBookings(data["hydra:member"]));
   };
 
-  useEffect(refreshBookings, [userId]);
+  useEffect(refreshBookings, [userId, tokens]);
 
   return { bookings, refreshBookings };
 }

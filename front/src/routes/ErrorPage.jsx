@@ -1,5 +1,5 @@
 import { useRouteError } from "react-router-dom";
-import { Navbar } from "@components/partials/Navbar";
+import { Navbar } from "@components/shared/Navbar";
 import { useTranslation } from "@/translation/useTranslation";
 
 export default function ErrorPage() {
