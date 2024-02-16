@@ -115,7 +115,7 @@ export const CompanyContextProvider = ({ children, companyId }) => {
     } catch (error) {
       console.error("Error while fetching company", error);
     }
-  }, []);
+  }, [companyId]);
 
   if (loadingCompany || !company) {
     return <div>Loading...</div>;

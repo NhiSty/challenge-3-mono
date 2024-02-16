@@ -11,7 +11,7 @@ export default function DemandDetails() {
 
   useEffect(() => {
     getDemandById(id);
-  }, []);
+  });
 
   if (loading) {
     return <p>Loading...</p>;

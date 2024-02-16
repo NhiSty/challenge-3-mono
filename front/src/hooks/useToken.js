@@ -18,7 +18,7 @@ export default function useToken() {
   useEffect(() => {
     setToken(getToken());
     setRoles(getRoles());
-  }, []);
+  });
 
   const getRoles = () => {
     const tokenString = getToken();

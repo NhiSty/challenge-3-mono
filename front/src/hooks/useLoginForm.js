@@ -27,7 +27,7 @@ export default function useLoginForm() {
     } else if (token) {
       navigate("/");
     }
-  }, [token]);
+  }, [navigate, roles, token]);
 
   const [loading, setLoading] = useState(false);
 
