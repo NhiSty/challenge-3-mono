@@ -76,7 +76,7 @@ class Company
     private ?User $owner = null;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class, cascade: ['persist', 'remove'])]
-    #[Groups(['company:read', 'read-user'])]
+    #[Groups(['company:read', 'employee:read'])]
     private Collection $performances;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class, orphanRemoval: true)]

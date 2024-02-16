@@ -35,11 +35,11 @@ class Performance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['company:read', 'performance:read', 'read-booking', 'read-user'])]
+    #[Groups(['company:read', 'performance:read', 'read-booking', 'employee:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['company:read', 'performance:read', 'read-booking', 'read-user'])]
+    #[Groups(['company:read', 'performance:read', 'read-booking', 'employee:read'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'performances')]
@@ -47,7 +47,7 @@ class Performance
     private ?Company $company_id = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['performance:read', 'read-booking', 'read-user', 'company:read'])]
+    #[Groups(['performance:read', 'read-booking', 'employee:read', 'company:read'])]
     private ?string $price = null;
 
     #[ORM\OneToMany(mappedBy: 'performance', targetEntity: Booking::class, orphanRemoval: true)]

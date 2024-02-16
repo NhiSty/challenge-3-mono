@@ -41,10 +41,16 @@ export default function useUser(id) {
     })
       .then((res) => (res.status === 200 ? res.json() : null))
       .then((json) => {
+        console.log(json);
         setUser(json);
 
         if (json !== null) {
-          fetch(`${import.meta.env.VITE_API_BASE_URL}${json.employee}`)
+          fetch(`${import.meta.env.VITE_API_BASE_URL}${json.employee}`, {
+            method: "get",
+            headers: {
+              authorization: `Bearer ${tokens.token}`,
+            },
+          })
             .then((res) => (res.status === 200 ? res.json() : null))
             .then(setEmployee);
         }
@@ -56,10 +62,12 @@ export default function useUser(id) {
 
   return {
     isLoading,
-    user: {
-      ...user,
-      employee,
-    },
+    user: user
+      ? {
+          ...user,
+          employee,
+        }
+      : null,
     refresh,
   };
 }
