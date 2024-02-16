@@ -52,7 +52,11 @@ const router = createHashRouter([
       },
       {
         path: "planning",
-        element: <PlanningPage />,
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.EMPLOYEE]}>
+            <PlanningPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "new-company",
