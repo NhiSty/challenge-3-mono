@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
 use App\Action\Delete\EmployeeAction;
@@ -18,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             normalizationContext: ['groups' => ['employee:read']]
         ),
+        new Get(normalizationContext: ['groups' => ['employee:read']]),
         new HttpOperation(
             method: Request::METHOD_PATCH,
             uriTemplate: '/employees/{id}',

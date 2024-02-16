@@ -21,6 +21,7 @@ import useTokens from "@/hooks/useTokens";
  */
 export default function useUser(id) {
   const [user, setUser] = useState(null);
+  const [employee, setEmployee] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const tokens = useTokens();
 
@@ -39,11 +40,34 @@ export default function useUser(id) {
       },
     })
       .then((res) => (res.status === 200 ? res.json() : null))
-      .then(setUser)
+      .then((json) => {
+        console.log(json);
+        setUser(json);
+
+        if (json !== null) {
+          fetch(`${import.meta.env.VITE_API_BASE_URL}${json.employee}`, {
+            method: "get",
+            headers: {
+              authorization: `Bearer ${tokens.token}`,
+            },
+          })
+            .then((res) => (res.status === 200 ? res.json() : null))
+            .then(setEmployee);
+        }
+      })
       .finally(() => setIsLoading(false));
   };
 
   useEffect(refresh, [id, tokens]);
 
-  return { isLoading, user, refresh };
+  return {
+    isLoading,
+    user: user
+      ? {
+          ...user,
+          employee,
+        }
+      : null,
+    refresh,
+  };
 }
