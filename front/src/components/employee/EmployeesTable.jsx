@@ -23,7 +23,6 @@ export default function EmployeesTable({
     return <div>Loading...</div>;
   }
 
-  console.log(employees);
 
   return (
     <>
