@@ -20,7 +20,6 @@ export default function FranchiseFormDialog({
   mode,
 }) {
   const { t } = useTranslation();
-  console.log(franchise);
   const methods = useForm({
     defaultValues: {
       name: franchise?.franchise_name || "",

@@ -123,7 +123,9 @@
     "filterByFranchise": "Filtrer par franchise",
     "allFranchises": "Toutes les franchises",
     "employee": "Employé",
-    "admin": "Administrateur"
+    "admin": "Administrateur",
+    "employeeInfo": "Informations de l'employé",
+    "biography": "Biographie"
   },
   "en": {
     "tiredOfSolitudeAndConfinement": "Tired of solitude and confinement?",
@@ -249,6 +251,8 @@
     "filterByFranchise": "Filter by franchise",
     "allFranchises": "All franchises",
     "employee": "Employee",
-    "admin": "Admin"
+    "admin": "Admin",
+    "employeeInfo": "Employee info",
+    "biography": "Biography"
   }
 }
