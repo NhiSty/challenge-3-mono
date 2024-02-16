@@ -9,7 +9,7 @@ export default function UserPage() {
   const { userId } = useParams();
   const { user, isLoading, refresh } = useUser(Number(userId));
   const performances = useMemo(
-    () => user?.companies?.flatMap((company) => company.performances) ?? [],
+    () => user?.employee?.franchise_id.company_id.performances ?? [],
     [user],
   );
 

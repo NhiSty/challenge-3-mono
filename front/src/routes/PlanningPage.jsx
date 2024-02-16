@@ -7,10 +7,6 @@ export default function PlanningPage() {
   const tokens = useTokens();
   const { user, refresh } = useCurrentUser();
 
-  const performances = user?.companies.flatMap(
-    (company) => company.performances,
-  );
-
   return (
     <div className="flex justify-center flex-col p-3 gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -29,7 +25,7 @@ export default function PlanningPage() {
           bookings={user.bookings}
           userId={user.id}
           refresh={refresh}
-          performances={performances}
+          performances={[]}
           readOnly
         />
       )}
