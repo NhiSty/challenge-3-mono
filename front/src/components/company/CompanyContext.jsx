@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import { getCompany } from "@/api/company";
-import useToken from "@/hooks/useToken";
 import PropTypes from "prop-types";
 import {
   addFranchises,
