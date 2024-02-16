@@ -16,6 +16,14 @@ export default function EmployeeForm(props) {
 
   const { submitForm, cancelForm } = useEmployeeFormVC(props.mode);
 
+  const handleCancel = () => {
+    if (props.handleClose) {
+      props.handleClose();
+    } else {
+      cancelForm();
+    }
+  };
+
   return (
     <Stack px={1}>
       <FormProvider {...methods}>
@@ -40,10 +48,14 @@ export default function EmployeeForm(props) {
             required={true}
           />
           <AgeControl />
-          <FranchiseControl />
+          <FranchiseControl franchiseIds={props.franchiseIds} />
 
           <Stack direction={"row"} justifyContent={"flex-end"} spacing={2}>
-            <Button onClick={cancelForm} variant={"outlined"} color={"inherit"}>
+            <Button
+              onClick={handleCancel}
+              variant={"outlined"}
+              color={"inherit"}
+            >
               {t("cancel")}
             </Button>
 
@@ -60,4 +72,6 @@ export default function EmployeeForm(props) {
 EmployeeForm.propTypes = {
   defaultValues: PropTypes.object,
   mode: PropTypes.string,
+  franchiseIds: PropTypes.array,
+  handleClose: PropTypes.func,
 };

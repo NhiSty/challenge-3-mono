@@ -23,6 +23,8 @@ import DemandsPages from "@routes/DemandsPages";
 import DemandDetails from "@routes/DemandDetails";
 import Dashboard from "@components/Dashboard";
 import BookingPage from "@routes/BookingPage";
+import AdminCompaniesPage from "@routes/AdminCompaniesPage";
+import AdminCompanyPage from "@routes/AdminCompanyPage";
 
 const router = createHashRouter([
   {
@@ -99,12 +101,12 @@ const router = createHashRouter([
     ],
   },
   {
-    path: "/manager",
+    path: "manage",
     element: <BackOfficeLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
+        path: "",
         element: (
           <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
             <Dashboard />
@@ -112,9 +114,25 @@ const router = createHashRouter([
         ),
       },
       {
+        path: "companies",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+            <AdminCompaniesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "companies/:companyId",
+        element: (
+          <ProtectedRoute roleAllowed={[ROLES.ADMIN]}>
+            <AdminCompanyPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "company",
         element: (
-          <ProtectedRoute roleAllowed={[ROLES.ADMIN, ROLES.MANAGER]}>
+          <ProtectedRoute roleAllowed={[ROLES.MANAGER]}>
             <CompanyPage />
           </ProtectedRoute>
         ),
@@ -125,7 +143,7 @@ const router = createHashRouter([
           {
             path: "",
             element: (
-              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER]}>
                 <EmployeesPage />
               </ProtectedRoute>
             ),

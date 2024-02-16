@@ -15,7 +15,7 @@ export default function CompanyInfo() {
       <Grid item xs={6}>
         <Card>
           <CardHeader
-            title={<h1 className={"text-3xl font-bold"}>{t("myCompany")}</h1>}
+            title={<h1 className={"text-3xl font-bold"}>{t("coordinates")}</h1>}
           />
           <CardContent>
             <table className={"table-auto mt-5"}>

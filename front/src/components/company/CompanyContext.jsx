@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getCompany } from "@/api/company";
+import { getCompany, getCompanyById } from "@/api/company";
 import PropTypes from "prop-types";
 import {
   addFranchises,
@@ -11,18 +11,20 @@ export const CompanyContext = createContext({
   company: {},
   franchises: [],
   owner: {},
+  performances: [],
   createFranchise: () => {},
   editFranchise: () => {},
   removeFranchise: () => {},
   loadingCompany: false,
 });
 
-export const CompanyContextProvider = ({ children }) => {
+export const CompanyContextProvider = ({ children, companyId }) => {
   const [company, setCompany] = useState({});
   const [franchises, setFranchises] = useState([]);
   const [owner, setOwner] = useState({});
   const [loadingCompany, setLoadingCompany] = useState(false);
   const [franchisesLoading, setFranchisesLoading] = useState(false);
+  const [performances, setPerformances] = useState([]);
 
   const createFranchise = async (franchise, onSuccess) => {
     try {
@@ -85,15 +87,31 @@ export const CompanyContextProvider = ({ children }) => {
   useEffect(() => {
     try {
       setLoadingCompany(true);
-      getCompany()
-        .then((response) => {
-          setCompany(response.company);
-          setFranchises(response.franchises);
-          setOwner(response.owner);
-        })
-        .finally(() => {
-          setLoadingCompany(false);
-        });
+      // Si on a un companyId, on va chercher les infos de la company (pour l'admin)
+      if (companyId) {
+        getCompanyById(companyId)
+          .then((response) => {
+            const { performance, franchises, owner, ...company } = response;
+            setCompany(company);
+            setFranchises(franchises);
+            setOwner(owner);
+            setPerformances(performance);
+          })
+          .finally(() => {
+            setLoadingCompany(false);
+          });
+      } else {
+        // Sinon on va chercher les infos de la company de l'utilisateur connecté (pour le manager)
+        getCompany()
+          .then((response) => {
+            setCompany(response.company);
+            setFranchises(response.franchises);
+            setOwner(response.owner);
+          })
+          .finally(() => {
+            setLoadingCompany(false);
+          });
+      }
     } catch (error) {
       console.error("Error while fetching company", error);
     }
@@ -114,6 +132,7 @@ export const CompanyContextProvider = ({ children }) => {
         editFranchise,
         removeFranchise,
         owner,
+        performances,
       }}
     >
       {children}
@@ -123,4 +142,5 @@ export const CompanyContextProvider = ({ children }) => {
 
 CompanyContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  companyId: PropTypes.string,
 };

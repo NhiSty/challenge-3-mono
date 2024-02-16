@@ -16,7 +16,7 @@ export default function useEmployeeFormVC(mode) {
   };
 
   const cancelForm = () => {
-    navigate("/manager/employees");
+    navigate("/manage/employees");
   };
 
   return {

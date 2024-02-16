@@ -2,8 +2,9 @@ import { useController, useFormContext } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
 import useFranchiseVC from "@/hooks/useFranchiseVC";
 import { useTranslation } from "@/translation/useTranslation";
+import PropTypes from "prop-types";
 
-export default function FranchiseControl() {
+export default function FranchiseControl({ franchiseIds }) {
   const { t } = useTranslation();
   const name = "franchise";
   const label = t("franchise");
@@ -22,6 +23,11 @@ export default function FranchiseControl() {
   });
 
   const { franchiseOptions, isLoading, getLabel } = useFranchiseVC();
+  const franchiseOptionsFiltered = franchiseOptions.filter((franchise) =>
+    franchiseIds?.includes(franchise?.value),
+  );
+
+  const options = franchiseIds ? franchiseOptionsFiltered : franchiseOptions;
 
   const handleChange = (event, newValue) => {
     onChange(newValue.value);
@@ -35,7 +41,7 @@ export default function FranchiseControl() {
           value={getLabel(value)}
           size={"small"}
           fullWidth={true}
-          options={franchiseOptions}
+          options={options}
           loading={isLoading}
           disableClearable={true}
           renderInput={(params) => (
@@ -55,3 +61,7 @@ export default function FranchiseControl() {
     </>
   );
 }
+
+FranchiseControl.propTypes = {
+  franchiseIds: PropTypes.array,
+};
