@@ -5,7 +5,7 @@ import { useTranslation } from "@/translation/useTranslation";
 
 export default function EditEmployeeFormPage() {
   const { state } = useLocation();
-  const franchiseId = state["franchise_id"].split("franchises/")[1];
+  const franchiseId = state["id"];
   const { t } = useTranslation();
 
   return (

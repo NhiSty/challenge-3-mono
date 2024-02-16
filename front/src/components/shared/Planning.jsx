@@ -37,7 +37,7 @@
 import { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import PlanningModel from "@/domain/planning/PlanningModel";
-import CreateBookingForm from "@components/partials/CreateBookingForm";
+import CreateBookingForm from "@components/shared/CreateBookingForm";
 import classNames from "classnames";
 
 function getMondayOfCurrentWeek(today = new Date()) {

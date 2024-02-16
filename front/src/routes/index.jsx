@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import HomePage from "@routes/HomePage.jsx";
 import ErrorPage from "@routes/ErrorPage.jsx";
-import Layout from "@components/partials/Layout.jsx";
+import Layout from "@components/shared/Layout.jsx";
 import RegisterPage from "@routes/RegisterPage.jsx";
 import LoginPage from "@routes/LoginPage.jsx";
 import ProtectedRoute from "@components/ProtectedRoute";
@@ -24,7 +24,7 @@ import DemandDetails from "@routes/DemandDetails";
 import Dashboard from "@components/Dashboard";
 import BookingPage from "@routes/BookingPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Layout />,

@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\HttpOperation;
+use App\Action\Get\CompanyAction;
 use App\Action\Get\KpiManagerBookingMonthTotalGet;
 use App\Action\Get\KpiManagerBookingsByMonthGet;
 use App\Action\Get\KpiAdminBookingByYearGet;
@@ -27,43 +32,63 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('ROLE_ADMIN')",
             read: false,
         ),
-    ]
+        new HttpOperation(
+            method: Request::METHOD_GET,
+            uriTemplate: '/company',
+            controller: CompanyAction::class,
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')",
+            read: false,
+        ),
+        new GetCollection(
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN')"
+        )
+    ],
+
 )]
 class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['performance:read'])]
+    #[Groups(['company:read', 'performance:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['performance:read'])]
+    #[Groups(['performance:read', 'company:read'])]
     private ?string $company_name = null;
 
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?bool $status = null;
 
     #[ORM\Column(type: Types::TEXT, length: 255)]
+    #[Groups(['company:read'])]
     private ?string $kbis = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'companies')]
+    #[Groups(['company:read'])]
     private ?User $owner = null;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Performance::class, cascade: ['persist', 'remove'])]
-    #[Groups(['read-user'])]
+    #[Groups(['company:read', 'read-user'])]
     private Collection $performances;
 
     #[ORM\OneToMany(mappedBy: 'company_id', targetEntity: Franchise::class, orphanRemoval: true)]
+    #[Groups(['company:read'])]
     private Collection $franchises;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read'])]
     private ?string $address = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['company:read'])]
     private ?float $latitude = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['company:read'])]
     private ?float $longitude = null;
 
     public function __construct()

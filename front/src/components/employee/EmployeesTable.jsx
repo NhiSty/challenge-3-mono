@@ -1,6 +1,6 @@
 import { XCircle, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Table from "@components/base/Table";
+import Table from "@components/shared/Table";
 import { Avatar, Chip, IconButton, Stack } from "@mui/material";
 import { useEmployeesVC } from "@/hooks/useEmployeesVC";
 import { useTranslation } from "@/translation/useTranslation";

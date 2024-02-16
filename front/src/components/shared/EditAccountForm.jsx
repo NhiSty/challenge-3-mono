@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Input } from "@components/form/Input";
 import { Loader2, Lock, User, UserPlus, File } from "lucide-react";
-import Button from "@components/base/Button";
+import Button from "@components/shared/Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";

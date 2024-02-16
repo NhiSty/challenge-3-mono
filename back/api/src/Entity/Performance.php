@@ -17,15 +17,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new GetCollection(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             provider: PerformanceStateProvider::class,
         ),
         new Post(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
             processor: PerformanceProcessor::class,
         ),
         new Delete(
-            security: "is_granted('ROLE_CEO') or is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')",
         ),
     ],
     normalizationContext: ['groups' => ['performance:read']],
@@ -35,11 +35,11 @@ class Performance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['performance:read', 'read-booking', 'read-user'])]
+    #[Groups(['company:read', 'performance:read', 'read-booking', 'read-user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['performance:read', 'read-booking', 'read-user'])]
+    #[Groups(['company:read', 'performance:read', 'read-booking', 'read-user'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'performances')]

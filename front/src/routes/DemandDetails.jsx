@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DemandCard from "@components/companyDemands/DemandCard";
 import { Grid, Stack } from "@mui/material";
-import Map from "@components/base/Map";
+import Map from "@components/shared/Map";
 
 export default function DemandDetails() {
   const { id } = useParams();
@@ -11,13 +11,13 @@ export default function DemandDetails() {
 
   useEffect(() => {
     getDemandById(id);
-  });
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  if (!demand) {
+  if (!demand && !loading) {
     return <p>Demand not found</p>;
   }
 

@@ -1,4 +1,4 @@
-import Planning from "@components/partials/Planning";
+import Planning from "@components/shared/Planning";
 import useTokens from "@/hooks/useTokens";
 import CreateAvailabilityForm from "@components/CreateAvailabilityForm";
 import useCurrentUser from "@/hooks/useCurrentUser";

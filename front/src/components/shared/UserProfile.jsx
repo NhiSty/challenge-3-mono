@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Card from "@components/base/Card";
+import Card from "@components/shared/Card";
 import { useTranslation } from "@/translation/useTranslation";
-import ProfilePicture from "@components/partials/ProfilePicture";
+import ProfilePicture from "@components/shared/ProfilePicture";
 
 export default function UserProfile({ user }) {
   const { t } = useTranslation();

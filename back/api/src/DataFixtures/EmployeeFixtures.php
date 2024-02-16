@@ -30,7 +30,7 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $ceo = (new Employee())
-            ->setRole(Role::CEO)
+            ->setRole(Role::MANAGER)
             ->setFranchiseId($franchises[9])
             ->setUserId($users[9]);
 

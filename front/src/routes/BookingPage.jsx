@@ -3,7 +3,7 @@ import { useTranslation } from "@/translation/useTranslation";
 import { Fragment, useMemo, useState } from "react";
 import Duration from "@/domain/planning/Duration";
 import { Button } from "@mui/material";
-import CreateReviewForm from "@components/partials/CreateReviewForm";
+import CreateReviewForm from "@components/shared/CreateReviewForm";
 
 export default function BookingPage() {
   const { user, isLoading, refresh } = useCurrentUser();

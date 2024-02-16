@@ -2,8 +2,10 @@ import { useState } from "react";
 import { requestCompanyCreation } from "@/api/company";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "@/translation/useTranslation";
 
 export default function useCompanyFormVC() {
+  const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -21,12 +23,12 @@ export default function useCompanyFormVC() {
         latitude: values.address.value.geometry.coordinates[1],
       });
       if (response.status === 201) {
-        toast.success("yourRequestHasBeenSent");
+        toast.success(t("yourRequestHasBeenSent"));
         navigate("/");
       }
     } catch (e) {
       console.error(e);
-      toast.error("anErrorOccurred");
+      toast.error(t("anErrorOccurred"));
     } finally {
       setSubmitting(false);
     }

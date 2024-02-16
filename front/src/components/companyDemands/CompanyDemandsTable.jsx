@@ -1,7 +1,7 @@
-import Table from "@components/base/Table";
+import Table from "@components/shared/Table";
 import { useEffect } from "react";
 import { useTranslation } from "@/translation/useTranslation";
-import TableLineSkeleton from "@components/base/TableLineSkeleton";
+import TableLineSkeleton from "@components/shared/TableLineSkeleton";
 import { IconButton } from "@mui/material";
 import { ArrowUpRightSquareIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function CompanyDemandsTable() {
 
   useEffect(() => {
     getPendingDemands();
-  });
+  }, []);
 
   return (
     <Table

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import UserProfile from "@components/partials/UserProfile";
+import UserProfile from "@components/shared/UserProfile";
 import useUser from "@/hooks/useUser";
 import { useTranslation } from "@/translation/useTranslation";
-import Planning from "@components/partials/Planning";
+import Planning from "@components/shared/Planning";
 import { useMemo } from "react";
 
 export default function UserPage() {
