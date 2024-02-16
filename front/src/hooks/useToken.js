@@ -10,11 +10,12 @@ export const ROLES = {
 
 export default function useToken() {
   const [token, setToken] = useState(null);
+
+  // eslint-disable-next-line no-unused-vars
   const [roles, setRoles] = useState([]);
   const getToken = () => {
     return localStorage.getItem("token") || null;
   };
-
   useEffect(() => {
     setToken(getToken());
     setRoles(getRoles());

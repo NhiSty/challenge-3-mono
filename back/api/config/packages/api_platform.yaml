@@ -31,6 +31,15 @@ api_platform:
             JWT:
                 name: Authorization
                 type: header
+    
+    # Enable and configure the Swagger UI
+when@prod:
+    api_platform:
+        enable_docs: false
+        enable_entrypoint: false
+        enable_swagger_ui: false
+    
+    
 
     resource_class_directories:
         - '%kernel.project_dir%/src/ValueObject'
