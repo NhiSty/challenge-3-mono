@@ -11,7 +11,8 @@ export default function DemandDetails() {
 
   useEffect(() => {
     getDemandById(id);
-  });
+    // eslint-disable-next-line
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;
