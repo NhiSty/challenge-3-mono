@@ -9,12 +9,14 @@ import useCompanyDemandsVC from "@/hooks/useCompanyDemandsVC";
 
 export default function CompanyDemandsTable() {
   const { t } = useTranslation();
+
   const { getPendingDemands, loading, demands } = useCompanyDemandsVC();
   const navigate = useNavigate();
 
   useEffect(() => {
     getPendingDemands();
-  });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Table
