@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, ArrowUpRightSquareIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Table from "@components/shared/Table";
 import { Avatar, Chip, IconButton, Stack } from "@mui/material";
@@ -16,6 +16,8 @@ export default function EmployeesTable({
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  console.log(employees);
 
   return (
     <>
@@ -60,6 +62,11 @@ export default function EmployeesTable({
                   </IconButton>
                   <IconButton onClick={() => deleteEmployee(employee.id)}>
                     <Trash2 color={"#f94f4ffa"} />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => navigate(`${employee.user_id.id}`)}
+                  >
+                    <ArrowUpRightSquareIcon color={"#3b82f6"} />
                   </IconButton>
                 </Stack>
               </td>

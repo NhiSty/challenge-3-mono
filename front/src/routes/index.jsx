@@ -25,6 +25,7 @@ import Dashboard from "@components/Dashboard";
 import BookingPage from "@routes/BookingPage";
 import AdminCompaniesPage from "@routes/AdminCompaniesPage";
 import AdminCompanyPage from "@routes/AdminCompanyPage";
+import EmployeeDetails from "@routes/EmployeeDetails";
 
 const router = createHashRouter([
   {
@@ -161,6 +162,14 @@ const router = createHashRouter([
             element: (
               <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
                 <EditEmployeeFormPage />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <ProtectedRoute roleAllowed={[ROLES.MANAGER, ROLES.ADMIN]}>
+                <EmployeeDetails />
               </ProtectedRoute>
             ),
           },
