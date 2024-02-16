@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email]
-    #[Groups(['create-user', 'employee:read', 'company_demand:read', 'company:read'])]
+    #[Groups(['create-user', 'employee:read', 'company_demand:read', 'company:read', 'read-user'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -84,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $age = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['read-user'])]
     private ?string $biography = null;
 
     #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Availability::class, orphanRemoval: true)]

@@ -70,7 +70,9 @@ export default function EmployeesTable({
                     <Trash2 color={"#f94f4ffa"} />
                   </IconButton>
                   <IconButton
-                    onClick={() => navigate(`${employee.user_id.id}`)}
+                    onClick={() =>
+                      navigate(`/manage/employees/${employee.user_id.id}`)
+                    }
                   >
                     <ArrowUpRightSquareIcon color={"#3b82f6"} />
                   </IconButton>

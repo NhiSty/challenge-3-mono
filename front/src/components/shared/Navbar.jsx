@@ -68,7 +68,7 @@ export function Navbar() {
                 <AccessControl permissions={[ROLES.ADMIN, ROLES.MANAGER]}>
                   <li role="menuitem" key={"dashboard"}>
                     <Link
-                      to={"manage"}
+                      to={"/manage"}
                       className="hover:bg-primary-500 hover:text-text-100"
                       exact-active-classname="text-primary"
                     >
@@ -114,7 +114,7 @@ export function Navbar() {
               </Link>
               <AccessControl permissions={[ROLES.ADMIN, ROLES.MANAGER]}>
                 <Link
-                  to={"manage"}
+                  to={"/manage"}
                   className="hidden lg:btn lg:btn-ghost"
                   exact-active-classname="text-primary"
                 >
