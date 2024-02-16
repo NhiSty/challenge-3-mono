@@ -16,11 +16,11 @@ export default function useToken() {
   const getToken = () => {
     return localStorage.getItem("token") || null;
   };
-  // eslint-disable-next-line
   useEffect(() => {
     setToken(getToken());
     setRoles(getRoles());
-  });
+    // eslint-disable-next-line
+  }, []);
 
   const getRoles = () => {
     const tokenString = getToken();
